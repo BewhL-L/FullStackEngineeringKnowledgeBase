@@ -1,0 +1,632 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "file:Home",
+      "color": {
+        "a": 1,
+        "rgb": 15528177
+      }
+    },
+    {
+      "query": "tag:MOC",
+      "color": {
+        "a": 1,
+        "rgb": 15844367
+      }
+    },
+    {
+      "query": "tag:面试",
+      "color": {
+        "a": 1,
+        "rgb": 12597547
+      }
+    },
+    {
+      "query": "path:Inbox",
+      "color": {
+        "a": 1,
+        "rgb": 12434871
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/00-总控",
+      "color": {
+        "a": 1,
+        "rgb": 14870768
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/01-Python全栈",
+      "color": {
+        "a": 1,
+        "rgb": 3900150
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/02-Java全栈",
+      "color": {
+        "a": 1,
+        "rgb": 15680580
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/03-Vue3TS前端",
+      "color": {
+        "a": 1,
+        "rgb": 2278750
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/04-AIGC与Obsidian",
+      "color": {
+        "a": 1,
+        "rgb": 12616956
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/05-CS基础",
+      "color": {
+        "a": 1,
+        "rgb": 4674921
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/06-AI工程化",
+      "color": {
+        "a": 1,
+        "rgb": 8141549
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/07-DevOps",
+      "color": {
+        "a": 1,
+        "rgb": 6514417
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/08-知识管理方法论",
+      "color": {
+        "a": 1,
+        "rgb": 15485081
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/09-效率工具链",
+      "color": {
+        "a": 1,
+        "rgb": 16096779
+      }
+    },
+    {
+      "query": "path:10-四级知识框架/10-项目实战",
+      "color": {
+        "a": 1,
+        "rgb": 1357990
+      }
+    },
+    {
+      "query": "tag:导航/模板",
+      "color": {
+        "a": 1,
+        "rgb": 9741240
+      }
+    },
+    {
+      "query": "tag:导航/规则",
+      "color": {
+        "a": 1,
+        "rgb": 4674921
+      }
+    },
+    {
+      "query": "tag:导航/工作流",
+      "color": {
+        "a": 1,
+        "rgb": 13358561
+      }
+    },
+    {
+      "query": "tag:导航/索引",
+      "color": {
+        "a": 1,
+        "rgb": 3359061
+      }
+    },
+    {
+      "query": "tag:前端/JS",
+      "color": {
+        "a": 1,
+        "rgb": 1483594
+      }
+    },
+    {
+      "query": "tag:前端/TS",
+      "color": {
+        "a": 1,
+        "rgb": 2278750
+      }
+    },
+    {
+      "query": "tag:前端/Vue3",
+      "color": {
+        "a": 1,
+        "rgb": 4906624
+      }
+    },
+    {
+      "query": "tag:前端/Vue3Agent",
+      "color": {
+        "a": 1,
+        "rgb": 8843180
+      }
+    },
+    {
+      "query": "tag:前端/Vue3AIGC",
+      "color": {
+        "a": 1,
+        "rgb": 12318672
+      }
+    },
+    {
+      "query": "tag:前端/ElementPlus",
+      "color": {
+        "a": 1,
+        "rgb": 1409085
+      }
+    },
+    {
+      "query": "tag:前端/CSS",
+      "color": {
+        "a": 1,
+        "rgb": 417606
+      }
+    },
+    {
+      "query": "tag:前端/工程化",
+      "color": {
+        "a": 1,
+        "rgb": 1096065
+      }
+    },
+    {
+      "query": "tag:后端/Java",
+      "color": {
+        "a": 1,
+        "rgb": 15680580
+      }
+    },
+    {
+      "query": "tag:后端/JavaAgent",
+      "color": {
+        "a": 1,
+        "rgb": 16281969
+      }
+    },
+    {
+      "query": "tag:后端/JavaAIGC",
+      "color": {
+        "a": 1,
+        "rgb": 16557477
+      }
+    },
+    {
+      "query": "tag:后端/SpringBoot",
+      "color": {
+        "a": 1,
+        "rgb": 14427686
+      }
+    },
+    {
+      "query": "tag:后端/SpringCloud",
+      "color": {
+        "a": 1,
+        "rgb": 12131356
+      }
+    },
+    {
+      "query": "tag:后端/Spring原理",
+      "color": {
+        "a": 1,
+        "rgb": 10033947
+      }
+    },
+    {
+      "query": "tag:后端/MyBatis",
+      "color": {
+        "a": 1,
+        "rgb": 8330525
+      }
+    },
+    {
+      "query": "tag:后端/并发",
+      "color": {
+        "a": 1,
+        "rgb": 16557477
+      }
+    },
+    {
+      "query": "tag:后端/设计模式",
+      "color": {
+        "a": 1,
+        "rgb": 16698058
+      }
+    },
+    {
+      "query": "tag:数据/MySQL",
+      "color": {
+        "a": 1,
+        "rgb": 561586
+      }
+    },
+    {
+      "query": "tag:数据/Redis",
+      "color": {
+        "a": 1,
+        "rgb": 440020
+      }
+    },
+    {
+      "query": "tag:数据/MongoDB",
+      "color": {
+        "a": 1,
+        "rgb": 6809849
+      }
+    },
+    {
+      "query": "tag:数据/ES",
+      "color": {
+        "a": 1,
+        "rgb": 2282478
+      }
+    },
+    {
+      "query": "tag:分布/微服务",
+      "color": {
+        "a": 1,
+        "rgb": 15357964
+      }
+    },
+    {
+      "query": "tag:分布/MQ",
+      "color": {
+        "a": 1,
+        "rgb": 16347926
+      }
+    },
+    {
+      "query": "tag:分布/事务",
+      "color": {
+        "a": 1,
+        "rgb": 16486972
+      }
+    },
+    {
+      "query": "tag:分布/锁",
+      "color": {
+        "a": 1,
+        "rgb": 16628340
+      }
+    },
+    {
+      "query": "tag:运维/Docker",
+      "color": {
+        "a": 1,
+        "rgb": 6514417
+      }
+    },
+    {
+      "query": "tag:运维/K8s",
+      "color": {
+        "a": 1,
+        "rgb": 5195493
+      }
+    },
+    {
+      "query": "tag:运维/Linux",
+      "color": {
+        "a": 1,
+        "rgb": 8490232
+      }
+    },
+    {
+      "query": "tag:运维/Nginx",
+      "color": {
+        "a": 1,
+        "rgb": 10859772
+      }
+    },
+    {
+      "query": "tag:运维/Mesh",
+      "color": {
+        "a": 1,
+        "rgb": 13095678
+      }
+    },
+    {
+      "query": "tag:基础/HTTP",
+      "color": {
+        "a": 1,
+        "rgb": 4674921
+      }
+    },
+    {
+      "query": "tag:基础/JVM",
+      "color": {
+        "a": 1,
+        "rgb": 3359061
+      }
+    },
+    {
+      "query": "tag:基础/算法",
+      "color": {
+        "a": 1,
+        "rgb": 6583435
+      }
+    },
+    {
+      "query": "tag:基础/计网OS",
+      "color": {
+        "a": 1,
+        "rgb": 1976635
+      }
+    },
+    {
+      "query": "tag:工具/Git",
+      "color": {
+        "a": 1,
+        "rgb": 15381256
+      }
+    },
+    {
+      "query": "tag:工具/CLI",
+      "color": {
+        "a": 1,
+        "rgb": 16638023
+      }
+    },
+    {
+      "query": "tag:Py/语言",
+      "color": {
+        "a": 1,
+        "rgb": 2450411
+      }
+    },
+    {
+      "query": "tag:Py/Web",
+      "color": {
+        "a": 1,
+        "rgb": 3900150
+      }
+    },
+    {
+      "query": "tag:Py/数据",
+      "color": {
+        "a": 1,
+        "rgb": 6333946
+      }
+    },
+    {
+      "query": "tag:Py/异步",
+      "color": {
+        "a": 1,
+        "rgb": 9684477
+      }
+    },
+    {
+      "query": "tag:Py/性能",
+      "color": {
+        "a": 1,
+        "rgb": 1920728
+      }
+    },
+    {
+      "query": "tag:Py/安全",
+      "color": {
+        "a": 1,
+        "rgb": 12573694
+      }
+    },
+    {
+      "query": "tag:Py/接口",
+      "color": {
+        "a": 1,
+        "rgb": 8246268
+      }
+    },
+    {
+      "query": "tag:Py/测试",
+      "color": {
+        "a": 1,
+        "rgb": 14412542
+      }
+    },
+    {
+      "query": "tag:Py/前端",
+      "color": {
+        "a": 1,
+        "rgb": 6333946
+      }
+    },
+    {
+      "query": "tag:Py/部署",
+      "color": {
+        "a": 1,
+        "rgb": 1982639
+      }
+    },
+    {
+      "query": "tag:AI/Agent核心",
+      "color": {
+        "a": 1,
+        "rgb": 11032055
+      }
+    },
+    {
+      "query": "tag:AI/Agent框架",
+      "color": {
+        "a": 1,
+        "rgb": 12616956
+      }
+    },
+    {
+      "query": "tag:AI/Agent实战",
+      "color": {
+        "a": 1,
+        "rgb": 14202110
+      }
+    },
+    {
+      "query": "tag:AI/Prompt",
+      "color": {
+        "a": 1,
+        "rgb": 8266446
+      }
+    },
+    {
+      "query": "tag:AI/生成式",
+      "color": {
+        "a": 1,
+        "rgb": 9647082
+      }
+    },
+    {
+      "query": "tag:AI/大模型",
+      "color": {
+        "a": 1,
+        "rgb": 7020968
+      }
+    },
+    {
+      "query": "tag:AI/Obsidian基础",
+      "color": {
+        "a": 1,
+        "rgb": 15324671
+      }
+    },
+    {
+      "query": "tag:AI/Obsidian方法",
+      "color": {
+        "a": 1,
+        "rgb": 15984895
+      }
+    },
+    {
+      "query": "tag:实战/案例",
+      "color": {
+        "a": 1,
+        "rgb": 889992
+      }
+    },
+    {
+      "query": "tag:实战/复盘",
+      "color": {
+        "a": 1,
+        "rgb": 6220500
+      }
+    },
+    {
+      "query": "path:00-综合导航",
+      "color": {
+        "a": 1,
+        "rgb": 6583435
+      }
+    },
+    {
+      "query": "path:01-前端开发",
+      "color": {
+        "a": 1,
+        "rgb": 2278750
+      }
+    },
+    {
+      "query": "path:02-后端开发",
+      "color": {
+        "a": 1,
+        "rgb": 15680580
+      }
+    },
+    {
+      "query": "path:03-数据库与缓存",
+      "color": {
+        "a": 1,
+        "rgb": 440020
+      }
+    },
+    {
+      "query": "path:04-分布式与中间件",
+      "color": {
+        "a": 1,
+        "rgb": 16347926
+      }
+    },
+    {
+      "query": "path:05-云原生与运维",
+      "color": {
+        "a": 1,
+        "rgb": 6514417
+      }
+    },
+    {
+      "query": "path:06-计算机基础",
+      "color": {
+        "a": 1,
+        "rgb": 4674921
+      }
+    },
+    {
+      "query": "path:07-通用工具",
+      "color": {
+        "a": 1,
+        "rgb": 15381256
+      }
+    },
+    {
+      "query": "path:08-Python全栈",
+      "color": {
+        "a": 1,
+        "rgb": 3900150
+      }
+    },
+    {
+      "query": "path:09-AI与效率工具",
+      "color": {
+        "a": 1,
+        "rgb": 11032055
+      }
+    },
+    {
+      "query": "path:10-四级知识框架",
+      "color": {
+        "a": 1,
+        "rgb": 14239471
+      }
+    },
+    {
+      "query": "path:99-项目实战",
+      "color": {
+        "a": 1,
+        "rgb": 1357990
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": 0.6,
+  "nodeSizeMultiplier": 1.7078125,
+  "lineSizeMultiplier": 1.19739583333333,
+  "collapse-forces": false,
+  "centerStrength": 0.5234375,
+  "repelStrength": 20,
+  "linkStrength": 1,
+  "linkDistance": 30,
+  "scale": 0.1846232622585732,
+  "close": false
+}
