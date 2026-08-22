@@ -37,6 +37,8 @@ Spring Cloud 是基于 Spring Boot 的微服务架构一站式解决方案，提
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#fa709a,#fee140);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -221,11 +223,22 @@ spring:
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 Nacos 服务注册
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：Nacos 作为服务注册中心，微服务启动时注册实例，消费者通过 Nacos 发现服务提供者。
+>
+> **原理**：服务启动时 Nacos Client 向 Server 发送注册请求（IP/端口/服务名/元数据），维持心跳（5s 间隔，15s 未标记不健康，30s 摘除）。消费者从 Nacos 拉取服务列表并本地缓存，通过定时任务（10s）更新。Nacos 支持 AP/CP 切换（临时实例 AP Distro 协议，持久实例 CP Raft）。Spring Cloud LoadBalancer 从本地服务列表选择实例。
+>
+> **用法要点**：① 临时实例（默认）AP 模式，Distro 协议，心跳续约  ② 持久实例 CP 模式，Raft 协议，主动检测  ③ 消费者本地缓存服务列表，Nacos 宕机仍可消费  ④ 服务发现：@LoadBalanced + RestTemplate/OpenFeign  ⑤ 面试常考：Nacos 注册流程、AP/CP 切换、心跳机制、与 Eureka 区别
+
 # pom
 <dependency>
     <groupId>com.alibaba.cloud</groupId>
@@ -316,6 +329,15 @@ public class OrderController {
     }
 }
 
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：阿里巴巴开源的流量控制组件，提供限流、熔断降级、系统保护等能力，保障微服务稳定性。
+>
+> **原理**：Sentinel 通过 Sentinel-Aspect 切面拦截 @SentinelResource 注解或 SphU.entry() 调用，构建 ProcessorSlotChain 责任链：NodeSelectorSlot 建立调用链树、ClusterBuilderSlot 构建集群节点、StatisticSlot 滑动窗口实时统计、FlowSlot 根据规则判断限流、DegradeSlot 判断熔断、SystemSlot 判断系统保护。限流算法支持滑动窗口和漏桶，熔断支持慢调用比例/异常比例/异常数策略。Dashboard 提供实时监控和规则推送。
+>
+> **用法要点**：① 限流算法：滑动窗口（LeapArray）统计 QPS，支持直接/关联/链路流控  ② 熔断策略：慢调用比例（RT 阈值）、异常比例、异常数，有熔断时长和探测恢复  ③ @SentinelResource 定义资源，blockHandler 处理限流，fallback 处理异常  ④ 规则持久化：Nacos/Apollo 配置中心推送，避免 Dashboard 重启丢失  ⑤ 面试常考：Sentinel 限流算法、SlotChain 责任链、熔断与 Hystrix 区别、规则持久化
+
 # 配置文件规则（也可控制台配置）
 spring:
   cloud:
@@ -385,6 +407,15 @@ public KeyResolver ipKeyResolver() {
 ### 3.5 Nacos 配置中心
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：Nacos Config 集中管理各环境配置，支持动态刷新，配置变更实时推送到服务实例。
+>
+> **原理**：Nacos Config 启动时根据 spring.application.name 和 profile 拉取配置（DataId = name-profile.yml），通过长轮询（Long Polling）监听配置变更：客户端发起超时 30s 的 HTTP 请求，服务端有变更立即返回，无变更挂起直到超时。配置变更后发布 RefreshEvent，@RefreshScope 标注的 Bean 重新创建以注入新值，@NacosValue 也支持自动刷新。
+>
+> **用法要点**：① DataId 格式：${prefix}-${spring.profiles.active}.${file-extension}  ② 长轮询（Long Polling）：客户端 30s 挂起，服务端变更立即返回  ③ @RefreshScope 让配置 Bean 支持动态刷新（代理模式，访问时重新创建）  ④ 配置共享：spring.cloud.nacos.config.shared-configs 引入公共配置  ⑤ 面试常考：长轮询原理、@RefreshScope 机制、配置热更新、与 Apollo 对比
+
 # bootstrap.yml（必须）
 spring:
   application:
@@ -440,6 +471,15 @@ public void createOrder(Order order) {
     inventoryClient.deduct(order.getProductId(), order.getQuantity());
     accountClient.debit(order.getUserId(), order.getAmount());
 }
+
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：Seata 在 Spring Cloud 微服务架构中提供 AT/TCC/SAGA/XA 四种分布式事务模式。
+>
+> **原理**：Seata 架构：TC（事务协调器，独立 Server）、TM（事务管理器，发起方）、RM（资源管理器，参与方）。@GlobalTransactional 标注全局事务发起方法，TM 向 TC 注册全局事务（XID），XID 通过请求头传播到各微服务，各分支事务注册到 TC。AT 模式一阶段各分支本地提交+注册分支，二阶段 TC 通知提交/回滚。Spring Cloud 中需引入 seata-spring-boot-starter 并配置 Nacos 注册中心。
+>
+> **用法要点**：① TC/TM/RM 三角色，XID 贯穿全链路  ② AT 模式最常用：undo_log 自动补偿，无侵入  ③ XID 通过 Feign 请求头拦截器传播  ④ 高并发场景优先 TCC，长流程用 SAGA  ⑤ 面试常考：Seata 架构、AT 模式、XID 传播、与本地消息表对比
 
 # application.yml
 seata:
@@ -504,6 +544,15 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 ### 3.8 微服务监控
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：通过 Spring Boot Actuator + Prometheus + Grafana 实现指标采集、存储和可视化监控。
+>
+> **原理**：Actuator 暴露 /actuator/prometheus 端点输出 Micrometer 格式指标（JVM、HTTP、CPU、自定义业务指标）。Prometheus 定时拉取（pull）这些指标存入时序数据库，通过 PromQL 查询聚合。Grafana 配置 Prometheus 为数据源，用 Dashboard 可视化。链路追踪用 Spring Cloud Sleuth（或 Micrometer Tracing）+ Zipkin/Jaeger，日志聚合用 ELK。
+>
+> **用法要点**：① Actuator 暴露健康/指标/信息端点，生产环境注意安全（只暴露必要端点）  ② Micrometer 是指标门面，支持 Counter/Gauge/Timer/Summary  ③ Prometheus pull 模式拉取指标，Grafana 可视化  ④ 链路追踪：TraceId 贯穿全链路，Span 记录每跳耗时  ⑤ 面试常考：监控体系架构、Micrometer 指标类型、链路追踪原理、Prometheus pull vs push
+
 # pom: spring-boot-starter-actuator, micrometer-registry-prometheus
 management:
   endpoints:
@@ -555,6 +604,8 @@ public class OrderController {
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **版本兼容性**：Spring Cloud、Spring Boot、Spring Cloud Alibaba 版本必须严格对应。用版本矩阵确认，否则启动报错或功能异常。

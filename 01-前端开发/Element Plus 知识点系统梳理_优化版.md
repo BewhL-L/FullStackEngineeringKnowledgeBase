@@ -35,6 +35,8 @@ Element Plus 是**基于 Vue3 的组件库**，是 Element UI（Vue2 版）的�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#fff;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -337,6 +339,8 @@ import { ElConfigProvider } from 'element-plus'
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 表格+分页+搜索（标准中后台页面）
@@ -700,6 +704,8 @@ import { Edit, Search, Delete, Plus } from '@element-plus/icons-vue'
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **按需引入**：生产用 unplugin-vue-components 按需引入，减小打包体积。全量引入体积大。

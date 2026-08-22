@@ -31,6 +31,8 @@ MySQL 是一款开源的**关系型数据库管理系统（RDBMS）**，由瑞�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#ffecd2,#fcb69f);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -198,6 +200,8 @@ MySQL 是一款开源的**关系型数据库管理系统（RDBMS）**，由瑞�
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 建表规范
@@ -293,6 +297,15 @@ COMMIT;
 ### 3.4 备份与恢复
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：MySQL 备份策略包括逻辑备份（mysqldump）、物理备份（XtraBackup）和 binlog 时间点恢复。
+>
+> **原理**：mysqldump：逻辑备份，导出 SQL 语句，适合小库和跨版本迁移，--single-transaction 保证 InnoDB 一致性。XtraBackup：物理热备份，拷贝数据文件，不锁表，适合大库。binlog：记录所有更改操作，用于时间点恢复（PITR）：全量备份+重放 binlog 到指定时间点。恢复策略：定期全量+增量 binlog，定期演练恢复。
+>
+> **用法要点**：① mysqldump --single-transaction 一致性逻辑备份  ② XtraBackup 物理热备，不锁表，适合大库  ③ PITR：全量恢复 + mysqlbinlog 重放到指定时间点  ④ binlog_format=ROW 便于数据恢复和同步  ⑤ 面试常考：mysqldump vs XtraBackup、PITR、binlog 恢复
+
 # 逻辑备份（mysqldump）
 mysqldump -u root -p --single-transaction --routines --triggers --all-databases > backup.sql
 
@@ -390,6 +403,15 @@ SELECT COALESCE(NULL, '默认值');              -- 取第一个非null
 
 ```ini
 [mysqld]
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：通过调整 MySQL 配置参数优化内存使用、连接管理、日志刷盘等，提升数据库整体性能。
+>
+> **原理**：关键参数：innodb_buffer_pool_size（缓冲池大小，建议物理内存 50%-70%，缓存数据页和索引页）、innodb_log_file_size（redo log 大小，影响崩溃恢复时间和写入性能）、max_connections（最大连接数，过大会消耗内存）、innodb_flush_log_at_trx_commit（redo 刷盘策略，1 最安全，0/2 性能好但可能丢数据）、sync_binlog（binlog 刷盘策略）。调优需结合硬件和 workload，用 SHOW STATUS/VARIABLES 监控。
+>
+> **用法要点**：① innodb_buffer_pool_size 设为物理内存 50%-70%（专用数据库服务器）  ② innodb_flush_log_at_trx_commit=1 + sync_binlog=1 是双1配置，最安全  ③ max_connections 根据应用连接池配置，不宜过大（每连接占内存）  ④ innodb_log_file_size 通常 256M-1G，大写入场景适当增大  ⑤ 面试常考：缓冲池配置、双1参数、连接数调优、SHOW PROFILE/EXPLAIN 分析
+
 # 内存
 innodb_buffer_pool_size = 4G           # 缓冲池，物理内存50-70%
 innodb_buffer_pool_instances = 4       # 缓冲池实例数（减少锁竞争）
@@ -444,6 +466,8 @@ slow_query_log_file = /var/log/mysql/slow.log
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **必须有主键**：InnoDB 聚簇索引表，没主键会用隐藏行ID，影响性能和复制。用自增 BIGINT。

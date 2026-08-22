@@ -29,6 +29,8 @@ updated: 2026-08-12
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#4facfe,#00f2fe);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -197,6 +199,8 @@ updated: 2026-08-12
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 TCP 编程（Java Socket）
@@ -457,6 +461,8 @@ for (InetAddress addr : addresses) {
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **TCP 粘包拆包**：TCP 是面向流的协议，没有消息边界。应用层必须用固定长度、分隔符、或长度字段（如 LengthFieldBasedFrameDecoder）处理。

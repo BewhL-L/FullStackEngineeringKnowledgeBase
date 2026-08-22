@@ -35,6 +35,8 @@ Kubernetes（简称 K8s）是 Google 开源的容器编排平台，用于自动�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#a8edea,#fed6e3);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -188,6 +190,8 @@ Kubernetes（简称 K8s）是 Google 开源的容器编排平台，用于自动�
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 Deployment 部署
@@ -264,6 +268,15 @@ spec:
     protocol: TCP
   type: ClusterIP
 ---
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：Service 为一组 Pod 提供稳定的访问入口和负载均衡，解决 Pod IP 动态变化的问题。
+>
+> **原理**：Service 通过 label selector 选中后端 Pod，Endpoints Controller 监控 Pod 变化更新 Endpoints 对象。kube-proxy 在每个节点上配置 iptables/ipvs 规则，将发往 ClusterIP 的流量负载均衡到后端 Pod。Service 类型：ClusterIP（集群内部）、NodePort（节点端口暴露）、LoadBalancer（云负载均衡器）、ExternalName（DNS CNAME）。
+>
+> **用法要点**：① ClusterIP 默认类型，集群内部访问；NodePort 通过 <NodeIP>:<NodePort> 暴露  ② kube-proxy iptables 模式（随机）、ipvs 模式（多种算法，性能好）  ③ Service 和 Pod 通过 label selector 关联，Endpoints 自动维护  ④ Headless Service（clusterIP: None）直接返回 Pod IP 用于 StatefulSet  ⑤ 面试常考：Service 类型、kube-proxy 原理、Endpoints、ClusterIP 不可 Ping
+
 # 对外暴露（NodePort，不推荐生产用）
 apiVersion: v1
 kind: Service
@@ -335,6 +348,15 @@ spec:
 ### 3.4 ConfigMap 与 Secret
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：ConfigMap 存储非敏感配置，Secret 存储敏感信息（密码、密钥、证书），实现配置与镜像解耦。
+>
+> **原理**：ConfigMap 以键值对或文件形式存储配置，可通过环境变量、命令行参数或 Volume 挂载到 Pod。Secret 类似但数据用 base64 编码（注意不是加密），可配置 etcd 加密静态存储和 RBAC 限制访问。两者更新后，挂载的 Volume 文件会自动更新（环境变量方式不会热更新）。
+>
+> **用法要点**：① ConfigMap 挂载为 Volume 时文件更新自动生效，环境变量方式不更新  ② Secret base64 编码非加密，生产环境需启用 etcd 加密 + RBAC  ③ Secret 类型：Opaque（通用）、dockerconfigjson（镜像仓库）、tls（证书）  ④ 配置与镜像分离，同一镜像不同环境用不同 ConfigMap  ⑤ 面试常考：ConfigMap vs Secret、热更新、Secret 安全性、配置注入方式
+
 # ConfigMap
 apiVersion: v1
 kind: ConfigMap
@@ -395,6 +417,15 @@ spec:
 ### 3.5 持久化存储
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：PV/PVC/StorageClass 提供持久化存储抽象，使 Pod 重建后数据不丢失。
+>
+> **原理**：PV（PersistentVolume）是集群级存储资源（NFS、Ceph、云盘），PVC（PersistentVolumeClaim）是用户对存储的请求（大小、访问模式），StorageClass 动态创建 PV 无需管理员预先分配。PVC 绑定 PV 后挂载到 Pod。访问模式：RWO（单节点读写）、ROX（多节点只读）、RWX（多节点读写）。StatefulSet 使用 volumeClaimTemplates 为每个 Pod 创建独立 PVC。
+>
+> **用法要点**：① PV 是集群资源，PVC 是命名空间资源，通过 accessModes/storageClassName 绑定  ② StorageClass + provisioner 实现动态供给（自动创建 PV）  ③ RWO 单节点读写、RWX 多节点读写（NFS/CephFS）  ④ StatefulSet volumeClaimTemplates 每个 Pod 独立 PVC，有序绑定  ⑤ 面试常考：PV/PVC 绑定流程、StorageClass 动态供给、StatefulSet 存储、访问模式
+
 # StorageClass（动态供给）
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -445,6 +476,15 @@ spec:
 ### 3.6 资源限制与 HPA
 
 ```yaml
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：通过 resources.requests/limits 分配计算资源，HPA 根据 CPU/内存/自定义指标自动伸缩副本数。
+>
+> **原理**：requests 是调度依据（K8s 保证节点有足够资源），limits 是上限（cgroups 限制，CPU 超 limit 被限流，内存超 limit 被 OOM Kill）。HPA 周期性（默认 15s）从 Metrics Server 获取指标，计算期望副本数 = ceil(当前副本数 × 当前指标/目标指标)，调整 Deployment replicas。支持 CPU/内存和自定义指标（Prometheus Adapter）。
+>
+> **用法要点**：① requests 用于调度，limits 用于运行时限制（cgroups）  ② CPU 可压缩（超 limit 限流），内存不可压缩（超 limit OOM Kill）  ③ HPA 公式：desiredReplicas = ceil(currentReplicas * currentMetric / desiredMetric)  ④ 需要 Metrics Server 或 Prometheus Adapter 提供指标  ⑤ 面试常考：requests vs limits、HPA 算法、OOM Kill、VPA 与 HPA 区别
+
 # HPA（自动扩缩容）
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -534,6 +574,15 @@ spec:
 ### 3.8 常用 kubectl 命令
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：kubectl 是 K8s 命令行工具，覆盖资源查看、编辑、扩缩容、日志和调试操作。
+>
+> **原理**：常用命令：kubectl get pods/services/deployments 查看资源（-o wide 显示 IP/节点，-w 监听变化）；kubectl describe 查看事件详情（排查调度失败）；kubectl logs 查看容器日志（-f 跟踪，--previous 看上一个崩溃容器）；kubectl exec 进入容器；kubectl scale 扩缩容；kubectl rollout status/undo 管理发布；kubectl apply -f 声明式更新。
+>
+> **用法要点**：① kubectl get pods -A 查看所有命名空间 Pod  ② kubectl describe pod <name> 查看事件排障  ③ kubectl logs -f <pod> 实时日志，--previous 崩溃前日志  ④ kubectl exec -it <pod> -- bash 进入容器  ⑤ 面试常考：kubectl 常用命令、Pod 排障流程、日志查看
+
 # 资源查看
 kubectl get pods -n namespace                    # 列出 Pod
 kubectl get pods -o wide                         # 显示 Node/IP
@@ -568,6 +617,8 @@ kubectl explain deployment.spec                  # 资源文档
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **资源限制必须设置**：requests（调度依据）和 limits（上限）。不设 requests 可能调度到资源不足节点，不设 limits 可能占满节点资源导致其他 Pod OOM。

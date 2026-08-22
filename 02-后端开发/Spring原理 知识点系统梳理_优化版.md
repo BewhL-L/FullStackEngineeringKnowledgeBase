@@ -34,6 +34,8 @@ Spring 是一个轻量级的 Java 企业级开发框架，核心是**控制反�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#43e97b,#38f9d7);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -152,6 +154,8 @@ Spring MVC 基于**前端控制器模式**，核心是 DispatcherServlet：
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 依赖注入
@@ -469,6 +473,8 @@ public class MyListener implements ApplicationListener<ContextRefreshedEvent> {
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **构造器注入优先**：构造器注入保证依赖不可变、不为空、便于测试。字段注入（@Autowired）不推荐，Lombok @RequiredArgsConstructor 是最佳实践。

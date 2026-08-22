@@ -33,6 +33,8 @@ Redis（Remote Dictionary Server）是一个开源的、基于内存的**键值�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#ff9a9e,#fecfef);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -200,6 +202,8 @@ Redis（Remote Dictionary Server）是一个开源的、基于内存的**键值�
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 缓存使用模式
@@ -483,6 +487,8 @@ LettuceClientConfiguration config = LettuceClientConfiguration.builder()
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **缓存和数据库一致性**：用 Cache Aside（先更新 DB 再删缓存），一致性要求高用延迟双删或 binlog 监听。

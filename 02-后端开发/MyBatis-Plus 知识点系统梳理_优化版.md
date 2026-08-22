@@ -32,6 +32,8 @@ MyBatis-Plus（简称 MP）是一个 **MyBatis 的增强工具**，在 MyBatis �
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#84fab0,#8fd3f4);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -265,6 +267,8 @@ private LocalDateTime updateTime;
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 实体类定义
@@ -533,6 +537,15 @@ page.setSearchCount(false);
 ### 3.8 常见问题排查
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：汇总 MyBatis-Plus 开发中的常见问题及解决方案，提升排错效率。
+>
+> **原理**：常见问题：① 字段不对应（驼峰映射未开启或字段名不匹配，检查 map-underscore-to-camel-case 和 @TableField）；② 逻辑删除不生效（未配置 logic-delete-field 或注解）；③ 分页不生效（未配置 MybatisPlusInterceptor 分页插件）；④ 主键策略错误（@TableId type 设为 IdType.AUTO/ASSIGN_ID）；⑤ 批量插入慢（saveBatch 本质是循环单条，真正批量用 rewriteBatchedStatements=true）。
+>
+> **用法要点**：① 分页必须配置 MybatisPlusInterceptor + PaginationInnerInterceptor  ② map-underscore-to-camel-case 默认开启，字段不匹配检查 @TableField  ③ 逻辑删除需配置 logic-delete-field 和 logic-delete-value  ④ JDBC URL 加 rewriteBatchedStatements=true 让批量插入真正合并  ⑤ 面试常考：分页插件原理、逻辑删除实现、批量插入优化
+
 # 1. 打印 SQL（开发环境）
 mybatis-plus:
   configuration:
@@ -554,6 +567,8 @@ mybatis-plus:
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **updateById 只更新非 null 字段**：null 字段不会被更新。要更新为 null 用 LambdaUpdateWrapper.set(column, null)。

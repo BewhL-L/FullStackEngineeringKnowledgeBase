@@ -35,6 +35,8 @@ Pinia 是 **Vue 官方推荐的状态管理库**，由 Vue 核心团队成员 Ed
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#f093fb,#f5576c);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#fff;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -368,6 +370,8 @@ userStore.$onAction(({ name, store, args, after, onError }) => {
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 用户认证 Store
@@ -716,6 +720,8 @@ export const useCounterStore = defineStore('counter', () => {
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **store 调用时机**：useXxxStore() 必须在 setup 中或之后调用（Pinia 安装后），不能在模块顶层直接调用。

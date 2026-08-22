@@ -36,6 +36,8 @@ JVM（Java Virtual Machine）是 Java 程序的运行环境，它实现了"一�
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#f093fb,#f5576c);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#fff;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -168,11 +170,22 @@ JVM 执行引擎负责执行字节码，有三种方式：
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 JVM 启动参数
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：JVM 启动参数控制堆内存、垃圾回收器、日志和调试选项，是性能调优的入口。
+>
+> **原理**：堆内存：-Xms 初始堆、-Xmx 最大堆（生产设相同值避免动态扩缩）、-Xmn 新生代、-XX:MetaspaceSize 元空间。GC：-XX:+UseG1GC（JDK9+ 默认）、-XX:MaxGCPauseMillis 目标暂停时间。日志：-Xlog:gc*（JDK9+ 统一日志）。诊断：-XX:+HeapDumpOnOutOfMemoryError 自动 dump、-XX:HeapDumpPath 指定路径。
+>
+> **用法要点**：① -Xms 和 -Xmx 设相同值，避免堆动态扩缩开销  ② -XX:+UseG1GC JDK9+ 默认，低延迟；ZGC/Shenandoah 超低延迟  ③ -XX:+HeapDumpOnOutOfMemoryError OOM 时自动 dump  ④ -Xlog:gc*:file=gc.log:time,uptime,level,tags JDK9+ GC 日志  ⑤ 面试常考：堆参数配置、GC 选择、OOM dump、JDK9+ 日志参数
+
 # 堆设置
 -Xms2g -Xmx2g                    # 初始堆=最大堆=2G
 -Xmn512m                         # 新生代512M（G1不建议设置）
@@ -238,6 +251,15 @@ Class<?> clazz = loader.loadClass("com.example.MyClass");
 ### 3.3 GC 调优
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：GC 调优目标是降低停顿时间和提高吞吐量，核心是调整堆大小、新生代比例和 GC 器参数。
+>
+> **原理**：调优步骤：① 开启 GC 日志分析停顿频率和耗时 ② 根据场景选 GC（Web 应用 G1/ZGC 低延迟，批处理 ParallelGC 高吞吐）③ 调整堆大小（Xmx 设为物理内存 70%，留元空间和直接内存）④ 调整新生代比例（G1 不用手动设新生代，用 MaxGCPauseMillis 自适应）⑤ 避免 Full GC（大对象直接进老年代、元空间不足、System.gc()）。
+>
+> **用法要点**：① 先监控再调优：GC 日志+APM 工具分析，不盲目调参  ② G1 调 MaxGCPauseMillis 和 ParallelGCThreads  ③ 避免 Full GC：控制大对象、元空间大小、禁用显式 GC  ④ ZGC/Shenandoah 适合 TB 级堆和亚毫秒停顿  ⑤ 面试常考：GC 调优流程、G1 参数、Full GC 原因、停顿 vs 吞吐
+
 # G1 调优
 -XX:+UseG1GC
 -XX:MaxGCPauseMillis=100
@@ -340,6 +362,15 @@ byte[] bytes = cw.toByteArray();
 ### 3.7 OOM 与 StackOverflow 排查
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：OOM 和 StackOverflow 是 JVM 常见内存错误，需根据错误类型定位原因并修复。
+>
+> **原理**：OOM 类型：Java heap space（堆内存不足，内存泄漏或堆太小，用 MAT 分析 dump）、Metaspace（类加载过多/泄漏，检查动态类生成）、GC overhead limit（GC 耗时占比>98% 但回收<2%）、Direct buffer memory（直接内存不足，NIO/Netty）、unable to create native thread（线程数超限）。StackOverflow：递归过深或方法调用链太长。排查：jmap dump + MAT 分析 dominator tree，jstack 看线程。
+>
+> **用法要点**：① Heap OOM：MAT 分析 dominator tree 找大对象和泄漏点  ② Metaspace OOM：检查 CGLIB/动态代理/热部署类加载泄漏  ③ GC overhead：98% 时间 GC 但只回收 2%，通常是堆快满了  ④ StackOverflow：检查递归终止条件和调用深度  ⑤ 面试常考：OOM 类型、MAT 分析、jstack/jmap 用法、内存泄漏定位
+
 # 堆 OOM：jmap -dump 生成堆转储，MAT 分析支配树
 # 元空间 OOM：jmap -clstats 查看类加载统计
 # 栈溢出：看异常栈重复方法（递归死循环），增大 -Xss
@@ -357,6 +388,15 @@ byte[] bytes = cw.toByteArray();
 ### 3.8 JFR 飞行记录器
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：JFR（Java Flight Recorder）是 JDK 内置的低开销性能采集工具，持续记录 JVM 运行时事件用于诊断。
+>
+> **原理**：JFR 采集线程调度、GC、锁竞争、IO、方法采样等事件，开销 <1%，可在生产环境常开。启动时 -XX:StartFlightRecording=duration=60s,filename=app.jfr，运行时 jcmd <pid> JFR.start/start/dump。用 JMC（JDK Mission Control）可视化分析。JFR 适合生产环境性能分析，比传统 profiler 开销低得多。
+>
+> **用法要点**：① -XX:StartFlightRecording 启动时开启，jcmd 运行时控制  ② 开销 <1%，可生产环境常开  ③ JMC 可视化分析：GC/锁/IO/方法热点  ④ jcmd <pid> JFR.dump 导出当前记录  ⑤ 面试常考：JFR 原理、与 async-profiler 对比、生产性能分析
+
 # 启动时开启
 java -XX:StartFlightRecording:filename=recording.jfr,duration=60s -jar app.jar
 
@@ -377,6 +417,8 @@ jcmd <pid> JFR.check
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **堆大小 Xms=Xmx**：避免动态扩容 STW。根据业务对象存活量和 GC 停顿目标合理设置。

@@ -30,6 +30,8 @@ Spring Boot 是由 Pivotal 团队开发的基于 Spring 框架的快速开发脚
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#f6d365,#fda085);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -242,6 +244,8 @@ public class UserController {
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 项目结构与启动类
@@ -466,6 +470,15 @@ class UserServiceTest {
 ### 3.7 打包与部署
 
 ```bash
+
+> 🔍 **知识点深度解析**
+>
+> **作用**：Spring Boot 打包为可执行 JAR/WAR，通过 java -jar 或容器部署，支持多环境配置。
+>
+> **原理**：spring-boot-maven-plugin 将应用打包为 fat JAR（内嵌 Tomcat），java -jar app.jar 启动。可执行 JAR 内部用 JarLauncher 加载 BOOT-INF/classes 和 BOOT-INF/lib。多环境用 --spring.profiles.active=prod 指定。Docker 部署用 eclipse-temurin/jre 基础镜像，分层构建优化镜像缓存。JVM 参数通过 JAVA_OPTS 环境变量传递。
+>
+> **用法要点**：① mvn package 打 fat JAR，java -jar 启动  ② java -jar app.jar --spring.profiles.active=prod  ③ Docker 分层构建：依赖层和应用层分离，利用缓存  ④ JVM 参数：-Xms/-Xmx/-XX:+UseG1GC，通过 JAVA_OPTS 传入  ⑤ 面试常考：fat JAR 原理、JarLauncher、多环境部署、Docker 最佳实践
+
 # Maven 打包
 mvn clean package -DskipTests
 # 运行
@@ -547,6 +560,8 @@ mybatis-plus:
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **启动类位置**：必须放在根包下（如 com.example.app），否则子包的 Bean 不会被扫描到。

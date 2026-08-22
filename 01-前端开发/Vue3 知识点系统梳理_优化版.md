@@ -36,6 +36,8 @@ Vue.js 是一套用于构建用户界面的**渐进式 JavaScript 框架**，由
 
 ---
 
+
+---
 ## 2. 核心特性
 
 <div style="background:linear-gradient(135deg,#4facfe,#00f2fe);border-radius:16px;padding:24px;margin:16px 0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#fff;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.14),0 3px 10px rgba(0,0,0,.08)">
@@ -225,6 +227,8 @@ app.use(myPlugin, { option1: 'value' });
 
 ---
 
+
+---
 ## 3. 常用用法
 
 ### 3.1 响应式 API 使用
@@ -609,6 +613,8 @@ export default defineConfig({
 
 ---
 
+
+---
 ## 4. 注意事项
 
 1. **ref 和 reactive 选择**：基本类型用 ref，对象用 reactive。ref 在模板中自动解包，JS 中用 .value。
