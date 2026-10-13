@@ -1,0 +1,211 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e7]:
+      - heading "FOCUS· 35" [level=1] [ref=e8]:
+        - text: FOCUS
+        - emphasis [ref=e9]: ·
+        - generic [ref=e10]: "35"
+      - paragraph [ref=e11]: 求职冲刺作战面板 · 2026-09-28 → 2027-06-01
+    - generic "快捷操作" [ref=e12]:
+      - radiogroup "背景动效强度" [ref=e13]:
+        - radio "静" [ref=e14] [cursor=pointer]
+        - radio "标" [checked] [ref=e15] [cursor=pointer]
+        - radio "炫" [ref=e16] [cursor=pointer]
+      - button "切换深浅色模式" [ref=e17] [cursor=pointer]
+      - button "搜索周次与任务（Ctrl+K）" [ref=e20] [cursor=pointer]
+      - status "连续打卡天数" [ref=e23]:
+        - generic [ref=e26]: "0"
+        - text: 天
+  - generic [ref=e31]:
+    - main [ref=e32]:
+      - region "今日冲刺" [ref=e33]:
+        - generic [ref=e38]: 0%
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: 阶段一 · 基础补熟
+            - generic [ref=e43]: W01 · 本周主题
+            - generic [ref=e44]: 09/30 周三
+          - heading "Python 进阶 + Git 工程化" [level=2] [ref=e45]
+          - paragraph [ref=e46]: 类型注解 typing 与检查工具初体验
+          - paragraph [ref=e47]: 今日第 1 项 · 2h
+          - generic [ref=e48]:
+            - generic [ref=e50]:
+              - generic [ref=e51]: 0%
+              - text: 今日
+            - generic [ref=e52]: 0/3 · 已学 0h / 计划 8h
+          - generic [ref=e53]:
+            - button "打卡下一项" [ref=e54] [cursor=pointer]
+            - button "查看本周详情" [ref=e57] [cursor=pointer]
+      - generic [ref=e60]:
+        - generic [ref=e63]: 按计划应完成 8 项 · 实际 0 项 · 约落后 3 天
+        - button "启动重排向导" [ref=e64] [cursor=pointer]
+      - region "数据统计" [ref=e65]:
+        - generic [ref=e70]:
+          - generic [ref=e71]: "0"
+          - generic [ref=e72]: 连续打卡 · 天
+        - generic [ref=e77]:
+          - generic [ref=e78]: "0"
+          - generic [ref=e79]: 累计投入 · 小时
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - text: "0"
+            - emphasis [ref=e86]: /
+            - text: "657"
+          - generic [ref=e87]: 任务完成 · 项
+      - region "本周学习节奏" [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: 本周学习节奏
+          - button "查看详情 ›" [ref=e93] [cursor=pointer]
+        - img "本周每日计划学时柱状图，峰值 8 小时" [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: 8h
+            - generic "周一 计划 8h" [ref=e97]
+            - generic [ref=e98]: 一
+          - generic [ref=e99]:
+            - generic [ref=e100]: 8h
+            - generic "周二 计划 8h" [ref=e101]
+            - generic [ref=e102]: 二
+          - generic [ref=e103]:
+            - generic [ref=e104]: 8h
+            - generic "周三 计划 8h" [ref=e105]
+            - generic [ref=e106]: 三
+          - generic [ref=e107]:
+            - generic [ref=e108]: 8h
+            - generic "周四 计划 8h" [ref=e109]
+            - generic [ref=e110]: 四
+          - generic [ref=e111]:
+            - generic [ref=e112]: 8h
+            - generic "周五 计划 8h" [ref=e113]
+            - generic [ref=e114]: 五
+          - generic [ref=e115]:
+            - generic [ref=e116]: 8h
+            - generic "周六 计划 8h" [ref=e117]
+            - generic [ref=e118]: 六
+          - generic [ref=e119]:
+            - generic [ref=e120]: 8h
+            - generic "周日 计划 8h" [ref=e121]
+            - generic [ref=e122]: 日
+      - region "今日任务" [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - text: 今日任务
+            - generic [ref=e128]: 0/3
+          - button "任务面板 ›" [ref=e129] [cursor=pointer]
+        - generic [ref=e130]:
+          - generic [ref=e131] [cursor=pointer]:
+            - checkbox "类型注解 typing 与检查工具初体验" [ref=e132]
+            - generic [ref=e136]: 类型注解 typing 与检查工具初体验
+            - generic [aria-hidden] [ref=e137]: NOW
+            - button "产出物链接" [ref=e138]
+            - generic [ref=e141]: 2h
+          - generic [ref=e142] [cursor=pointer]:
+            - checkbox "小项目：命令行待办事项（含文件持久化）" [ref=e143]
+            - generic [ref=e147]: 小项目：命令行待办事项（含文件持久化）
+            - button "产出物链接" [ref=e148]
+            - generic [ref=e151]: 4h
+          - generic [ref=e152] [cursor=pointer]:
+            - checkbox "Git 进阶：rebase/stash/.gitignore/规范提交信息" [ref=e153]
+            - generic [ref=e157]: Git 进阶：rebase/stash/.gitignore/规范提交信息
+            - button "产出物链接" [ref=e158]
+            - generic [ref=e161]: 2h
+    - complementary "播放器与全景" [ref=e162]:
+      - region "今日概览" [ref=e163]:
+        - generic [ref=e164]:
+          - generic [ref=e165]: 今日 · 09/30 周三
+          - generic [ref=e166]: W01
+        - generic [ref=e168]:
+          - generic [ref=e169]: 今日 0/3 · 已学 0h
+          - button "回到今天 ›" [ref=e170] [cursor=pointer]
+      - region "35 周全景" [ref=e171]:
+        - generic [ref=e172]:
+          - generic [ref=e173]: 35 周全景
+          - generic [ref=e174]: W01 / 35 · 已完成 0 周
+        - group "35 周完成度总览，点击跳转" [ref=e175]:
+          - button "W01 Python 进阶 + Git 工程化 · 0%" [ref=e176] [cursor=pointer]
+          - button "W02 FastAPI + SQLAlchemy + pytest · 0%" [ref=e177] [cursor=pointer]
+          - button "W03 JWT 鉴权 + Vue3 全家桶 · 0%" [ref=e178] [cursor=pointer]
+          - button "W04 LLM API 接入 + SSE 流式 · 0%" [ref=e179] [cursor=pointer]
+          - button "W05 Prompt 工程 + 文档解析 + 切片 · 0%" [ref=e180] [cursor=pointer]
+          - button "W06 Chroma + RAG 完整链路 · 0%" [ref=e181] [cursor=pointer]
+          - button "W07 BM25 原理 + 手写 mini 版 · 0%" [ref=e182] [cursor=pointer]
+          - button "W08 混合检索 + RRF + Rerank · 0%" [ref=e183] [cursor=pointer]
+          - button "W09 上下文工程 + 评测指标 · 0%" [ref=e184] [cursor=pointer]
+          - button "W10 评测闭环 + 第一次数据驱动优化 · 0%" [ref=e185] [cursor=pointer]
+          - button "W11 P0.5 新兴技术增量 · 0%" [ref=e186] [cursor=pointer]
+          - button "W12 生产化：Postgres + Celery + Redis · 0%" [ref=e187] [cursor=pointer]
+          - button "W13 真实数据 + Langfuse 可观测 · 0%" [ref=e188] [cursor=pointer]
+          - button "W14 Agent：Function Calling + 手写 ReAct · 0%" [ref=e189] [cursor=pointer]
+          - button "W15 Agent 思考轨迹可视化 + 前端测试 · 0%" [ref=e190] [cursor=pointer]
+          - button "W16 RBAC 权限管理 + 代码收尾 · 0%" [ref=e191] [cursor=pointer]
+          - button "W17 Docker 容器化 + CI · 0%" [ref=e192] [cursor=pointer]
+          - button "W18 云服务器部署上线 · 0%" [ref=e193] [cursor=pointer]
+          - button "W19 春节弹性周：修复 + 缓冲 · 0%" [ref=e194] [cursor=pointer]
+          - button "W20 作品化：README / 视频 / 博客 · 0%" [ref=e195] [cursor=pointer]
+          - button "W21 简历 + 3 分钟话术 · 0%" [ref=e196] [cursor=pointer]
+          - button "W22 10 分钟话术 + Python 八股 · 0%" [ref=e197] [cursor=pointer]
+          - button "W23 后端八股 + 春招情报 · 0%" [ref=e198] [cursor=pointer]
+          - button "W24 AI 专题八股（RAG/Agent/评测） · 0%" [ref=e199] [cursor=pointer]
+          - button "W25 前端八股 + 系统设计 + 投递准备 · 0%" [ref=e200] [cursor=pointer]
+          - button "W26 春招第一批投递（3 月下旬） · 0%" [ref=e201] [cursor=pointer]
+          - button "W27 反馈驱动的项目迭代 · 0%" [ref=e202] [cursor=pointer]
+          - button "W28 持续面试期 Ⅰ · 0%" [ref=e203] [cursor=pointer]
+          - button "W29 二面准备：架构视角 · 0%" [ref=e204] [cursor=pointer]
+          - button "W30 HR 面 + 谈薪准备 · 0%" [ref=e205] [cursor=pointer]
+          - button "W31 offer 决策 + 五一缓冲 · 0%" [ref=e206] [cursor=pointer]
+          - button "W32 决赛圈冲刺 · 0%" [ref=e207] [cursor=pointer]
+          - button "W33 查漏补缺实验室 · 0%" [ref=e208] [cursor=pointer]
+          - button "W34 收尾与决策 · 0%" [ref=e209] [cursor=pointer]
+          - button "W35 收官：归档 + 终检 · 0%" [ref=e210] [cursor=pointer]
+      - region "快捷入口" [ref=e211]:
+        - button "搜索任务与周次" [ref=e212] [cursor=pointer]
+        - button "35 周完整计划表" [ref=e218] [cursor=pointer]
+        - button "每周复盘笔记" [ref=e224] [cursor=pointer]
+        - button "导出备份（JSON）" [ref=e230] [cursor=pointer]
+        - button "导入恢复备份" [ref=e236] [cursor=pointer]
+        - button "计划重排向导" [ref=e242] [cursor=pointer]
+      - region "背景效果工坊" [ref=e248]:
+        - generic [ref=e249]:
+          - generic [ref=e250]: 背景效果
+          - generic [ref=e253]: 悬停预览 · 点击应用
+        - generic [ref=e254]:
+          - button "3D 景深 标准" [ref=e255] [cursor=pointer]:
+            - generic [ref=e258]: 3D 景深
+            - emphasis [ref=e259]: 标准
+          - button "氛围配色 玫瑰" [ref=e262] [cursor=pointer]:
+            - generic [ref=e265]: 氛围配色
+            - emphasis [ref=e266]: 玫瑰
+          - button "视觉层 纯净" [ref=e269] [cursor=pointer]:
+            - generic [ref=e272]: 视觉层
+            - emphasis [ref=e273]: 纯净
+      - region "美学背景切换" [ref=e276]:
+        - generic [ref=e277]:
+          - generic [ref=e278]: 美学背景
+          - generic [ref=e281]: 四体系 · 即点即换
+        - radiogroup "选择美学背景" [ref=e282]:
+          - radio "光之展厅 Prism 三棱光束" [ref=e283] [cursor=pointer]:
+            - generic [ref=e285]:
+              - generic [ref=e286]: 光之展厅
+              - emphasis [ref=e287]: Prism 三棱光束
+          - radio "紫夜回廊 GridMotion 格阵走廊" [checked] [ref=e289] [cursor=pointer]:
+            - generic [ref=e291]:
+              - generic [ref=e292]: 紫夜回廊
+              - emphasis [ref=e293]: GridMotion 格阵走廊
+          - radio "丝缎流光 Silk 缎面噪声" [ref=e295] [cursor=pointer]:
+            - generic [ref=e297]:
+              - generic [ref=e298]: 丝缎流光
+              - emphasis [ref=e299]: Silk 缎面噪声
+          - radio "琴弦夜曲 Threads 丝线 × 40" [ref=e301] [cursor=pointer]:
+            - generic [ref=e303]:
+              - generic [ref=e304]: 琴弦夜曲
+              - emphasis [ref=e305]: Threads 丝线 × 40
+  - contentinfo "周导航与倒计时" [ref=e307]:
+    - generic [ref=e308]:
+      - generic [ref=e309]: D-244
+      - generic [ref=e310]: 距终极面试
+    - group "周导航" [ref=e311]:
+      - button "上一周" [disabled] [ref=e312]
+      - button "回到今天" [ref=e315] [cursor=pointer]
+      - button "下一周" [ref=e318] [cursor=pointer]
+    - generic [ref=e321]:
+      - generic [ref=e322]: 09/30 · 周三 · 第 3 天
+      - generic [ref=e323]: W01 · 本周

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # 后端服务
+  backend:
+    build: ./backend
+    container_name: kb-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/chroma_db:/app/chroma_db
+      - ./backend/.env:/app/.env
+    environment:
+      - DATABASE_URL=sqlite:///./knowledge_base.db
+
+  # 前端服务（Nginx 托管 + 反向代理）
+  frontend:
+    build: ./frontend
+    container_name: kb-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

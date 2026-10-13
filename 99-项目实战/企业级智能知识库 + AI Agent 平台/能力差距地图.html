@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 AI 全栈能力差距地图 · 企业智能知识库项目</title>
+<meta name="description" content="对照2026年AI全栈岗位要求，诊断企业智能知识库项目的知识缺口，分P0必补/P1加分/P2了解，并明确自己完成与AI完成的分工">
+<style>
+/* ===== CSS变量与主题 ===== */
+:root{
+  --bg:#100d0a;
+  --bg-secondary:#1a1510;
+  --bg-glass:rgba(30,24,18,.62);
+  --text:#f6efe3;
+  --text-secondary:#a89880;
+  --line:rgba(246,239,227,.1);
+  --glass:blur(24px) saturate(160%);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.2);
+  --shadow-md:0 8px 24px rgba(0,0,0,.3);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.4);
+  --shadow-inset:inset 0 1px 0 rgba(255,255,255,.06);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --accent:#ff9a2e;
+  --accent-secondary:#4fc4b4;
+  --accent-third:#9b8cf0;
+  --accent-fourth:#e879a0;
+}
+[data-theme="light"]{
+  --bg:#faf6f0;
+  --bg-secondary:#f0e8dc;
+  --bg-glass:rgba(255,255,255,.7);
+  --text:#2a2218;
+  --text-secondary:#6b5d4a;
+  --line:rgba(42,34,24,.1);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:0 8px 24px rgba(0,0,0,.08);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
+  --shadow-inset:inset 0 1px 0 rgba(255,255,255,.8);
+  --accent:#c46a10;
+  --accent-secondary:#2a9d8f;
+  --accent-third:#6c5ce7;
+  --accent-fourth:#d63384;
+}
+
+/* ===== 基础重置 ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+a{color:inherit;text-decoration:none}
+
+/* ===== 导航栏 ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--bg-glass);
+  backdrop-filter:var(--glass);
+  border-bottom:1px solid var(--line);
+  transition:all .3s var(--ease);
+}
+.nav-inner{
+  max-width:1400px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:justify;justify-content:space-between;
+  height:64px;
+}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+.nav-logo .logo-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-third));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:#fff;font-weight:800;
+}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:8px;font-size:14px;
+  color:var(--text-secondary);transition:all .25s var(--ease);
+}
+.nav-links a:hover{color:var(--text);background:var(--line)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{
+  width:44px;height:24px;border-radius:12px;
+  background:var(--line);border:none;cursor:pointer;
+  position:relative;transition:background .3s;
+}
+.theme-toggle::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--accent);transition:transform .3s var(--ease);
+}
+[data-theme="light"] .theme-toggle::after{transform:translateX(20px)}
+
+/* ===== Hero区域 ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:120px 32px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 20%,rgba(255,154,46,.15),transparent 50%),
+             radial-gradient(ellipse at 70% 80%,rgba(155,140,240,.12),transparent 50%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;max-width:920px}
+.hero h1{
+  font-size:clamp(32px,5vw,56px);font-weight:800;
+  line-height:1.2;margin-bottom:24px;letter-spacing:-.02em;
+}
+.hero h1 .highlight{color:var(--accent);font-weight:800}
+.hero .subtitle{
+  font-size:clamp(16px,2vw,20px);color:var(--text-secondary);
+  max-width:720px;margin:0 auto 40px;line-height:1.6;
+}
+.hero-stats{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.stat-card{
+  background:var(--bg-glass);backdrop-filter:var(--glass);
+  border-radius:var(--radius-md);padding:20px 28px;
+  border:1px solid var(--line);box-shadow:var(--shadow-md),var(--shadow-inset);
+  min-width:150px;transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg),var(--shadow-inset)}
+.stat-card .num{font-size:32px;font-weight:700;display:block}
+.stat-card .label{font-size:13px;color:var(--text-secondary)}
+.stat-card:nth-child(1) .num{color:var(--accent)}
+.stat-card:nth-child(2) .num{color:var(--accent-third)}
+.stat-card:nth-child(3) .num{color:var(--text-secondary)}
+.stat-card:nth-child(4) .num{color:var(--accent-secondary)}
+
+/* ===== 通用章节 ===== */
+.section{
+  max-width:1400px;margin:0 auto;padding:80px 32px;
+}
+.section-title{
+  font-size:clamp(24px,3vw,36px);font-weight:700;
+  margin-bottom:12px;letter-spacing:-.01em;
+}
+.section-subtitle{
+  font-size:16px;color:var(--text-secondary);margin-bottom:40px;
+}
+
+/* ===== 玻璃卡片 ===== */
+.glass{
+  background:var(--bg-glass);backdrop-filter:var(--glass);
+  border-radius:var(--radius-md);padding:28px;
+  border:1px solid var(--line);box-shadow:var(--shadow-md),var(--shadow-inset);
+}
+
+/* ===== 图例 ===== */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:32px}
+.legend-item{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text-secondary)}
+.dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.dot.done{background:var(--accent-secondary)}
+.dot.p0{background:var(--accent)}
+.dot.p1{background:var(--accent-third)}
+.dot.p2{background:var(--text-secondary)}
+
+/* ===== 能力分层地图 ===== */
+.layer{margin-bottom:20px}
+.layer-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.layer-num{
+  width:30px;height:30px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;
+}
+.layer:nth-of-type(1) .layer-num{background:var(--accent-secondary)}
+.layer-title{font-size:17px;font-weight:700}
+.layer-hint{font-size:13px;color:var(--text-secondary)}
+.layer-pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{
+  padding:6px 13px;border-radius:999px;font-size:13px;
+  border:1px solid;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;
+}
+.pill.done{
+  color:var(--accent-secondary);
+  border-color:color-mix(in srgb,var(--accent-secondary) 50%,transparent);
+  background:color-mix(in srgb,var(--accent-secondary) 12%,transparent);
+}
+.pill.p0{
+  color:var(--accent);font-weight:600;
+  border-color:color-mix(in srgb,var(--accent) 55%,transparent);
+  background:color-mix(in srgb,var(--accent) 14%,transparent);
+}
+.pill.p1{
+  color:var(--accent-third);
+  border-color:color-mix(in srgb,var(--accent-third) 50%,transparent);
+  background:color-mix(in srgb,var(--accent-third) 12%,transparent);
+}
+.pill.p2{
+  color:var(--text-secondary);
+  border-color:var(--line);
+  background:color-mix(in srgb,var(--text-secondary) 8%,transparent);
+}
+
+/* ===== 卡片网格 ===== */
+.card-grid{
+  display:grid;gap:24px;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+}
+.card{
+  background:var(--bg-glass);backdrop-filter:var(--glass);
+  border-radius:var(--radius-md);padding:28px;
+  border:1px solid var(--line);box-shadow:var(--shadow-md),var(--shadow-inset);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg),var(--shadow-inset)}
+.card .card-tag{
+  display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;
+  border-radius:999px;margin-bottom:14px;
+  color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);
+}
+.card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.card p{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px}
+.card .why{font-size:13px;color:var(--text);margin-bottom:14px}
+.card .why b{color:var(--accent)}
+.owners{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.owner-tag{font-size:12px;padding:4px 11px;border-radius:999px;border:1px solid;font-weight:600;line-height:1.4}
+.owner-self{
+  color:var(--accent);
+  border-color:color-mix(in srgb,var(--accent) 50%,transparent);
+  background:color-mix(in srgb,var(--accent) 10%,transparent);
+}
+.owner-ai{
+  color:var(--accent-secondary);
+  border-color:color-mix(in srgb,var(--accent-secondary) 50%,transparent);
+  background:color-mix(in srgb,var(--accent-secondary) 10%,transparent);
+}
+
+/* ===== 分工两栏 ===== */
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.split-col{padding:28px}
+.split-col h3{font-size:19px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.split-col.self h3{color:var(--accent)}
+.split-col.ai h3{color:var(--accent-secondary)}
+.split-col .col-sub{font-size:13px;color:var(--text-secondary);margin-bottom:18px}
+.split-col ul{list-style:none}
+.split-col li{
+  font-size:14px;line-height:1.6;padding:9px 0 9px 22px;position:relative;
+  border-bottom:1px solid var(--line);
+}
+.split-col li:last-child{border-bottom:none}
+.split-col.self li::before{
+  content:'';position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:2px;
+  background:var(--accent);
+}
+.split-col.ai li::before{
+  content:'';position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:50%;
+  background:var(--accent-secondary);
+}
+.split-note{
+  margin-top:20px;padding:16px 20px;border-radius:var(--radius-md);
+  border:1px solid color-mix(in srgb,var(--accent-third) 40%,transparent);
+  background:color-mix(in srgb,var(--accent-third) 10%,transparent);
+  font-size:14px;color:var(--text);
+}
+
+/* ===== 时间线 ===== */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{
+  content:'';position:absolute;left:9px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(var(--accent),var(--accent-third),var(--accent-secondary));
+}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-item:last-child{margin-bottom:0}
+.tl-item::before{
+  content:'';position:absolute;left:-26px;top:5px;width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--accent);
+}
+.tl-item:nth-child(3n)::before{border-color:var(--accent-third)}
+.tl-item:nth-child(4n)::before{border-color:var(--accent-secondary)}
+.tl-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.tl-phase{font-size:16px;font-weight:700}
+.tl-time{font-size:13px;color:var(--text-secondary)}
+.tl-body{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.tl-body b{color:var(--text)}
+
+/* ===== 滚动入场动画 ===== */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== 滚动进度条 ===== */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-third));
+  z-index:200;transition:width .1s linear;
+}
+
+/* ===== 页脚 ===== */
+.footer{
+  text-align:center;padding:48px 32px;
+  border-top:1px solid var(--line);
+  color:var(--text-secondary);font-size:14px;
+}
+
+/* ===== 响应式 ===== */
+@media(max-width:768px){
+  .nav-inner{padding:0 16px}
+  .nav-links{display:none}
+  .hero{padding:100px 16px 60px}
+  .section{padding:60px 16px}
+  .hero-stats{gap:12px}
+  .stat-card{min-width:130px;padding:16px 20px}
+  .stat-card .num{font-size:26px}
+  .split-grid{grid-template-columns:1fr}
+  .glass{padding:20px}
+}
+
+/* ===== 减少动画偏好 ===== */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 滚动进度条 -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- 导航栏 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-icon">AI</div>
+      <span>能力差距地图</span>
+    </div>
+    <div class="nav-links">
+      <a href="#map">能力地图</a>
+      <a href="#p0">P0缺口</a>
+      <a href="#more">P1/P2</a>
+      <a href="#split">分工</a>
+      <a href="#path">学习路径</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题"></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero区域 -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h1>2026 AI 全栈<span class="highlight">能力差距地图</span></h1>
+    <p class="subtitle">
+      对照 2026 年上海/杭州 AI 全栈岗位的最新 JD 与技术趋势，诊断「企业智能知识库 + AI Agent」项目的知识缺口。
+      结论：主干已通，但有 4 个 P0 缺口必须补——核心不是再加功能，而是从「能跑」升级到「可评测、可观测、标准化」。
+    </p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="num">4</span>
+        <span class="label">P0 必补缺口</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">8</span>
+        <span class="label">P1 加分项</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">4</span>
+        <span class="label">P2 了解项</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">~65%</span>
+        <span class="label">岗位主干已覆盖</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 章节：能力地图 -->
+<section class="section" id="map">
+  <h2 class="section-title reveal">一、五层能力地图（差距全景）</h2>
+  <p class="section-subtitle reveal">把岗位要求拆成 5 层，逐点标注状态：已覆盖 / P0 必补 / P1 加分 / P2 了解。</p>
+
+  <div class="legend reveal">
+    <div class="legend-item"><span class="dot done"></span>已覆盖（要能讲清）</div>
+    <div class="legend-item"><span class="dot p0"></span>P0 必补</div>
+    <div class="legend-item"><span class="dot p1"></span>P1 加分</div>
+    <div class="legend-item"><span class="dot p2"></span>P2 了解即可</div>
+  </div>
+
+  <div class="glass layer reveal">
+    <div class="layer-head">
+      <div class="layer-num" style="background:var(--accent-secondary)">L0</div>
+      <div>
+        <div class="layer-title">基础工程层</div>
+        <div class="layer-hint">全栈地基，计划已完整覆盖</div>
+      </div>
+    </div>
+    <div class="layer-pills">
+      <span class="pill done">Python 进阶</span>
+      <span class="pill done">FastAPI</span>
+      <span class="pill done">SQLAlchemy / SQLite</span>
+      <span class="pill done">Vue3 + TS</span>
+      <span class="pill done">Element Plus / Pinia</span>
+      <span class="pill done">Docker / Nginx</span>
+    </div>
+  </div>
+
+  <div class="glass layer reveal">
+    <div class="layer-head">
+      <div class="layer-num" style="background:var(--accent)">L1</div>
+      <div>
+        <div class="layer-title">AI 应用基础层</div>
+        <div class="layer-hint">已覆盖，是后续一切的前提</div>
+      </div>
+    </div>
+    <div class="layer-pills">
+      <span class="pill done">LLM API 调用</span>
+      <span class="pill done">Prompt Engineering</span>
+      <span class="pill done">SSE 流式输出</span>
+      <span class="pill done">多轮对话</span>
+      <span class="pill done">多模型切换</span>
+      <span class="pill done">限流/重试/缓存/日志</span>
+    </div>
+  </div>
+
+  <div class="glass layer reveal">
+    <div class="layer-head">
+      <div class="layer-num" style="background:var(--accent-third)">L2</div>
+      <div>
+        <div class="layer-title">RAG 核心层</div>
+        <div class="layer-hint">朴素 RAG 已通，检索增强是最大深度缺口</div>
+      </div>
+    </div>
+    <div class="layer-pills">
+      <span class="pill done">文档解析</span>
+      <span class="pill done">文本切片</span>
+      <span class="pill done">Embedding / 向量检索</span>
+      <span class="pill done">朴素 RAG 流程</span>
+      <span class="pill done">相似度阈值</span>
+      <span class="pill p0">混合检索 BM25+向量(RRF)</span>
+      <span class="pill p0">Rerank 精排</span>
+      <span class="pill p0">Query Rewrite / HyDE</span>
+      <span class="pill p1">父子 / 语义分块</span>
+    </div>
+  </div>
+
+  <div class="glass layer reveal">
+    <div class="layer-head">
+      <div class="layer-num" style="background:var(--accent-fourth)">L3</div>
+      <div>
+        <div class="layer-title">Agent 与上下文层</div>
+        <div class="layer-hint">Agentic RAG 已落地，MCP 与上下文工程待补</div>
+      </div>
+    </div>
+    <div class="layer-pills">
+      <span class="pill done">Function Calling</span>
+      <span class="pill done">Agentic RAG（检索工具）</span>
+      <span class="pill p0">MCP Server</span>
+      <span class="pill p0">上下文工程（记忆/历史压缩）</span>
+      <span class="pill p1">ReAct / Plan-Execute 模式</span>
+      <span class="pill p1">LangGraph 多 Agent</span>
+      <span class="pill p2">A2A 协议</span>
+    </div>
+  </div>
+
+  <div class="glass layer reveal">
+    <div class="layer-head">
+      <div class="layer-num" style="background:var(--text-secondary)">L4</div>
+      <div>
+        <div class="layer-title">生产化与评测层</div>
+        <div class="layer-hint">成熟度分水岭，也是面试最大差异化</div>
+      </div>
+    </div>
+    <div class="layer-pills">
+      <span class="pill p0">评测集 golden QA</span>
+      <span class="pill p0">RAGAS / 分层指标</span>
+      <span class="pill p0">LLM-as-Judge</span>
+      <span class="pill p1">可观测性 Tracing(Langfuse)</span>
+      <span class="pill p1">PostgreSQL / Celery / Redis</span>
+      <span class="pill p1">CI/CD（GitHub Actions）</span>
+      <span class="pill p1">RAG 权限 / 多租户 / 注入防护</span>
+      <span class="pill p1">前端代码分割</span>
+      <span class="pill p2">多模态解析</span>
+      <span class="pill p2">微调(Fine-tuning)概念</span>
+    </div>
+  </div>
+</section>
+
+<!-- 章节：P0缺口 -->
+<section class="section" id="p0">
+  <h2 class="section-title reveal">二、P0 必补四大缺口</h2>
+  <p class="section-subtitle reveal">这四项在 2026 年的 JD 中几乎必出现，也是把项目从「课程作业」拉到「生产级」的关键。</p>
+  <div class="card-grid">
+    <div class="card reveal">
+      <span class="card-tag">P0 · 标准化</span>
+      <h3>1. MCP 模型上下文协议</h3>
+      <p class="why"><b>为什么：</b>MCP 在 2026 年已成为 Agent 接入工具/数据的默认标准（不再是可选项），JD 高频要求「搭建 MCP Server」。</p>
+      <p>学什么：工具发现、资源访问、标准化交互；亲手写一个 MCP Server，把「知识库检索」通过 MCP 暴露给任意外部 Agent。</p>
+      <div class="owners">
+        <span class="owner-tag owner-self">自己：懂协议定位与工具发现，能对比 MCP vs Function Calling</span>
+        <span class="owner-tag owner-ai">AI：生成 MCP Server 骨架与接入代码</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <span class="card-tag">P0 · 检索深度</span>
+      <h3>2. 检索增强三件套</h3>
+      <p class="why"><b>为什么：</b>绝大多数 RAG 失败始于检索而非生成；这是面试技术深度的核心。</p>
+      <p>学什么：BM25 稀疏 + 向量稠密的混合检索并用 RRF 融合、Reranker 精排、Query Rewrite / 多查询 / HyDE、父子分块。</p>
+      <div class="owners">
+        <span class="owner-tag owner-self">自己：动手调权重与参数、对比效果、讲清每环节原理</span>
+        <span class="owner-tag owner-ai">AI：生成混合检索 / RRF / Rerank 接入代码</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <span class="card-tag">P0 · 评测驱动</span>
+      <h3>3. 评测体系</h3>
+      <p class="why"><b>为什么：</b>从「我感觉效果变好了」升级到「指标证明提升」，是求职者中最稀缺的能力。</p>
+      <p>学什么：结合业务设计 golden QA 评测集；Hit@K / MRR、Faithfulness、Context Precision & Recall；用 LLM-as-Judge 自动评分。</p>
+      <div class="owners">
+        <span class="owner-tag owner-self">自己：写评测集、解读指标、做 bad case 分层归因</span>
+        <span class="owner-tag owner-ai">AI：搭评测脚本、接入 RAGAS</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <span class="card-tag">P0 · 核心学科</span>
+      <h3>4. 上下文工程</h3>
+      <p class="why"><b>为什么：</b>2025–2026 上下文工程已超越 Prompt 工程，成为生产 AI 的核心学科。</p>
+      <p>学什么：短期/长期记忆、对话历史压缩、检索知识与工具定义的运行时动态组装、工具预算（按需加载工具）。</p>
+      <div class="owners">
+        <span class="owner-tag owner-self">自己：设计上下文策略与记忆取舍</span>
+        <span class="owner-tag owner-ai">AI：辅助实现记忆 / 压缩 / 动态组装模块</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 章节：P1/P2 -->
+<section class="section" id="more">
+  <h2 class="section-title reveal">三、P1 加分项 与 P2 了解项</h2>
+  <p class="section-subtitle reveal">P1 时间够就动手，P2 只要能讲清概念、知道取舍，不必投入大量时间实现。</p>
+  <div class="card-grid">
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--accent-third);background:color-mix(in srgb,var(--accent-third) 12%,transparent);border-color:color-mix(in srgb,var(--accent-third) 50%,transparent)">P1</span>
+      <h3>可观测性 Tracing</h3>
+      <p>接入 Langfuse / LangSmith，记录 trace/span，做生产链路追踪与 bad case 归因。</p>
+    </div>
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--accent-third);background:color-mix(in srgb,var(--accent-third) 12%,transparent);border-color:color-mix(in srgb,var(--accent-third) 50%,transparent)">P1</span>
+      <h3>Agent 编排框架</h3>
+      <p>用 LangGraph 实现 ReAct / Plan-and-Execute，做一个多 Agent 协作小 Demo。</p>
+    </div>
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--accent-third);background:color-mix(in srgb,var(--accent-third) 12%,transparent);border-color:color-mix(in srgb,var(--accent-third) 50%,transparent)">P1</span>
+      <h3>生产化改造</h3>
+      <p>SQLite→PostgreSQL、同步处理→Celery 异步队列、Redis 缓存、CI/CD 自动构建。</p>
+    </div>
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--accent-third);background:color-mix(in srgb,var(--accent-third) 12%,transparent);border-color:color-mix(in srgb,var(--accent-third) 50%,transparent)">P1</span>
+      <h3>权限与安全</h3>
+      <p>RAG 行级权限（只检索有权限的文档）、多租户隔离、Prompt 注入防护。</p>
+    </div>
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--accent-third);background:color-mix(in srgb,var(--accent-third) 12%,transparent);border-color:color-mix(in srgb,var(--accent-third) 50%,transparent)">P1</span>
+      <h3>前端代码分割</h3>
+      <p>用动态 import / manualChunks 消除构建时 chunk &gt;500kB 的警告。</p>
+    </div>
+    <div class="card reveal">
+      <span class="card-tag" style="color:var(--text-secondary);background:color-mix(in srgb,var(--text-secondary) 10%,transparent);border-color:var(--line)">P2</span>
+      <h3>A2A / 多模态 / 微调</h3>
+      <p>A2A  Agent 通信协议、文档图片表格的多模态解析、知道何时该微调 vs RAG（概念与取舍即可）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 章节：分工 -->
+<section class="section" id="split">
+  <h2 class="section-title reveal">四、分工：你自己做 vs AI 帮你做</h2>
+  <p class="section-subtitle reveal">原则不变：核心的「为什么 / 原理 / 取舍」必须是你的，脚手架与体力活交给 AI，但每个 AI 生成件你都要能讲清。</p>
+
+  <div class="split-grid">
+    <div class="glass split-col self reveal">
+      <h3>你必须自己完成（能力内核）</h3>
+      <div class="col-sub">这些面试要考、要白板、要追问，替代不了</div>
+      <ul>
+        <li>所有「为什么 / 原理 / 取舍」：RAG vs 微调、混合检索为何有效、Rerank 的作用、MCP 解决什么</li>
+        <li>结合业务亲手设计评测集 golden QA</li>
+        <li>系统提示词与上下文 / 记忆策略设计</li>
+        <li>切片、检索、Agent 工具循环核心代码亲手重写一遍</li>
+        <li>调参实验并记录：改 chunk / topK / 阈值 / 混合权重，看指标变化</li>
+        <li>bad case 的分层归因思路（检索层 / 上下文层 / 生成层）</li>
+        <li>白板手写 RAG 与 Agent 核心流程</li>
+      </ul>
+    </div>
+
+    <div class="glass split-col ai reveal">
+      <h3>AI 帮你完成（脚手架 / 体力活）</h3>
+      <div class="col-sub">可复用、可模板化的部分，省时间</div>
+      <ul>
+        <li>MCP Server 骨架与工具暴露代码</li>
+        <li>混合检索 / RRF 融合 / Rerank / Query Rewrite 接入代码</li>
+        <li>RAGAS 评测脚本、Langfuse 接入与埋点</li>
+        <li>PostgreSQL 迁移、Celery / Redis、CI/CD 配置</li>
+        <li>Dockerfile / Nginx / 前端组件 / 代码分割配置</li>
+        <li>文档、测试用例模板、报错排查与解释</li>
+        <li>概念讲解、学习路径规划、模拟面试</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="split-note reveal">
+    <b>关键判断：</b>你现在不缺功能（脚手架 + Agentic RAG 都已生成），缺的是「理解 + 生产级深度」。
+    所以不要再按原计划花几个月从零重写已有功能，而要对照已有代码逐块读懂 + 重写核心，并用「评测集」驱动后续每一次优化。
+  </div>
+</section>
+
+<!-- 章节：学习路径 -->
+<section class="section" id="path">
+  <h2 class="section-title reveal">五、调整后的学习路径（评测驱动）</h2>
+  <p class="section-subtitle reveal">把原 10 个月的重心从「按月堆功能」改为「吃透 + 评测驱动迭代」，P0 缺口穿插进对应阶段。</p>
+
+  <div class="glass reveal">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 A · 打基础 + 对照重学</span>
+          <span class="tl-time">第 1–3 月</span>
+        </div>
+        <div class="tl-body">学 Python/FastAPI/Vue/LLM 调用的同时，<b>对照已生成的代码逐块读懂</b>，核心模块亲手重写，不追求新功能。</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 B · RAG 核心 + 建立评测基线</span>
+          <span class="tl-time">第 4–5 月</span>
+        </div>
+        <div class="tl-body">吃透解析 / 切片 / 向量检索 / 朴素 RAG；<b>同步建第一个约 20 条的 golden QA 评测集，跑出基线指标</b>（最重要的一步）。</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 C · 检索三件套 + 上下文工程</span>
+          <span class="tl-time">第 6–7 月</span>
+        </div>
+        <div class="tl-body">上混合检索 / Rerank / Query Rewrite 与记忆、历史压缩；<b>每做一项都用评测集验证，指标确实上升才保留</b>。</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 D · MCP + Agent 编排</span>
+          <span class="tl-time">第 8 月</span>
+        </div>
+        <div class="tl-body">写 MCP Server 暴露知识库；用 LangGraph 做 ReAct / Plan-Execute 小 Demo；补齐反馈、多模型等亮点。</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 E · 可观测性 + 生产化 + 部署</span>
+          <span class="tl-time">第 9 月</span>
+        </div>
+        <div class="tl-body">接入 Langfuse，做 PG / CI-CD / 权限等生产化改造，Docker + Nginx 部署到公网，拿到可访问链接。</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-phase">阶段 F · 求职冲刺</span>
+          <span class="tl-time">第 10 月</span>
+        </div>
+        <div class="tl-body">把<b>「评测驱动迭代」</b>作为核心故事：发现问题 → 定位到层 → 优化 → 指标提升。这是大多数应届生讲不出来的闭环。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <p>企业智能知识库 + AI Agent 平台 · 2026 AI 全栈能力差距地图 · 配套《开发计划 v2.1》使用</p>
+</footer>
+
+<script>
+/* ===== 主题切换 ===== */
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+/* ===== 滚动进度条 ===== */
+const scrollProgress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  scrollProgress.style.width = progress + '%';
+}, {passive: true});
+
+/* ===== 滚动入场动画 ===== */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+revealElements.forEach(el => revealObserver.observe(el));
+
+/* ===== 导航栏滚动效果 ===== */
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.style.boxShadow = 'var(--shadow-md)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+}, {passive: true});
+</script>
+</body>
+</html>

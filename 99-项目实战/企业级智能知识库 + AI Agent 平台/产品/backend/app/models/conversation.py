@@ -1,0 +1,26 @@
+"""对话模型"""
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy.orm import relationship
+from ..database import Base
+from ..timeutil import utc_now
+
+
+class Conversation(Base):
+    __tablename__ = "conversations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, comment="用户ID")
+    kb_id = Column(Integer, ForeignKey("knowledge_bases.id", ondelete="CASCADE"), nullable=False, comment="知识库ID")
+    title = Column(String(200), default="新对话", comment="对话标题")
+    # 长期记忆：对更早对话的压缩摘要（短期记忆为最近 N 轮原文）
+    long_memory = Column(Text, default="", comment="历史对话压缩摘要")
+    # 已压缩到的消息 ID（避免重复压缩）
+    memory_upto_msg_id = Column(Integer, default=0, comment="已压缩到的消息ID")
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
+
+    # 关系
+    user = relationship("User", back_populates="conversations")
+    knowledge_base = relationship("KnowledgeBase", back_populates="conversations")
+    messages = relationship("Message", back_populates="conversation", cascade="all, delete-orphan",
+                            order_by="Message.id")
