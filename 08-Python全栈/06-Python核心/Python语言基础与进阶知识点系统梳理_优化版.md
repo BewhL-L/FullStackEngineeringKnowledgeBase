@@ -2097,6 +2097,9 @@ class SafeDict:
         else:
             self._data[name] = value
 '''
+- `_data` 只是一个名字，你完全可以改成 `_storage`、`_cache`，逻辑不变；只是大家习惯叫 `_data`
+- 它不是特殊魔法变量，特殊的是配套的 `__setattr__` 代理逻辑
+  
 ## 为什么单独判断 `name == "_data"`
 
 因为 `__setattr__` 会拦截**所有属性赋值**： 当执行 `self._data = {}` 初始化的时候，等价于：
