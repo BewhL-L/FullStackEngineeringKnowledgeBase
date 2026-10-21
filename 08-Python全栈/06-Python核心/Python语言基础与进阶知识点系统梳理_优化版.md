@@ -1861,6 +1861,14 @@ del obj  # 触发 __del__（实际回收时机由 GC 决定）
 | `__repr__` | `repr(obj)`, 交互式环境, 容器中 | 开发者，无歧义 |
 | `__format__` | `format(obj, spec)`, f-string | 自定义格式 |
 
+| 项目  | `__repr__`             | `__str__`                  |
+| --- | ---------------------- | -------------------------- |
+| 调用方 | `repr()`，交互终端          | `str()`、`print()`          |
+| 受众  | 开发者，调试                 | 普通用户，友好展示                  |
+| 规范  | 尽量可 eval 还原对象          | 只要人好读就行，不需要合法代码            |
+| 优先级 | 低，str 存在时 print 优先 str | 高                          |
+| 兜底  | 没有 str 时，repr 兼任 str   | 没有 repr 时，用 object 默认的地址格式 |
+
 ```python
 class Point:
     def __init__(self, x, y):
