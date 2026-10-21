@@ -2096,6 +2096,17 @@ class SafeDict:
             super().__setattr__(name, value)  # 必须用 super 避免递归
         else:
             self._data[name] = value
+'''
+## 为什么单独判断 `name == "_data"`
+
+因为 `__setattr__` 会拦截**所有属性赋值**： 当执行 `self._data = {}` 初始化的时候，等价于：
+self.__setattr__("_data", {})
+
+如果不加这个判断，代码会进入 `else` 分支执行：
+self._data[name] = value
+
+读取 `self._data` 又触发属性查找，造成无限递归 `RecursionError`。 所以用 `super().__setattr__` 走原生逻辑，把 `_data` 放到实例自己的 `__dict__` 里，**脱离代理逻辑**。
+'''
 
     def __repr__(self):
         return f"SafeDict({self._data})"
@@ -2107,6 +2118,7 @@ print(obj.email)      # None —— 不存在的属性返回 None
 obj.city = "北京"      # __setattr__
 print(obj.city)       # 北京
 
+'''
 ## 先搞懂 `__setattr__` 是什么
 只要你执行：
 obj.abc = 123
@@ -2138,6 +2150,7 @@ self._data = {}
 
 - 当赋值的名字是 `_data`：交给原生父类，挂载成对象属性
 - 其他所有名字：不往对象 `__dict__` 存，全部塞到 `self._data` 这个字典里面
+'''
 ```
 
 > ⚠️ **常见坑点**：`__getattribute__` 是**每次**属性访问都调用，包括在方法内部访问 `self.xxx`，极易引发无限递归。必须通过 `super().__getattribute__(name)` 或 `object.__getattribute__(self, name)` 来访问属性。一般情况下只需重写 `__getattr__`（属性不存在时的回退），不要轻易重写 `__getattribute__`。
