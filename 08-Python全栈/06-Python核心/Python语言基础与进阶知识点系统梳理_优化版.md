@@ -1969,6 +1969,10 @@ print(v1 + v2)      # Vector(5, 7, 9)
 print(v2 - v1)      # Vector(3, 3, 3)
 print(v1 * 2)       # Vector(2, 4, 6)
 print(3 * v1)       # Vector(3, 6, 9) —— 触发 __rmul__
+
+⭐ 重点区别：
+不加 `*`：`Vector([5,7,9])` 是把**一个列表**传给 Vector，参数是单个列表
+加 `*`：`Vector(5,7,9)` 是把列表拆开，作为**多个位置参数**传给 Vector
 ```
 
 #### 反向运算（`__radd__` 等）
