@@ -2392,6 +2392,85 @@ Person = type("Person", (object,), {
 p = Person("张三")
 print(p.greet())       # 你好，我是张三
 print(Person.__name__) # Person
+
+'''
+1. **`"Person"`**：类名，赋值给 `Person.__name__`
+2. **`(object,)`**：父类元组，这里继承 `object`；单元素元组逗号不能丢
+3. **字典**：存放类属性、实例方法、特殊方法
+    - `"species"`：**类属性**，所有实例共享
+    - `"__init__"`：构造方法，这里用 `lambda + setattr` 给实例绑定 `name`
+    - `"greet"`：实例方法，接收 `self`
+'''
+
+## 阶段 1：先定义普通函数 greet
+
+def greet(self):
+    return f"你好，我是{self.name}"
+
+- 在全局作用域创建函数对象 `greet`，它是一个标准实例方法，第一个参数是 `self`，后续会放进类的命名空间字典里。
+
+## 阶段 2：调用 type ()，生成类对象 Person
+
+Person = type("Person", (object,), {
+    "species": "Homo sapiens",
+    "__init__": lambda self, name: setattr(self, "name", name),
+    "greet": greet,
+})
+
+`type(name, bases, namespace)` 三个参数：
+
+1. `"Person"`：类名字符串，赋值给 `Person.__name__`
+2. `(object,)`：继承的父类元组，这个类继承自 object
+3. 第三个字典：**类的命名空间**，里面所有键值对都会成为类的属性：
+    - `"species": "Homo sapiens"`：**类属性**，所有实例共享
+    - `"__init__": lambda ...`：构造方法
+        - `lambda self, name: setattr(self, "name", name)`
+        - 等价于给实例对象 `self` 设置实例属性 `self.name = name`
+    - `"greet": greet`：把上面定义好的 greet 函数挂载为类的实例方法
+
+👉 执行完这一行：**Person 就是一个类对象**，和 `class Person:` 写出来的类是同一种东西。
+
+## 阶段 3：实例化 `p = Person("张三")`
+
+当写 `Person("张三")`：
+
+1. Python 先创建一个空的 Person 实例 `self`
+2. 自动调用类里面的 `__init__(self, "张三")`
+3. 执行 `setattr(self, "name", name)` → 给实例 `p` 新增实例属性 `p.name = "张三"`
+4. 变量 `p` 指向这个实例对象
+
+> 区分：
+> 
+> - `species`：属于类 Person，所有实例共用
+> - `name`：属于实例 p，每个实例自己独有
+
+## 阶段 4：执行 `print(p.greet())`
+
+1. `p.greet()` 找到类上的 greet 方法
+2. 自动把实例 `p` 绑定成第一个参数 `self`
+3. 读取 `self.name`，也就是 `"张三"`
+4. 返回字符串 `你好，我是张三`，打印输出
+
+## 阶段 5：执行 `print(Person.__name__)`
+
+`__name__` 是 type 创建类时自动设置的属性，值就是第一个参数 `"Person"`，所以打印 `Person`。
+
+---
+
+# 和 class 写法对照（完全等价）
+
+class Person(object):
+    species = "Homo sapiens"
+    def __init__(self, name):
+        self.name = name
+    def greet(self):
+        return f"你好，我是{self.name}"
+
+p = Person("张三")
+print(p.greet())
+print(Person.__name__)
+
+> 区别：`class` 是语法糖；`type()` 是直接调用元类手动构造类，这也是理解**元类 metaclass** 的入口。
 ```
 
 #### 元类的概念
