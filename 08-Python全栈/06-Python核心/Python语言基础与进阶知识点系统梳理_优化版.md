@@ -2575,6 +2575,45 @@ class ModelMeta(type):
         namespace["_fields"] = fields
         namespace["_table_name"] = name.lower() + "s"
         return super().__new__(mcs, name, bases, namespace)
+'''
+> 这是**自定义元类**里重写的 `__new__`，和普通类的 `__new__` 不是一回事：
+> 
+> - 普通类 `__new__(cls, ...)`：**创建实例对象**
+> - 元类 `__new__(mcs, name, bases, namespace)`：**创建【类对象 class】**，正好承接你前面 `type(...)` 动态造类的知识点
+
+## 四个参数逐个解释
+
+def __new__(mcs, name, bases, namespace):
+
+1. **`mcs`**（metaclass 的缩写，约定俗成名字） 等价普通方法里的 `self`，代表**当前这个元类本身**。
+    > 比如你写 `class MyMeta(type):`，这里 mcs 就是 MyMeta
+    
+2. **`name`**：字符串，**待生成的类的名字** 对应你前面 `type("Person", (object,), {...})` 的第一个参数 `"Person"`
+3. **`bases`**：元组，**这个类要继承的所有父类** 对应 `type` 的第二个参数 `(object,)`
+4. **`namespace`**：字典，**类的命名空间**，存放类里面所有属性、方法 对应 `type` 的第三个参数字典：`{"species":"...", "greet": greet}`
+
+✅ 返回值：**新创建出来的类对象（cls）** 一般写法：
+
+cls = super().__new__(mcs, name, bases, namespace)
+return cls
+
+## 和你上一段代码打通对照
+
+# 你之前写的
+Person = type("Person", (object,), {
+    "species": "Homo sapiens",
+    "__init__": lambda ...,
+    "greet": greet,
+})
+
+底层等价于元类 `type` 的 `__new__` 执行：
+# type 就是 Python 默认的元类
+cls = type.__new__(type, "Person", (object,), {
+    "species": "Homo sapiens",
+    "__init__": lambda ...,
+    "greet": greet,
+})
+'''
 
 class Model(metaclass=ModelMeta):
     """ORM 基类"""
