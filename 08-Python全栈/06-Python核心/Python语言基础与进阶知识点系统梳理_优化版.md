@@ -2776,7 +2776,14 @@ obj = CustomObject([1, 2, [3, 4]], {"created": "2026"})
 shallow = copy.copy(obj)      # 调用 __copy__
 deep = copy.deepcopy(obj)     # 调用 __deepcopy__
 ```
-
+|项目|`__copy__(self)`|`__deepcopy__(self, memo)`|
+|---|---|---|
+|触发时机|`copy.copy(实例)` 时自动调用|`copy.deepcopy(实例)` 时自动调用|
+|参数|只有 `self`|`self` + `memo`（字典）|
+|拷贝逻辑|**自定义浅拷贝**：直接复用原对象内部子对象的引用<br><br>示例里 `self.data`、`self.metadata` 直接传给新对象，没有递归拷贝|**自定义深拷贝**：内部成员也要递归 deepcopy<br><br>示例里对 `self.data`、`self.metadata` 都执行 `deepcopy`|
+|memo 参数|不需要|✅ 必须有。用来记录已经拷贝过的对象，**解决循环引用无限递归问题**|
+|作用|自己控制浅拷贝怎么造新实例|自己控制深拷贝怎么造全新实例|
+|返回值|返回新建的实例对象|返回新建的实例对象，并且要手动写入 `memo[id(self)] = new_obj`|
 #### copy 模块的常见坑
 
 ```python
