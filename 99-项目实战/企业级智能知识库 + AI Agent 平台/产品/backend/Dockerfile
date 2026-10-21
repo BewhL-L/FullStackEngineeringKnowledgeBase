@@ -7,10 +7,9 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# 安装系统依赖（PyPDF2/docx 等可能需要）
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# 系统依赖：所有 Python 包均使用预编译 wheel，无需 build-essential
+# 如需从源码编译包，再取消下面的注释（注意容器内 apt 网络可能不稳定）
+# RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*
 
 # 先复制依赖文件，利用 Docker 缓存层
 COPY requirements.txt .

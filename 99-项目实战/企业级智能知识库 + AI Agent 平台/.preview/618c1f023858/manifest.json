@@ -1,0 +1,33 @@
+{
+  "schema_version": "1",
+  "source_path": "C:\\Users\\23981\\Desktop\\AI文档\\DouBao Document\\BewhY_L知识库\\全栈工程知识库\\99-项目实战\\企业级智能知识库 + AI Agent 平台\\学习作战看板.html",
+  "source_filename": "学习作战看板.html",
+  "source_hash": "618c1f023858",
+  "source_size_bytes": 472472,
+  "kind": "html",
+  "rendered_at_utc": "2026-10-15T09:05:51+00:00",
+  "output_dir": "C:\\Users\\23981\\Desktop\\AI文档\\DouBao Document\\BewhY_L知识库\\全栈工程知识库\\99-项目实战\\企业级智能知识库 + AI Agent 平台\\.preview\\618c1f023858",
+  "page_count": 1,
+  "rendered_page_count": 0,
+  "collage_count": 0,
+  "extracted_text_chars": 415192,
+  "text_relpath": "text.md",
+  "thumbnail_relpath": null,
+  "pages": [],
+  "collages": [],
+  "warnings": [
+    "html render: png slice failed: No module named 'PIL'"
+  ],
+  "options": {
+    "max_pages": 12,
+    "collage": true,
+    "page_range": null,
+    "thumbnail": true,
+    "text_only": false,
+    "jpeg_quality": 85,
+    "out_max_dim": 2048
+  },
+  "summary": {
+    "bytes": 472472
+  }
+}

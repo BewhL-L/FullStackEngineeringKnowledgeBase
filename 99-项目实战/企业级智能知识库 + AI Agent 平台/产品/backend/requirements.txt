@@ -45,10 +45,11 @@ pytest==8.3.3
 # --- MCP 协议（对外暴露检索/问答）---
 # mcp==1.2.0
 
-# --- 生产化（异步任务 / 缓存 / PostgreSQL）---
+# --- 生产化（异步任务 / 缓存 / PostgreSQL / 向量数据库）---
 # celery==5.4.0
-# redis==5.1.1
-# psycopg2-binary==2.9.9
+redis==5.1.1
+psycopg2-binary==2.9.9
+qdrant-client==1.11.0
 
 # --- 多模态（OCR / 表格抽取）---
 # pytesseract==0.3.13

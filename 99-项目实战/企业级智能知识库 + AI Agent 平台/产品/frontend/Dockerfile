@@ -5,7 +5,7 @@ WORKDIR /app
 
 # 先复制依赖文件，利用 Docker 缓存层
 COPY package.json ./
-RUN npm config set registry https://registry.npmmirror.com && npm install
+RUN npm config set registry https://registry.npmmirror.com && npm install --legacy-peer-deps
 
 # 复制源码并构建（跳过严格类型检查，避免构建中断）
 COPY . .

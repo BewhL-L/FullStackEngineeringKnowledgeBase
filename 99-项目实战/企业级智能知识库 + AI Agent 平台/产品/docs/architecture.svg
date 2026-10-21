@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1080" width="1200" height="1080" style="background:#0a0e1a;font-family:'Segoe UI',system-ui,sans-serif;">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#60a5fa"/></marker>
+    <marker id="ar-g" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#34d399"/></marker>
+    <marker id="ar-o" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#fbbf24"/></marker>
+    <marker id="ar-c" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#22d3ee"/></marker>
+    <marker id="ar-r" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#f87171"/></marker>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/><stop offset="100%" stop-color="#6366f1" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.25"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/><stop offset="100%" stop-color="#10b981" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ef4444" stop-opacity="0.25"/><stop offset="100%" stop-color="#ef4444" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25"/><stop offset="100%" stop-color="#06b6d4" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g8" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#14b8a6" stop-opacity="0.25"/><stop offset="100%" stop-color="#14b8a6" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.25"/><stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.06"/></linearGradient>
+    <linearGradient id="g10" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#64748b" stop-opacity="0.25"/><stop offset="100%" stop-color="#64748b" stop-opacity="0.06"/></linearGradient>
+  </defs>
+
+  <!-- 标题 -->
+  <text x="600" y="30" font-size="20" font-weight="bold" fill="#60a5fa" text-anchor="middle">企业级智能知识库 + AI Agent 平台 · 架构图 v2</text>
+  <text x="600" y="50" font-size="12" fill="#64748b" text-anchor="middle">10层架构 · 混合检索+GraphRAG · Agentic RAG · LLM Wiki · 评测驱动 · MCP/A2A · 生产级部署</text>
+
+  <!-- ① 用户接入层 -->
+  <rect x="15" y="62" width="1170" height="72" rx="8" fill="url(#g1)" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="28" y="82" font-size="12" font-weight="bold" fill="#60a5fa">① 用户接入层</text>
+  <rect x="28" y="90" width="185" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="120" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">Vue3 前端 (6页面)</text>
+  <rect x="223" y="90" width="160" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="303" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">网站嵌入 (iframe)</text>
+  <rect x="393" y="90" width="140" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="463" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">REST API / SSE</text>
+  <rect x="543" y="90" width="130" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="608" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">MCP Client</text>
+  <rect x="683" y="90" width="150" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="758" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">A2A Agent 互操作</text>
+  <rect x="843" y="90" width="160" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="923" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">数据看板 (ECharts)</text>
+  <rect x="1013" y="90" width="160" height="34" rx="4" fill="#0a0e1a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="1093" y="111" font-size="11" fill="#e2e8f0" text-anchor="middle">评测面板</text>
+  <line x1="600" y1="134" x2="600" y2="146" stroke="#60a5fa" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ② API 网关层 -->
+  <rect x="15" y="146" width="1170" height="72" rx="8" fill="url(#g2)" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="28" y="166" font-size="12" font-weight="bold" fill="#818cf8">② API 网关层 (FastAPI)</text>
+  <rect x="28" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="88" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">JWT 鉴权</text>
+  <rect x="158" y="174" width="130" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="223" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">多租户/行级隔离</text>
+  <rect x="298" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="358" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">限流中间件</text>
+  <rect x="428" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="488" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">SSE 流式输出</text>
+  <rect x="558" y="174" width="140" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="628" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Prompt 注入检测</text>
+  <rect x="708" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="768" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">文件上传接口</text>
+  <rect x="838" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="898" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Embedding API</text>
+  <rect x="968" y="174" width="120" height="34" rx="4" fill="#0a0e1a" stroke="#6366f1" stroke-width="1"/>
+  <text x="1028" y="195" font-size="10.5" fill="#e2e8f0" text-anchor="middle">统计/用量接口</text>
+  <line x1="300" y1="218" x2="300" y2="230" stroke="#818cf8" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="900" y1="218" x2="900" y2="230" stroke="#818cf8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ③ 异步任务层 -->
+  <rect x="15" y="230" width="1170" height="58" rx="8" fill="url(#g3)" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="28" y="250" font-size="12" font-weight="bold" fill="#a78bfa">③ 异步任务层 (Celery)</text>
+  <rect x="200" y="254" width="200" height="28" rx="4" fill="#0a0e1a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="300" y="273" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Celery Beat 调度 → Redis Broker</text>
+  <rect x="420" y="254" width="220" height="28" rx="4" fill="#0a0e1a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="530" y="273" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Celery Worker 池 (解析/向量化)</text>
+  <rect x="660" y="254" width="200" height="28" rx="4" fill="#0a0e1a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="760" y="273" font-size="10.5" fill="#e2e8f0" text-anchor="middle">任务状态回调 / 进度推送</text>
+  <rect x="880" y="254" width="200" height="28" rx="4" fill="#0a0e1a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="980" y="273" font-size="10.5" fill="#e2e8f0" text-anchor="middle">失败重试 / 死信队列</text>
+  <line x1="600" y1="288" x2="600" y2="300" stroke="#a78bfa" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ④ Agent 编排层 -->
+  <rect x="15" y="300" width="1170" height="98" rx="8" fill="url(#g4)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="28" y="320" font-size="12" font-weight="bold" fill="#fbbf24">④ Agent 编排层</text>
+  <rect x="28" y="328" width="155" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="105" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">ReAct 循环</text>
+  <text x="105" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">Thought→Action</text>
+  <text x="105" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">→Observation</text>
+  <rect x="193" y="328" width="155" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="270" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Self-RAG 判断</text>
+  <text x="270" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">是否需要检索?</text>
+  <text x="270" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">是否换词重查?</text>
+  <rect x="358" y="328" width="155" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="435" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">LangGraph (可选)</text>
+  <text x="435" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">Plan-and-Execute</text>
+  <text x="435" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">Supervisor 模式</text>
+  <rect x="523" y="328" width="165" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="605" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">原生多智能体</text>
+  <text x="605" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">不依赖 LangGraph</text>
+  <text x="605" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">角色分工协作</text>
+  <rect x="698" y="328" width="180" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="788" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">工具调用 (FC)</text>
+  <text x="788" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">时间/数学/检索/MCP</text>
+  <text x="788" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">危险工具 AST 白名单</text>
+  <rect x="888" y="328" width="180" height="60" rx="4" fill="#0a0e1a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="978" y="348" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">推理服务</text>
+  <text x="978" y="364" font-size="9.5" fill="#94a3b8" text-anchor="middle">思维链 / 复杂分解</text>
+  <text x="978" y="378" font-size="9.5" fill="#94a3b8" text-anchor="middle">reasoning_service</text>
+  <line x1="600" y1="398" x2="600" y2="410" stroke="#fbbf24" stroke-width="2" marker-end="url(#ar-o)"/>
+
+  <!-- ⑤ RAG 核心检索层 -->
+  <rect x="15" y="410" width="1170" height="128" rx="8" fill="url(#g5)" stroke="#10b981" stroke-width="1.5"/>
+  <text x="28" y="430" font-size="12" font-weight="bold" fill="#34d399">⑤ RAG 核心检索层 (三路检索)</text>
+  <rect x="28" y="438" width="148" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="102" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">查询改写</text>
+  <text x="102" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">Multi-Query</text>
+  <text x="102" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">HyDE 假设文档</text>
+  <text x="102" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">LLM 关键词提取</text>
+  <text x="102" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">query_rewrite.py</text>
+  <line x1="176" y1="482" x2="192" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="192" y="438" width="158" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="271" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">混合检索 (双路)</text>
+  <text x="271" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">├ 向量语义检索</text>
+  <text x="271" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">└ BM25 关键词</text>
+  <text x="271" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">Top-K 召回</text>
+  <text x="271" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">hybrid.py</text>
+  <line x1="350" y1="482" x2="366" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="366" y="438" width="148" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="440" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">GraphRAG (第三路)</text>
+  <text x="440" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">实体→关系→社区</text>
+  <text x="440" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">图谱检索</text>
+  <text x="440" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">社区摘要</text>
+  <text x="440" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">graph_retriever.py</text>
+  <line x1="514" y1="482" x2="530" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="530" y="438" width="138" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="599" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">RRF 融合</text>
+  <text x="599" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">Reciprocal Rank</text>
+  <text x="599" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">Fusion 三路合并</text>
+  <text x="599" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">去重排序</text>
+  <line x1="668" y1="482" x2="684" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="684" y="438" width="138" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="753" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Rerank 重排</text>
+  <text x="753" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">LLM Rerank</text>
+  <text x="753" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">相关性精排</text>
+  <text x="753" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">Top-N 最终</text>
+  <text x="753" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">reranker.py</text>
+  <line x1="822" y1="482" x2="838" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="838" y="438" width="148" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="912" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">上下文工程</text>
+  <text x="912" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">短期滑动窗口</text>
+  <text x="912" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">长期 Mem0 记忆</text>
+  <text x="912" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">Token 预算裁剪</text>
+  <text x="912" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">历史 LLM 压缩</text>
+  <line x1="986" y1="482" x2="1002" y2="482" stroke="#34d399" stroke-width="1.5" marker-end="url(#ar-g)"/>
+  <rect x="1002" y="438" width="168" height="88" rx="4" fill="#0a0e1a" stroke="#10b981" stroke-width="1"/>
+  <text x="1086" y="458" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Prompt 组装</text>
+  <text x="1086" y="474" font-size="9.5" fill="#94a3b8" text-anchor="middle">系统+检索片段</text>
+  <text x="1086" y="488" font-size="9.5" fill="#94a3b8" text-anchor="middle">+对话历史+问题</text>
+  <text x="1086" y="502" font-size="9.5" fill="#94a3b8" text-anchor="middle">资料边界包裹</text>
+  <text x="1086" y="516" font-size="9.5" fill="#94a3b8" text-anchor="middle">assembler.py</text>
+  <line x1="600" y1="538" x2="600" y2="550" stroke="#34d399" stroke-width="2" marker-end="url(#ar-g)"/>
+
+  <!-- ⑥ LLM 服务层 -->
+  <rect x="15" y="550" width="1170" height="82" rx="8" fill="url(#g6)" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="28" y="570" font-size="12" font-weight="bold" fill="#f87171">⑥ LLM 服务层 (多模型路由)</text>
+  <rect x="160" y="578" width="155" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="237" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">对话 LLM</text>
+  <text x="237" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">DeepSeek/豆包/通义</text>
+  <rect x="325" y="578" width="145" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="397" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Embedding 模型</text>
+  <text x="397" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">向量化/语义匹配</text>
+  <rect x="480" y="578" width="145" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="552" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Rerank 模型</text>
+  <text x="552" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">Cohere/LLM裁判</text>
+  <rect x="635" y="578" width="145" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="707" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">推理模型</text>
+  <text x="707" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">CoT/复杂推理</text>
+  <rect x="790" y="578" width="155" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="867" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">微调 (Finetune)</text>
+  <text x="867" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">数据准备/训练脚本</text>
+  <rect x="955" y="578" width="175" height="44" rx="4" fill="#0a0e1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="1042" y="597" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">模型路由与降级</text>
+  <text x="1042" y="613" font-size="9.5" fill="#94a3b8" text-anchor="middle">按用户选/失败自动切</text>
+  <line x1="600" y1="632" x2="600" y2="644" stroke="#f87171" stroke-width="2" marker-end="url(#ar-r)"/>
+
+  <!-- ⑦ 输出与反馈层 -->
+  <rect x="15" y="644" width="1170" height="62" rx="8" fill="url(#g7)" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="28" y="664" font-size="12" font-weight="bold" fill="#22d3ee">⑦ 输出与反馈层</text>
+  <rect x="180" y="654" width="200" height="40" rx="4" fill="#0a0e1a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="280" y="678" font-size="10.5" fill="#e2e8f0" text-anchor="middle">SSE 流式 + 来源引用</text>
+  <rect x="395" y="654" width="180" height="40" rx="4" fill="#0a0e1a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="485" y="678" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Markdown 渲染/代码高亮</text>
+  <rect x="590" y="654" width="180" height="40" rx="4" fill="#0a0e1a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="680" y="678" font-size="10.5" fill="#e2e8f0" text-anchor="middle">点赞/点踩反馈</text>
+  <rect x="785" y="654" width="200" height="40" rx="4" fill="#0a0e1a" stroke="#06b6d4" stroke-width="1"/>
+  <text x="885" y="678" font-size="10.5" fill="#e2e8f0" text-anchor="middle">主动学习闭环 (bad case)</text>
+  <path d="M 985 654 Q 1100 604 1100 504 Q 1100 454 1050 444" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar-c)"/>
+  <text x="1110" y="554" font-size="9" fill="#22d3ee" transform="rotate(90,1110,554)">反馈驱动检索优化</text>
+  <line x1="600" y1="706" x2="600" y2="718" stroke="#22d3ee" stroke-width="2" marker-end="url(#ar-c)"/>
+
+  <!-- ⑧ 语义缓存层 -->
+  <rect x="15" y="718" width="1170" height="52" rx="8" fill="url(#g8)" stroke="#14b8a6" stroke-width="1.5"/>
+  <text x="28" y="738" font-size="12" font-weight="bold" fill="#2dd4bf">⑧ 语义缓存层</text>
+  <rect x="250" y="726" width="240" height="34" rx="4" fill="#0a0e1a" stroke="#14b8a6" stroke-width="1"/>
+  <text x="370" y="747" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Redis 语义缓存 (相似问题命中)</text>
+  <rect x="510" y="726" width="220" height="34" rx="4" fill="#0a0e1a" stroke="#14b8a6" stroke-width="1"/>
+  <text x="620" y="747" font-size="10.5" fill="#e2e8f0" text-anchor="middle">TTL 策略 / 缓存失效</text>
+  <rect x="750" y="726" width="240" height="34" rx="4" fill="#0a0e1a" stroke="#14b8a6" stroke-width="1"/>
+  <text x="870" y="747" font-size="10.5" fill="#e2e8f0" text-anchor="middle">降低 LLM 调用成本 / 加速响应</text>
+  <line x1="600" y1="770" x2="600" y2="782" stroke="#2dd4bf" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ⑨ 存储层 -->
+  <rect x="15" y="782" width="1170" height="88" rx="8" fill="url(#g9)" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="28" y="802" font-size="12" font-weight="bold" fill="#38bdf8">⑨ 存储层 (多引擎)</text>
+  <rect x="28" y="810" width="140" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="98" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Chroma 向量库</text>
+  <text x="98" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">开发环境默认</text>
+  <rect x="178" y="810" width="140" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="248" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Qdrant 向量库</text>
+  <text x="248" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">生产环境可切换</text>
+  <rect x="328" y="810" width="140" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="398" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">SQLite / PG</text>
+  <text x="398" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">用户/文档/对话</text>
+  <rect x="478" y="810" width="130" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="543" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">BM25 索引</text>
+  <text x="543" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">jieba 倒排</text>
+  <rect x="618" y="810" width="130" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="683" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Mem0 记忆库</text>
+  <text x="683" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">长期事实/画像</text>
+  <rect x="758" y="810" width="130" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="823" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Wiki 页面库</text>
+  <text x="823" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">版本/冲突管理</text>
+  <rect x="898" y="810" width="130" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="963" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">图谱实体库</text>
+  <text x="963" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">实体/关系/社区</text>
+  <rect x="1038" y="810" width="130" height="50" rx="4" fill="#0a0e1a" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="1103" y="830" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">用量统计表</text>
+  <text x="1103" y="848" font-size="9.5" fill="#94a3b8" text-anchor="middle">Token/成本核算</text>
+  <line x1="248" y1="810" x2="271" y2="538" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+  <line x1="543" y1="810" x2="271" y2="538" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+  <line x1="963" y1="810" x2="440" y2="538" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+
+  <!-- ⑩ 部署基础设施层 -->
+  <rect x="15" y="880" width="1170" height="58" rx="8" fill="url(#g10)" stroke="#64748b" stroke-width="1.5"/>
+  <text x="28" y="900" font-size="12" font-weight="bold" fill="#94a3b8">⑩ 部署与基础设施层</text>
+  <rect x="200" y="888" width="210" height="38" rx="4" fill="#0a0e1a" stroke="#64748b" stroke-width="1"/>
+  <text x="305" y="911" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Docker + docker-compose</text>
+  <rect x="425" y="888" width="200" height="38" rx="4" fill="#0a0e1a" stroke="#64748b" stroke-width="1"/>
+  <text x="525" y="911" font-size="10.5" fill="#e2e8f0" text-anchor="middle">Nginx 反向代理</text>
+  <rect x="640" y="888" width="240" height="38" rx="4" fill="#0a0e1a" stroke="#64748b" stroke-width="1"/>
+  <text x="760" y="911" font-size="10.5" fill="#e2e8f0" text-anchor="middle">GitHub Actions CI (pytest+build)</text>
+  <rect x="895" y="888" width="220" height="38" rx="4" fill="#0a0e1a" stroke="#64748b" stroke-width="1"/>
+  <text x="1005" y="911" font-size="10.5" fill="#e2e8f0" text-anchor="middle">PostgreSQL 生产切换</text>
+
+  <!-- 横切能力 -->
+  <rect x="15" y="952" width="1170" height="100" rx="8" fill="#111827" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="28" y="972" font-size="12" font-weight="bold" fill="#94a3b8">横切能力 (贯穿所有层)</text>
+  <rect x="28" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="105" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">安全防护</text>
+  <text x="105" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">注入检测/边界包裹</text>
+  <text x="105" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">工具白名单/输出脱敏</text>
+  <rect x="193" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="270" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">评测体系</text>
+  <text x="270" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">Hit@K/MRR/LLM裁判</text>
+  <text x="270" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">RAGAS/golden QA</text>
+  <rect x="358" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="435" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">可观测性</text>
+  <text x="435" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">Langfuse Trace</text>
+  <text x="435" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">延迟/Token 监控</text>
+  <rect x="523" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="600" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">MCP Server</text>
+  <text x="600" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">stdio / HTTP 双模式</text>
+  <text x="600" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">工具能力暴露</text>
+  <rect x="688" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="765" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">A2A 协议</text>
+  <text x="765" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">Agent Card</text>
+  <text x="765" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">JSON-RPC 互操作</text>
+  <rect x="853" y="982" width="155" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="930" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">多模态解析</text>
+  <text x="930" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">OCR / VLM</text>
+  <text x="930" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">PDF 表格抽取</text>
+  <rect x="1018" y="982" width="152" height="56" rx="4" fill="#0a0e1a" stroke="#475569" stroke-width="1"/>
+  <text x="1094" y="1002" font-size="10.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">LLM Wiki 编译</text>
+  <text x="1094" y="1018" font-size="9.5" fill="#94a3b8" text-anchor="middle">实体抽取/自动互联</text>
+  <text x="1094" y="1032" font-size="9.5" fill="#94a3b8" text-anchor="middle">版本/冲突检测</text>
+
+  <!-- 图例 -->
+  <text x="28" y="1074" font-size="10" fill="#64748b">实线箭头 = 主数据流　｜　虚线 = 数据读写/反馈回环　｜　金色 = Agent决策链路　｜　绿色 = RAG检索链路　｜　青色 = 反馈闭环</text>
+</svg>

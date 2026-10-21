@@ -1,0 +1,7 @@
+/* 自定义正文行宽：1000px（Obsidian 默认约 700px）
+   生效前提：设置 → 编辑器 → 显示 → 限制行宽(Readable line length) 保持开启
+   修改数值后 Obsidian 会自动热重载，无需重启 */
+
+body {
+  --file-line-width: 1000px;
+}

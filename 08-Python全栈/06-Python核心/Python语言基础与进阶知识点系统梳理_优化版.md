@@ -1036,7 +1036,24 @@ class Singleton:
         if not hasattr(self, 'initialized'):
             self.value = value
             self.initialized = True
+'''
+## 两个魔术方法分工（面试重点）
 
+1. `__new__(cls)`：**真正创建对象、分配内存**，第一个参数是 `cls`（当前类），在 `__init__` 之前执行。
+    - 如果 `cls._instance` 是空，就新建实例，保存到类属性 `_instance`
+    - 后续再调用，直接返回已经创建好的旧实例，不再新建
+2. `__init__(self)`：**对象创建完成之后，填充属性**
+
+> ⚠️ 大坑：只要 `__new__` 返回了本类实例，**每次 `Singleton()` 都会触发 `__init__`**！ 如果不做判断，
+第二次 `s2 = Singleton("second")` 会把 `self.value` 覆盖成 `"second"`。
+
+### 这里 `if not hasattr(self, 'initialized')` 的作用
+
+`hasattr(self, 'initialized')` 判断实例身上有没有 `initialized` 属性
+
+- 第一次创建实例：没有这个属性 → 执行赋值 `self.value = value`，再打上标记 `self.initialized=True`
+- 第二次获取旧实例：已经存在 `initialized`，跳过初始化，**不会覆盖旧的 value**
+'''
 s1 = Singleton("first")
 s2 = Singleton("second")
 print(s1 is s2)      # True —— 同一个实例
@@ -1060,6 +1077,21 @@ class Dog:
     def __init__(self, name):
         self.name = name  # 实例属性
         Dog.count += 1    # 修改类属性
+'''
+### 类属性（`species`、`count`）
+
+写在 `class` 内部、`def` 方法外面，属于**类本身**，**所有实例共享同一份**。
+
+- 访问方式：`Dog.count`（推荐，直接用类访问）或者 `d1.count`（实例访问）
+- 内存：只有一份，所有对象共用
+  
+### 实例属性（`self.name`）
+
+在 `__init__` 里通过 `self.xxx` 创建，**属于单个实例，每个实例独立**。
+
+- `d1.name` 是旺财，`d2.name` 是大黄，互不干扰
+- 存在于各自实例对象中
+'''
 
 d1 = Dog("旺财")
 d2 = Dog("大黄")
@@ -1067,6 +1099,28 @@ d2 = Dog("大黄")
 print(Dog.count)   # 2 —— 类属性，所有实例共享
 print(d1.count)    # 2 —— 实例访问类属性（查找顺序：实例→类）
 print(d1.name)     # 旺财 —— 实例属性
+'''
+## 属性查找顺序（重点面试考点）
+
+当你写 `d1.count`：
+
+1. 先去**实例对象 d1**里面找有没有 `count` 属性 → 找不到
+2. 再去**所属类 Dog** 里面找 → 找到类属性 `count`，返回值
+
+> 查找链：实例 → 类 → 父类（继承链）
+
+## ⚠️ 高频坑：不要用实例去赋值类属性
+
+# 错误示范！
+d1.count = 999
+print(Dog.count) # 仍然是 2！
+print(d1.count)  # 999
+print(d2.count)  # 2
+
+原因： `d1.count = 999` **不是修改类属性**，而是**给 d1 新建了一个实例属性 count**，把类属性屏蔽了。
+
+> ✅ 修改类属性，必须用类名：`Dog.count +=1`
+'''
 
 # 实例属性遮蔽类属性
 d1.species = "自定义"  # 这会创建实例属性，而非修改类属性
@@ -1082,7 +1136,8 @@ print(Dog.species)     # Canis lupus —— 类属性未变
 `self` 是对实例对象本身的引用，类似于其他语言中的 `this`。
 
 **原理说明**：
-- 调用实例方法时，Python 自动将实例作为第一个参数传入
+- 调用**实例方法**时，Python 会**自动把当前实例对象，作为第一个实参传给方法的第一个形参（惯例命名为 `self`）**，
+- 我们代码里不用手动传这个参数。
 - `self` 不是关键字，只是约定俗成的参数名（可以用其他名字，但强烈不建议）
 - `self` 确保方法能访问和修改当前实例的属性
 
@@ -1169,6 +1224,109 @@ print(MathUtils.gcd(48, 18))   # 6
 
 > 🔥 **面试高频考点**：实例方法、类方法、静态方法的区别是高频面试题。关键区分点：第一个参数是什么、能访问什么、典型应用场景。类方法常用于**工厂模式**（如 `datetime.fromtimestamp()`），静态方法常用于**工具函数**。
 
+
+普通函数：独立函数，不属于任何对象，**没有自动传参**，参数全部要你自己传。 
+
+**带 self 的是【实例方法（instance method）】**，它写在 class 里面，属于这个类的实例；Python 语法规定：调用实例方法时，**自动把实例塞给第一个参数（self）**。
+
+1. 先看两种函数对比
+
+① 普通独立函数（你平时写的，不需要 self）
+
+```
+def show_temp(val):
+    print(val)
+
+show_temp(25)  # 所有参数自己传，传一个 25
+```
+
+这个函数游离在类外面，它不属于任何对象，没有主人，谁都可以直接调用。 👉 参数完全由调用者手动提供，没有自动偷偷加参数。
+
+② 类里面的实例方法（需要 self）
+
+```
+class Temperature:
+    def show(self, val):
+        print(val)
+
+t = Temperature()
+t.show(25)
+```
+
+你看起来只传了 `25`，**实际上 Python 偷偷传了两个参数：`t` 和 `25`** 等价底层写法（几乎不会这么写）：
+
+```
+Temperature.show(t, 25)
+```
+
+> 重点：`t.show(25)` → 自动把调用者 `t` 作为第一个实参传给 self。 这就是为什么定义的时候要多写一个 self 占位。
+
+2. 类里面一共有 3 种方法，对比记忆
+
+写在 class 内部的函数，分三类，规则完全不一样：
+
+表格
+
+|类型|装饰器|第一个参数|参数是谁|调用形式|
+|---|---|---|---|---|
+|**实例方法（最常用，带 self）**|无|`self`|当前调用的**实例对象**|`t.xxx()`，自动传实例给 self|
+|类方法|`@classmethod`|`cls`|**类本身（Temperature）**|`Temperature.xxx()` / `t.xxx()`，自动传类|
+|静态方法|`@staticmethod`|无强制参数|啥都不自动传|和普通函数一模一样，参数全手动传|
+
+✅ **静态方法就是类里面的普通函数！不需要 self /cls**
+
+```
+class Temperature:
+    @staticmethod
+    def show(val):
+        print(val)
+
+Temperature.show(25) # 直接传25，没有自动参数，和外面普通函数一样
+```
+
+3. 为什么实例方法非要设计成带 self？
+
+核心目的：**方法要访问 / 修改这个实例身上独有的数据**（`self._celsius`）
+
+```
+@celsius.setter
+def celsius(self, value):
+    self._celsius = value
+```
+
+`_celsius` 是**属于这个 t 对象自己的数据**。 当 `t1.celsius = 20` 和 `t2.celsius = 30`：
+
+- 调用 setter 的时候 self 分别是 t1、t2
+- 才能保证修改的是 t1 自己的 `_celsius`、t2 自己的 `_celsius`，互不干扰
+
+> 如果实例方法没有 self，方法就分不清现在操作的是 t1 还是 t2。
+
+4. 容易混淆的关键点
+
+5. **self 只是一个占位形参，不是参数值** 定义方法的时候写 `def xxx(self, ...)` 只是占住第一个位置，等着 Python 自动塞实例进来。 不是你调用的时候要传。
+6. 不是 “写在类里就一定有 self” 静态方法 `@staticmethod` 就不需要，它就是挂靠在类名下、但是没有绑定实例 / 类的普通函数。
+7. 普通函数没有这个自动传参机制，因为它**不属于任何实例，没有属于自己的数据**。
+
+8. 回到 property（我们前面的 celsius）
+
+`@property`、`@xxx.setter`、`@xxx.deleter` 底层包装的依然是**实例方法**，所以定义的时候必须写 self。
+
+```
+@property
+def celsius(self): # 实例方法，所以要有self
+    return self._celsius
+```
+
+调用 `t.celsius`，Python 自动把 t 传给 self。
+
+极简总结
+
+- 外面单独写的函数：普通函数，**无自动传参 → 不用 self**
+- class 里不加装饰器的函数：实例方法，**自动传入调用它的实例 → 必须留 self 位置**
+- class 里`@staticmethod`：静态方法，普通函数，**无自动传参 → 不用 self**
+- class 里`@classmethod`：类方法，自动传入类 → 参数叫 cls
+
+
 #### 属性装饰器 `@property`
 
 `@property` 将方法转换为只读属性，实现 getter/setter/deleter 模式。
@@ -1182,6 +1340,45 @@ class Temperature:
     def celsius(self):
         """获取摄氏度（只读属性）"""
         return self._celsius
+'''
+# 逐行详细拆解
+
+## 1. `class Temperature:`
+
+定义一个名为 `Temperature`（温度）的**类**，用来封装温度相关的数据和行为。 类是创建对象的模板，我们可以通过这个类实例化多个温度对象。
+
+## 2. `def __init__(self, celsius=0):`
+
+`__init__` 是**构造方法**，在创建实例对象的时候自动执行。
+
+- `self`：代表实例对象本身，必须写在第一个参数；
+- `celsius=0`：形参，**默认值为 0**。创建对象时不传参数，温度默认就是 0℃。
+
+## 3. `self._celsius = celsius`
+
+- `self._celsius`：给当前实例绑定一个实例变量 `_celsius`
+- **单下划线 `_` 含义**：Python 约定，代表**内部变量**。
+
+> 约定：外部代码尽量不要直接读写 `_celsius`。⚠️ 语法层面没有强制保护，依然可以强行访问，只是规范，不是私有。
+
+- 赋值：把传入的 `celsius` 参数保存到实例内部变量 `self._celsius`。
+
+## 4. `@property`
+
+**装饰器**，作用：把下面的方法 `celsius()` 变成一个**属性（getter 获取器）**。
+
+> 使用区别：
+> - 普通方法调用：`t.celsius()` 要加括号
+> - @property 装饰后：`t.celsius`，**不加括号**，像读取普通变量一样调用，但底层执行的是这个函数。
+
+## 5. `def celsius(self):`
+
+定义一个方法，被 `@property` 修饰，对外暴露的属性名就叫 `celsius`。 文档字符串：`"""获取摄氏度（只读属性）"""`，说明这个属性作用。
+
+## 6. `return self._celsius`
+
+读取属性 `t.celsius` 的时候，返回内部存储的值 `self._celsius`。
+'''
 
     @celsius.setter
     def celsius(self, value):
@@ -1194,6 +1391,34 @@ class Temperature:
     def celsius(self):
         print("删除温度属性")
         del self._celsius
+'''
+@property 配套有三个组件：getter、setter、deleter。 
+- getter：`@property`，读取属性时触发 
+- setter：`@xxx.setter`，赋值属性时触发，用于参数校验 
+- deleter：`@xxx.deleter`，`del 对象.属性` 时触发，自定义删除逻辑 
+
+# 原理 property 是 Python 内置描述符。setter/deleter 是 property 对象的方法，用来注册赋值、删除回调。 
+  必须先定义 getter，才能注册 setter、deleter。
+
+# 问题
+1. setter/deleter 的函数名必须和 getter 完全一致
+2. 内部变量`_celsius`不能和属性名`celsius`重名，否则递归死循环
+3. deleter 开发中使用频率很低，不是删除 property 本身，是执行自定义逻辑
+   
+## 常见使用场景
+1. **setter**：最常用。入参校验、单位换算、修改时写日志。
+2. **deleter**：日常开发用得很少。一般用于：
+    - 释放文件句柄、数据库连接等资源
+    - 标记对象状态为已销毁
+    - 清理缓存数据
+
+> 普通业务代码，90% 的场景只需要 `@property + @xxx.setter`
+
+## 易错点
+1. getter/setter/deleter 三个方法**函数名必须一模一样**
+2. 内部存储变量必须加下划线 `_celsius`，不能和 property 同名，否则无限递归
+3. deleter 只是钩子；`del t.celsius` 不一定删除 property，取决于你在 deleter 内部写了什么
+'''
 
     @property
     def fahrenheit(self):
@@ -1208,9 +1433,42 @@ t.celsius = 30       # 触发 setter
 print(t.celsius)     # 30
 
 # t.celsius = -300   # ValueError: 温度不能低于绝对零度
+
+'''
+## 分步拆解执行流程
+
+1. `celsius = property(getter函数)``@property` 本质：生成一个 **property 描述符对象**，存到类 `Temperature` 的命名空间里，
+   名字叫 `celsius`。 👉 `Temperature.celsius` = property(getter)
+2. `@celsius.setter` 做了什么？`celsius.setter(你写的set方法)`，它会**返回一个新的 property 对象**，
+   这个新 property 同时绑定了：
+    - getter（原来那个读取方法）
+    - setter（现在传入的赋值方法） 再覆盖到类上，`Temperature.celsius` 现在变成 `property(get, set=None, del=None)`
+3. 执行 `t.celsius = 30` Python 赋值语法的底层规则： 当给实例属性赋值 `obj.属性 = 值`：
+    - 先去**类**上面查这个名字（`Temperature.celsius`）
+    - 发现它是一个**描述符（property 就是描述符）**，并且实现了 `__set__` 方法
+    - 于是自动调用：`Temperature.celsius.__set__(t, 30)`
+    - `property.__set__` 内部就会调用你写的那个 setter 函数，`self=t，value=30`
+
+## 重点易错点
+1. 如果**没有写 @celsius.setter**，这个 property 对象的 `__set__` 不存在； 
+   执行 `t.celsius=30` → 直接抛 `AttributeError: can't set attribute`
+2. 不要写成 `self.celsius = value` 在 setter 内部！
+    ```
+    @celsius.setter
+    def celsius(self, value):
+        self.celsius = value   # ❌ 又触发 __set__，无限递归
+    ```
+    
+    必须操作底层变量：`self._celsius = value`
+    
+3. 不是语法魔法字符串匹配名字！ 不是因为函数名都叫 `celsius` 才绑定，
+   而是： `@property` 得到 property 实例 → 调用该实例的 `.setter()` 方法注册 set 回调，返回新 property。 
+   函数同名只是装饰器语法要求、方便阅读。
+'''
 ```
 
 > 💡 **最佳实践**：`@property` 的优势在于可以在不破坏外部 API 的情况下，将简单属性升级为带校验/计算逻辑的属性。这遵循了**统一访问原则**（Uniform Access Principle）。Python 社区倾向于直接暴露属性，需要时再用 `@property` 包装，而非一开始就写 getter/setter。
+
 
 ### 2.3 继承与多态
 
@@ -1530,6 +1788,39 @@ with_slots = [WithSlots(i, i) for i in range(10000)]
 
 print(f"无__slots__: {sys.getsizeof(without[0]) + sys.getsizeof(without[0].__dict__)} 字节/实例")
 print(f"有__slots__: {sys.getsizeof(with_slots[0])} 字节/实例")
+
+写成下面这样一样能拿到尺寸：
+obj = WithoutSlots(1,1) 
+print(sys.getsizeof(obj) + sys.getsizeof(obj.__dict__))
+
+# ------------------------------ 
+# 方式1：遍历，打印每一个实例的大小（0~9999） 
+# ------------------------------ 
+print("===== 无 slots 每个实例大小 =====") 
+for idx, obj in enumerate(without): 
+    size = sys.getsizeof(obj) + sys.getsizeof(obj.__dict__) 
+    print(f"index {idx}: {size} B") 
+
+print("\n===== 有 slots 每个实例大小 =====") 
+for idx, obj in enumerate(with_slots): 
+size = sys.getsizeof(obj) 
+print(f"index {idx}: {size} B") 
+# ------------------------------ 
+# 方式2：把所有大小收集到列表里（存起来后续处理） 
+# ------------------------------ 
+without_sizes = [sys.getsizeof(o) + sys.getsizeof(o.__dict__) for o in without] 
+with_sizes = [sys.getsizeof(o) for o in with_slots] 
+# 现在 without_sizes[0] 是第0个，without_sizes[9999] 就是第9999个 
+print("\n第9999个无slots实例大小：", without_sizes[9999]) 
+print("第9999个带slots实例大小：", with_sizes[9999]) 
+# ------------------------------ 
+# 方式3：全部实例内存总和 
+# ------------------------------ 
+total_without = sum(without_sizes) 
+total_with = sum(with_sizes) 
+print(f"\n无slots全部10000个总字节：{total_without}") 
+print(f"有slots全部10000个总字节：{total_with}") 
+print(f"一共节省字节：{total_without - total_with}")
 ```
 
 > 🔥 **面试高频考点**：`__slots__` 的原理和作用是面试常考点。要点：① 禁用 `__dict__`，用固定的描述符存储属性；② 内存节省显著（每个实例可省约 40-50%）；③ 属性访问速度更快；④ 不能动态添加属性；⑤ 继承时子类也需要定义 `__slots__` 才能继续节省内存。
