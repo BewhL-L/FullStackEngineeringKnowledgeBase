@@ -2471,6 +2471,28 @@ print(p.greet())
 print(Person.__name__)
 
 > 区别：`class` 是语法糖；`type()` 是直接调用元类手动构造类，这也是理解**元类 metaclass** 的入口。
+
+'''
+setattr 语法
+setattr(对象, 属性名字符串, 属性值)
+等价代码：
+self.name = name
+- `self.name = name` 左边的 `.name` → 属性名，对应 `setattr` 的第二个参数 `"name"`
+- 右边的 `name` → 变量，是传入的值，对应 `setattr` 第三个参数 `name`
+
+### 套进例子
+p = Person("张三")
+调用 `__init__(self, name="张三")`
+- `name` 这个变量的值就是 `"张三"`
+- `setattr(self, "name", name)` 意思：
+> 在 self 这个实例上，创建一个名叫 `name` 的属性，把它的值设为变量 `name`（也就是 "张三"）
+执行之后：`self.name = "张三"`
+
+### 换个写法对比，一眼看懂
+lambda self, n: setattr(self, "name", n)
+这里就变成 `"name"` 和 `n`，就不会混淆了，效果一模一样：属性名固定叫 `name`，值来自参数 `n`。
+代码里写出来的标识符是属性名；程序最终拿到、使用的是属性值
+'''
 ```
 
 #### 元类的概念
