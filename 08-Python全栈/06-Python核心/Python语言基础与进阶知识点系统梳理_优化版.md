@@ -2106,6 +2106,38 @@ print(obj.age)        # 25
 print(obj.email)      # None —— 不存在的属性返回 None
 obj.city = "北京"      # __setattr__
 print(obj.city)       # 北京
+
+## 先搞懂 `__setattr__` 是什么
+只要你执行：
+obj.abc = 123
+Python 就会自动调用：
+obj.__setattr__("abc", 123)
+> ⚠️ **一旦你重写了 `__setattr__`，所有属性赋值都会进你这个函数，包括给 `self._data` 赋值！**
+
+## 2. 如果不判断 `name == "_data"`，会发生什么？
+假设写成错误版本：
+# ❌ 错误写法！
+def __setattr__(self, name, value):
+    self._data[name] = value
+当类初始化的时候执行：
+self._data = {}
+流程：
+1. `self._data = {}` → 触发 `__setattr__("_data", {})`
+2. 进入函数：执行 `self._data[name] = value`
+3. 读取 `self._data` → 又调用 `__getattr__`（如果也自定义了），**或者赋值的时候再次触发 `__setattr__`** 直接无限递归，栈溢出 `RecursionError`。
+
+> 关键点：`self._data = xxx` 本身也是一次属性赋值，也会跑进 `__setattr__`。
+
+## 3. `super().__setattr__(name, value)` 的作用
+
+`super().__setattr__` 调用**父类原生的、没有被重写的 `__setattr__`**，也就是 Python 默认行为：
+
+> 把 `_data` 作为**实例本身的属性**，存入对象的 `__dict__`，**不经过我们自定义的转发逻辑**。
+
+所以分支逻辑：
+
+- 当赋值的名字是 `_data`：交给原生父类，挂载成对象属性
+- 其他所有名字：不往对象 `__dict__` 存，全部塞到 `self._data` 这个字典里面
 ```
 
 > ⚠️ **常见坑点**：`__getattribute__` 是**每次**属性访问都调用，包括在方法内部访问 `self.xxx`，极易引发无限递归。必须通过 `super().__getattribute__(name)` 或 `object.__getattribute__(self, name)` 来访问属性。一般情况下只需重写 `__getattr__`（属性不存在时的回退），不要轻易重写 `__getattribute__`。
