@@ -1869,6 +1869,22 @@ del obj  # 触发 __del__（实际回收时机由 GC 决定）
 | 优先级 | 低，str 存在时 print 优先 str | 高                          |
 | 兜底  | 没有 str 时，repr 兼任 str   | 没有 repr 时，用 object 默认的地址格式 |
 
+| 标记   | 等价调用         | 作用                                |
+| ---- | ------------ | --------------------------------- |
+| `!s` | `str(obj)`   | 调用 `__str__`，给人看，友好输出             |
+| `!r` | `repr(obj)`  | 调用 `__repr__`，调试用，无歧义             |
+| `!a` | `ascii(obj)` | 类似 repr，但把中文等非 ASCII 转义成 `\uXXXX` |
+
+```python
+s = "hello\nworld"
+print(f"{s}")      # hello
+                   # world
+print(f"{s!s}")    # hello
+                   # world，等价 str(s)
+print(f"{s!r}")    # 'hello\nworld' 带引号，转义字符原样展示
+print(f"{s!a}")    # 'hello\nworld'，非ASCII会转成\uxxxx
+```
+
 ```python
 class Point:
     def __init__(self, x, y):

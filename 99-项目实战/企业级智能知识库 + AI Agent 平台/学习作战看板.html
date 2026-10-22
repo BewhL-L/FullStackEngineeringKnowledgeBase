@@ -14,12 +14,12 @@ document.documentElement.dataset.aesthetic=/^(prism|corridor|threads|waves|fiber
 }catch(e){document.documentElement.dataset.aesthetic="waves"}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RAG·学习作战面板</title>
-<meta name="description" content="RAG+Agent 学习作战面板：每日任务打卡、学习节奏可视化、29 周完成度全景。">
+<meta name="description" content="RAG+Agent 学习作战面板：每日任务打卡、学习节奏可视化、25 周完成度全景。">
 <meta name="theme-color" content="#151013">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FOCUS·35 求职冲刺作战面板">
-<meta property="og:description" content="35 周求职冲刺作战面板：每日任务打卡、学习节奏可视化、35 周完成度全景。">
+<meta property="og:description" content="25 周求职冲刺作战面板：每日任务打卡、学习节奏可视化、25 周完成度全景。">
 <meta name="twitter:card" content="summary"> <!-- 无 media：由 JS 随手动/系统主题实时更新 -->
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f073a3'/%3E%3Cstop offset='.5' stop-color='%2393a8f8'/%3E%3Cstop offset='1' stop-color='%23c78cf2'/%3E%3C/linearGradient%3E%3CradialGradient id='h' cx='.36' cy='.32' r='.5'%3E%3Cstop offset='0' stop-color='%23ffffff' stop-opacity='.85'/%3E%3Cstop offset='.55' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/radialGradient%3E%3CclipPath id='c'%3E%3Cpath d='M16.0 15.2Q16.9 8.7 16.0 2.1Q15.1 8.7 16.0 15.2ZM16.6 15.4Q20.0 13.3 22.2 9.8Q18.7 12.0 16.6 15.4ZM16.8 16.0Q23.3 16.9 29.9 16.0Q23.3 15.1 16.8 16.0ZM16.6 16.6Q18.7 20.0 22.2 22.2Q20.0 18.7 16.6 16.6ZM16.0 16.8Q15.1 23.3 16.0 29.9Q16.9 23.3 16.0 16.8ZM15.4 16.6Q12.0 18.7 9.8 22.2Q13.3 20.0 15.4 16.6ZM15.2 16.0Q8.7 15.1 2.1 16.0Q8.7 16.9 15.2 16.0ZM15.4 15.4Q13.3 12.0 9.8 9.8Q12.0 13.3 15.4 15.4Z'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='%23151013'/%3E%3Cg clip-path='url(%23c)'%3E%3Cpath d='M16.0 15.2Q16.9 8.7 16.0 2.1Q15.1 8.7 16.0 15.2ZM16.6 15.4Q20.0 13.3 22.2 9.8Q18.7 12.0 16.6 15.4ZM16.8 16.0Q23.3 16.9 29.9 16.0Q23.3 15.1 16.8 16.0ZM16.6 16.6Q18.7 20.0 22.2 22.2Q20.0 18.7 16.6 16.6ZM16.0 16.8Q15.1 23.3 16.0 29.9Q16.9 23.3 16.0 16.8ZM15.4 16.6Q12.0 18.7 9.8 22.2Q13.3 20.0 15.4 16.6ZM15.2 16.0Q8.7 15.1 2.1 16.0Q8.7 16.9 15.2 16.0ZM15.4 15.4Q13.3 12.0 9.8 9.8Q12.0 13.3 15.4 15.4Z' fill='url(%23g)'/%3E%3Cpath d='M32 0V32H0Z' fill='%23000000' fill-opacity='.30'/%3E%3Cpath d='M32 0H0V32Z' fill='%23ffffff' fill-opacity='.14'/%3E%3Crect width='32' height='32' fill='url(%23h)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
@@ -355,7 +355,7 @@ body::before{
 @keyframes orbC{0%,100%{transform:translate3d(0,0,0) scale(.95)}50%{transform:translate3d(9%,-9%,0) scale(1.12)}}
 
 /* —— 方案 A：纯流体极光（视频同款构图）——网格/微粒/扫描带已移除，
-   完整方案 B 实现保留在 35周冲刺打卡-方案B备份-20260929.html，可随时回滚 */
+   完整方案 B 实现保留在 25周冲刺打卡-方案B备份-20260929.html，可随时回滚 */
 
 /* ============ 图标呼吸灯（同步玫瑰 breathing） ============
    性能约定：keyframes 只动 opacity（合成属性），filter/box-shadow 固定写死在基础规则里，
@@ -993,7 +993,7 @@ button.primary{display:inline-flex;align-items:center;gap:7px;justify-content:ce
 @media (min-width:1200px){
 
 }
-/* 1200–1559：三列时第三列只剩 ~206px，35 周柱阵最小宽度 202px + 内边距必然溢出被裁
+/* 1200–1559：三列时第三列只剩 ~206px，25 周柱阵最小宽度 202px + 内边距必然溢出被裁
    （实测 w=1200 时最后 2 根柱 right=1208 > 卡片 right=1180）。
    改为两列 + 全景卡跨列独占第二行：柱宽从 2px 提升到 ~19px，且不再被 overflow:hidden 裁切。 */
 @media (min-width:1200px) and (max-width:1559px){
@@ -1428,7 +1428,7 @@ body.ui-lock{overflow:hidden}
 .qk-row .qk-chev{width:13px;height:13px;opacity:.5}
 
 /* —— 底部状态栏：倒计时 + 战役进度轨道 + 日期 ——
-   重设计：原 ⏮📅⏭ 周导航三连与主页面既有路径（35 周全景点选 / 搜索 / 周详情翻页）功能重复，
+   重设计：原 ⏮📅⏭ 周导航三连与主页面既有路径（25 周全景点选 / 搜索 / 周详情翻页）功能重复，
    移除后由「战役进度轨道」承接导航——245 天全程可视化，点击任意位置直达对应周（强于三连）。 */
 .player{padding:12px 24px;gap:24px}
 .pl-dd{display:flex;flex-direction:column;gap:2px;min-width:86px}
@@ -1645,7 +1645,7 @@ body.ui-lock{overflow:hidden}
   button.primary,button.ghost{min-height:44px}
   button.ghost{padding:10px 18px}
   .player button.primary{min-height:44px} /* ≤480 断点里 .player button.primary 特异性更高，需同特异性覆盖 */
-  /* 35 周格阵：触屏改 44px 定宽 + 可横滑，命中区上下外扩至 44px（左右不外扩避免相邻互抢） */
+  /* 25 周格阵：触屏改 44px 定宽 + 可横滑，命中区上下外扩至 44px（左右不外扩避免相邻互抢） */
   .pano-grid{gap:6px;overflow-x:auto;overflow-y:hidden;padding-bottom:6px;
         scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
   .wk-cell{flex:0 0 44px;min-height:24px;position:relative}
@@ -2366,7 +2366,7 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
     </div>
     <div class="brand-txt">
       <h1>RAG<em>·</em><span class="gradient-text">学习</span></h1>
-      <p>RAG+Agent 学习作战面板 · 2026-10-12 → 2027-04-30</p>
+      <p>RAG+Agent 学习作战面板 · 2026-11-01 → 2027-04-30</p>
     </div>
   </div>
   <div class="top-actions" aria-label="快捷操作">
@@ -2494,7 +2494,7 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
 
   <!-- ============ 主列 ============ -->
   <main class="col-main">
-    <div class="banner" id="banner">全部 35 周任务完成 —— 你已经准备好走上面试场了。</div>
+    <div class="banner" id="banner">全部 25 周任务完成 —— 你已经准备好走上面试场了。</div>
 
     <!-- 落后预警条（批次2）：落后时显示，一键进入重排向导（动态状态条，不参加入场编排） -->
     <div class="dev-strip rv" id="devStrip" hidden>
@@ -2553,13 +2553,13 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
       </div>
     </section>
 
-    <!-- 35 周全景：周格网格 -->
-    <section class="pano-card glass-side-card rv" aria-label="35 周全景">
+    <!-- 25 周全景：周格网格 -->
+    <section class="pano-card glass-side-card rv" aria-label="25 周全景">
       <div class="card-head">
-        <span class="card-title">29 周全景</span>
+        <span class="card-title">25 周全景</span>
         <span class="card-sub" id="panoSub">W01 / 29 · 点击周格跳转</span>
       </div>
-      <div class="pano-grid" id="panoGrid" role="group" aria-label="35 周完成度总览，点击跳转"></div>
+      <div class="pano-grid" id="panoGrid" role="group" aria-label="25 周完成度总览，点击跳转"></div>
     </section>
 
     <!-- 快捷入口 -->
@@ -2569,7 +2569,7 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
         <svg class="ico qk-chev" aria-hidden="true"><use href="#i-chev-r"/></svg>
       </button>
       <button class="qk-row" id="qkPlan" type="button">
-        <svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg><span>35 周完整计划表</span>
+        <svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg><span>25 周完整计划表</span>
         <svg class="ico qk-chev" aria-hidden="true"><use href="#i-chev-r"/></svg>
       </button>
       <button class="qk-row" id="qkReview" type="button">
@@ -2660,7 +2660,7 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
   <div class="pl-track-wrap">
     <span class="pl-node" aria-hidden="true">出发<b>10·12</b></span>
     <div class="pl-track" id="plTrack" role="slider" tabindex="0"
-         aria-label="35 周战线：点击或用方向键选择浏览周"
+         aria-label="25 周战线：点击或用方向键选择浏览周"
          aria-valuemin="1" aria-valuemax="35" aria-valuenow="1" aria-valuetext="W01">
       <i class="pl-fill" id="plFill" aria-hidden="true"></i>
       <i class="pl-dot" id="plDot" aria-hidden="true"></i>
@@ -2729,44 +2729,15 @@ html[data-aesthetic] .wv-day.flash-hl{animation-name:flashHlAe}
 
 <script>
 /* ================================================================
- * 数据：35 周计划（每天 8h 左右，任务粒度 = 1~3h 的可执行动作）
+ * 数据：25 周计划（每天 8h 左右，任务粒度 = 1~3h 的可执行动作）
  * 阶段：一 基础补熟 W1-3 / 二 RAG 主链路 W4-6 / 三 差异化进阶 W7-10
  *       四 真实数据与生产化 W11-13 / 五 Agent 深化与扩展 W14-16
  *       六 部署上线与作品化 W17-20 / 七 求职冲刺 W21-35
  * ================================================================ */
-const START = new Date(2026, 9, 12); // 2026-10-12（周一）
+const START = new Date(2026, 10, 1); // 2026-11-01（周日）
 const END = new Date(2027, 3, 30);    // 2027-04-30（周五 D-Day）
-const BASE_PLAN = [
-{w:1,ph:1,t:"环境就绪：Docker 五容器跑通 + Git 基线",days:[[["docker compose up -d，确认五容器 postgres/redis/qdrant/backend/frontend Up",2],["docker compose logs -f backend 看启动日志无报错",1],["访问 :5173 前端与 :8000/docs 后端可打开",1]],[["申请硅基流动 Key，.env 填 LLM_API_KEY + Embedding bge-m3",1.5],["重启后端，发一条对话验证流式回复正常",1],["画一张系统架构图：前端→FastAPI→检索→LLM",2.5],["配好 Git：user.name/user.email，git init",1]],[["上传 1 份 PDF，走查上传→切片→向量化→问答→看来源",2.5],["打开 :8000/docs 浏览全部接口并记下用途",1.5],["白板默写一次问答的数据流",2]],[["Git 首次 commit：提交当前可跑代码作为基线",1],["装 VSCode 插件：Python/Volar/Docker/ES7+React Snippets",1],["补前置：Python async/await 与事件循环原理",3],["补前置：FastAPI Depends 与 Pydantic v2",3]],[["精读 README 学习指南八章，建立全局认知",2],["读 docker-compose.yml，理解五容器网络与卷",2],["读 backend/.env.example，理解每个配置项",2],["记录环境问题到 env-troubleshoot.md",1]],[["补前置：Vue3 组合式 API ref/reactive/computed",3],["补前置：TypeScript interface/type/泛型基础",3],["读 frontend/package.json 理解技术栈",1]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:2,ph:2,t:"读懂 RAG 主链路（精读源码）",days:[[["精读 document_parser.py：PDF/Word 解析与分块",2.5],["精读 text_splitter.py：切片策略与 overlap",2.5],["白板画解析→切片的数据流",2]],[["精读 vector_store.py / qdrant_store.py：向量写入与检索",3],["精读 rag_service.py：检索+拼Prompt+生成主流程",3]],[["精读 llm_service.py：LLM 调用与流式封装",2.5],["精读 routers/chat.py：SSE 流式出口",2.5],["画 SSE 后端 yield 时序图",2]],[["精读 frontend/src/api/chat.ts：ReadableStream 解析",2.5],["精读 Chat.vue：打字机渲染与滚动",2.5],["对照后端 SSE 画前端消费时序图",2]],[["改 chunk_size=500/1000/2000，观察切片与召回变化",3],["记录三组参数的效果差异到 notes",2.5],["读 config/settings.py 理解参数注入",1.5]],[["白板：默写从上传文档到回答的完整链路（不看代码）",3.5],["费曼：把链路讲给不懂的人听并录音",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:3,ph:2,t:"走查全页面 + 补前端前置",days:[[["注册登录，走查所有前端页面（知识库/对话/设置）",2.5],["记录每个页面对应的后端接口",1.5],["走查失败态：断网/空知识库的提示",1.5]],[["前端补前置：Vue3 setup 语法糖与响应式原理",3.5],["对照项目 Chat.vue/知识库页读一遍",2.5]],[["前端补前置：Pinia store 与持久化",3],["前端补前置：Vue Router 路由守卫",3]],[["后端补前置：Pydantic v2 model 与 validator",3],["后端补前置：SQLAlchemy 异步 ORM",3]],[["真实数据走查：上传 3-5 份自己领域文档并提问",3],["记录第一版 bad case 到 badcase.md",2.5]],[["写一篇笔记：一次问答背后的完整数据流",3.5],["画前端→后端→DB→向量库→LLM 的时序图",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:4,ph:3,t:"P0① 评测体系：Hit@K/MRR/Context Precision",days:[[["读 01-RAG评测体系深度指南",3],["理解 Hit@K / MRR / Context Precision / Recall@K 定义",2.5]],[["跑通现有 golden_qa.json，跑基线评测",3],["读 evaluation/metrics.py 源码",2.5]],[["白板：手算 Hit@K 与 MRR（给一组结果列表）",3],["对照 eval_reports/ 读指标含义",2.5]],[["补 golden QA：加 10 条事实型问答",3.5],["覆盖事实型题型",1.5]],[["补 golden QA：加 10 条推理型问答",3.5],["记录题型分布",1.5]],[["写一个评测脚本：批量跑 golden 并输出报告",3.5],["把基线报告存到 eval_reports/baseline/",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:5,ph:3,t:"P0② BM25 关键词检索",days:[[["读 BM25 论文核心公式与字段归一化",3],["理解 ES/OpenSearch BM25 与内存版实现差异",2.5]],[["精读项目 BM25 检索器源码（如已接入）",3],["对比纯向量检索的 bad case",2.5]],[["白板：手算一个 3 文档集合的 BM25 分数",3.5],["调 b/k1 参数观察 TopK 变化",2.5]],[["实现：给项目加一个 BM25 检索器类",4]],[["对比实验：纯向量 vs 纯 BM25 在 golden 上的指标",3.5],["记录结果",1.5]],[["写笔记：什么时候 BM25 优于向量（专有名词/ID/编号）",3.5],["费曼讲解 BM25",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:6,ph:3,t:"P0③ 向量检索与 Embedding",days:[[["理解 Embedding 原理：双塔/对比学习/归一化",3.5],["读 bge-m3 模型卡与维度/最大长度",2.5]],[["精读 vector_store.py 的 upsert/query 实现",3],["理解 Qdrant collection/payload/filter",3]],[["白板：向量相似度 cosine/dot/L2 计算与适用场景",3.5],["理解归一化对 cosine 的影响",2.5]],[["实验：换 text-embedding-3-small 对比 bge-m3",4]],[["实验：调 top_k=3/5/10 看 Precision/Recall 权衡",3.5],["记录最优 top_k",1.5]],[["写笔记：Embedding 维度/中英文/长文档截断注意点",3.5],["过本周所有白板",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:7,ph:3,t:"P0④ 混合检索 + RRF 融合",days:[[["读 RRF(Reciprocal Rank Fusion) 公式与直觉",3.5],["理解为什么 RRF 比加权分数更稳",2.5]],[["实现 hybrid_search：BM25 结果 + 向量结果",4]],[["实现 RRF 融合：合并两路 TopK 并打分",3.5]],[["在 golden 上跑混合检索 vs 单路，对比指标",3.5],["记录提升幅度",1.5]],[["调 RRF 常数 k=20/40/60，观察稳定性",3.5],["写实验记录",1.5]],[["白板：画混合检索流程图",3.5],["费曼：为什么 RRF 抗漂移",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:8,ph:3,t:"P0⑤ Rerank 重排序",days:[[["理解 Rerank 与双塔 Embedding 的区别（Cross-Encoder）",3.5],["读 bge-reranker-v2 模型卡",2.5]],[["接入 rerank 服务：先检索 20 条再 rerank 到 5 条",4]],[["实验：加 rerank 前后 Context Precision 变化",3.5],["记录延迟代价",1.5]],[["理解 rerank 延迟与成本权衡（CPU/GPU/API）",3.5],["实验：rerank top_n=10/20/50",2.5]],[["写笔记：rerank 何时值得加（高价值问答/长文档）",3.5],["白板：两阶段检索漏斗",2.5]],[["本周综合实验：纯向量→混合→rerank 三级对比报告",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:9,ph:3,t:"P0⑥ 切片策略深度调优",days:[[["理解固定切片/语义切片/父子切片/Proposition 切片",3.5],["读项目 splitter 源码",2.5]],[["实验：chunk_size=300/500/800 + overlap=50/100",4]],[["实验：按标题/Markdown 结构切片 vs 固定长度",4]],[["实验：父子切片（小切片检索/大切片给 LLM）",4]],[["在 golden 上对比四种切片策略的 Context Precision",3.5],["写结论",1.5]],[["白板：切片为什么是 RAG 最大杠杆",3.5],["写笔记：切片决策树",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:10,ph:3,t:"P0⑦ 上下文组装与 Prompt 工程",days:[[["读 rag_service.py 的 Prompt 模板",3],["理解系统/用户/上下文/问题四段结构",2.5]],[["实验：上下文条数 3/5/8 + 去重 + 引用标注",4]],[["理解上下文压缩：NL 压缩/抽取式压缩",3.5],["实现一个简单的去重+重排序组装",2.5]],[["Prompt 工程：加角色/格式约束/拒答规则",3.5],["实验：Prompt 变体对回答质量影响",2.5]],[["实验：幻觉抑制——要求无依据时说不知道",3.5],["在 golden 上测拒答正确率",2.5]],[["白板：Prompt 模板演化史（zero-shot→few-shot→CoT）",3.5],["写最佳实践清单",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:11,ph:3,t:"P0⑧ MCP 工具调用基础",days:[[["读 MCP(Model Context Protocol) 规范核心概念",3.5],["理解 tool 定义/schema/调用循环",2.5]],[["实现一个查知识库的 tool：输入 query 返回片段",4]],[["实现一个时间/计算器 tool 做实验",3.5],["在 LLM 循环里挂两个 tool",2.5]],[["理解 tool calling 的 prompt 协议与 function calling",3.5],["实验：让模型自主选择 tool",2.5]],[["写笔记：MCP vs 传统 function calling 的关系",3.5],["白板：tool calling 循环图",2.5]],[["把 tool 调用接进项目 chat 接口，跑通一轮",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:12,ph:3,t:"P0⑨ Self-RAG 与 LLM Wiki 概念",days:[[["读 Self-RAG 论文核心：反思 token/检索决策",3.5],["理解何时该检索/何时拒答",2.5]],[["实现一个简化版：query 分类（事实型/闲聊型）",4]],[["理解 LLM Wiki：知识编译 vs 运行时检索分工",3.5],["读项目里 wiki/ 目录结构",2.5]],[["实验：事实型才检索，闲聊型直接答，对比成本",3.5],["记录 token 节省",2.5]],[["白板：Self-RAG 的反思节点设计",3.5],["写笔记：什么时候 RAG 会过度检索",2.5]],[["阶段2 综合复盘：把 P0①-⑨ 的实验报告整理成一篇文档",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:13,ph:4,t:"P1① 可观测性 Langfuse",days:[[["自托管 Langfuse 或用云版，接入项目",3.5],["读 Langfuse trace/score/session 模型",2.5]],[["给 chat/rag/llm 调用加装饰器埋点",4]],[["实验：在 Langfuse 里看一次请求的完整 trace",3.5],["给好/坏回答打分",2.5]],[["配置 prompt 版本管理与线上比对",3.5],["写笔记：可观测性对 RAG 的价值",2.5]],[["用 Langfuse 数据找 top5 bad case",3.5],["记录到 badcase.md",2.5]],[["白板：一次请求在 Langfuse 里的 trace 树",3.5],["本周综合整理",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:14,ph:4,t:"P1② LangGraph 状态机重构",days:[[["读 LangGraph 核心：StateGraph/Node/Edge/Conditional",3.5],["理解与裸 while 循环的区别",2.5]],[["把 rag_service 重构成 LangGraph：retrieve→rerank→generate",4]],[["加条件边：检索结果空时走拒答节点",3.5],["加 human-in-the-loop 节点（可选）",2.5]],[["实现流式输出：LangGraph token stream",3.5],["对比之前裸 SSE 写法",2.5]],[["写笔记：LangGraph 适合多步/分支/循环 Agent",3.5],["白板：本项目的状态图",2.5]],[["测试：新图与旧版在 golden 上指标对齐",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:15,ph:4,t:"P1③ 成本与延迟优化",days:[[["统计当前每次问答的 token 成本与延迟",3.5],["分解：Embedding/rerank/LLM 各占多少",2.5]],[["优化：缓存相同 query 的检索结果",4]],[["优化：小模型做 query 改写/分类，大模型做生成",3.5],["实验：分级模型降本",2.5]],[["优化：上下文压缩——只送最相关 N 条",3.5],["测延迟 P50/P95",2.5]],[["写成本报告：优化前后对比表",3.5],["设预算告警阈值",2.5]],[["白板：成本优化的四个杠杆（模型/缓存/上下文/批量）",3.5],["整理笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:16,ph:4,t:"P1④ Bad case 闭环",days:[[["整理 badcase.md 里 top20 问题",3.5],["分类：切片差/检索差/Prompt差/LLM错",2.5]],[["针对切片差：调切片策略并重跑评测",4]],[["针对检索差：调 BM25/向量权重/top_k",4]],[["针对 Prompt 差：改模板/加例子",3.5],["重跑评测看指标提升",2.5]],[["建 bad case 回归集：每次改完跑一遍",3.5],["写 CI 脚本（手动即可）",2.5]],[["写 P1 总结：从 baseline 到优化后指标对比",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:17,ph:5,t:"P2① Agent 多步推理",days:[[["读 ReAct/Plan-Execute/Reflexion 范式",3.5],["理解单 Agent vs 多 Agent",2.5]],[["用 LangGraph 实现一个研究 Agent：分解问题→检索→综合",4]],[["实验：多轮检索（先检索摘要再检索细节）",3.5],["对比单轮 RAG 回答质量",2.5]],[["理解 Agent 记忆：短期对话/长期向量记忆",3.5],["给项目加对话历史摘要",2.5]],[["写笔记：什么时候需要 Agent（多跳/需要工具/不确定）",3.5],["白板：ReAct 循环",2.5]],[["给项目加一个『深度研究』模式开关",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:18,ph:5,t:"P2② 多模态与文档理解",days:[[["理解多模态 RAG：图片/表格/公式抽取",3.5],["看项目 parser 是否支持 OCR",2.5]],[["接入一个 OCR/表格抽取方案（如 paddleocr）",4]],[["实验：带图文档问答 vs 纯文本问答",3.5],["记录提升",2.5]],[["理解表格结构化：markdown/HTML/JSON",3.5],["实验：表格问答",2.5]],[["写笔记：多模态 RAG 的工程复杂度",3.5],["白板：文档解析流水线",2.5]],[["扩展 parser：支持 1 种新格式（如 epub/html）",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:19,ph:5,t:"P2③ 流式与前端体验深化",days:[[["优化流式：首 token 延迟 TTFT 降到 1s 内",3.5],["测各环节耗时",2.5]],[["前端：打字机/代码高亮/引用可点击",4]],[["前端：回答中引用标号点击定位原文",3.5],["做高亮弹窗",2.5]],[["理解 SSE 断线重连与心跳",3.5],["实验：弱网下的体验",2.5]],[["写笔记：流式 UX 的细节清单",3.5],["整理截图 before/after",2.5]],[["本周综合：录一段产品演示视频",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:20,ph:6,t:"专家① 前端 Vue3 深化：状态管理与组件设计",days:[[["精读 Pinia：getter/action/持久化插件原理",3.5],["重构一个 store 加上类型",2.5]],[["精读 Vue3 响应式原理：proxy/effect/render",3.5],["写一个迷你响应式 demo",2.5]],[["设计一个可复用组件：对话气泡/Markdown 渲染器",4]],[["实验：Vue3 `<script setup>` + TS 最佳实践",3.5],["重构 Chat.vue 抽取子组件",2.5]],[["前端补：Vite 构建优化/懒加载/环境变量",3.5],["配置代理与生产环境",2.5]],[["白板：Vue3 渲染流程（template→vnode→DOM）",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:21,ph:6,t:"专家② 后端 FastAPI 深化：中间件/依赖/异步",days:[[["精读 FastAPI 中间件/CORS/异常处理",3.5],["加一个请求日志中间件",2.5]],[["理解 async 数据库：asyncpg/async SQLAlchemy",3.5],["排查一处异步阻塞",2.5]],[["实现：接口限流 + API Key 鉴权中间件",4]],[["写单元测试：pytest + httpx AsyncClient",3.5],["覆盖率提到核心接口 80%",2.5]],[["读 Pydantic v2 性能：model_validate/serialization",3.5],["优化一个热路径接口",2.5]],[["白板：FastAPI 请求生命周期",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:22,ph:6,t:"专家③ 数据库与向量库优化",days:[[["PostgreSQL：索引/N+1/慢查询分析",3.5],["加合适索引并 EXPLAIN",2.5]],[["Qdrant：shard/replication/filter 优化",3.5],["读官方最佳实践",2.5]],[["理解混合架构：PG 存元数据+Qdrant 存向量",3.5],["设计多租户数据隔离方案",2.5]],[["写一个数据迁移脚本：文档更新时同步向量",4]],[["实验：百万向量级（造数据）下 top_k 延迟",3.5],["记录 P95",2.5]],[["白板：RAG 存储层架构图",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:23,ph:6,t:"专家④ 容器化与部署上线",days:[[["docker-compose.prod.yml：多阶段构建/非 root/健康检查",4]],[["理解 Nginx 反向代理 + 前端静态资源托管",3.5],["配 HTTPS（自签先跑通）",2.5]],[["配置环境分离：dev/staging/prod .env",3.5],["写部署脚本 deploy.sh",2.5]],[["日志：集中收集（简单方案：docker logs + 文件轮转）",3.5],["监控：健康检查接口",2.5]],[["在一台机器上完整部署一次（本机或云）",4]],[["写部署文档：从零到访问线上地址",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:24,ph:6,t:"专家⑤ 安全与权限",days:[[["鉴权：JWT 刷新机制/过期/续期",3.5],["加权限分级（用户/管理员）",2.5]],[["文件上传安全：类型/大小/病毒扫描（基础）",3.5],["路径穿越防护",2.5]],[["敏感信息：.env 不入库/密钥轮换",3.5],["检查前端是否泄露 key",2.5]],[["SQL 注入/XSS/CSRF 自查清单",3.5],["修发现的问题",2.5]],[["写安全 checklist 文档",3.5],["过一遍 OWASP Top10",2.5]],[["白板：一个请求的安全链路",3.5],["整理笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:25,ph:6,t:"专家⑥ 二开实战：加一个新功能",days:[[["选一个新功能：对话分享/收藏/多知识库隔离",4]],[["设计 API：路由/Schema/权限",3.5],["写后端",3.5]],[["写前端页面与状态接入",4]],[["加测试 + 跑评测不回归",3.5],["修 bug",2.5]],[["写一篇博客：这个功能从需求到上线",3.5],["录演示",2.5]],[["把二开代码合并主分支，打 tag v0.2",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:26,ph:7,t:"复盘① 代码地图与源码精读",days:[[["画整个项目的代码地图（目录→职责→关键函数）",4]],[["挑 3 个核心文件逐行精读（rag_service/vector_store/chat.vue）",4]],[["把所有实验报告整理成 docs/experiments/",4]],[["过一遍 badcase.md，确认每个问题都有归因",4]],[["白板：不看代码画数据流图",4]],[["写一篇『这个项目的技术决策为什么这么选』",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:27,ph:7,t:"复盘② 八股与面试题准备",days:[[["RAG 八股：切片/检索/rerank/幻觉/评测 各写 1 页",4]],[["FastAPI 八股：异步/依赖注入/中间件/SSE",4]],[["Vue3 八股：响应式/生命周期/Pinia/SSR",4]],[["LangChain/LangGraph：链/Agent/状态图/工具调用",4]],[["数据库：索引/事务/隔离级别/向量索引 HNSW",4]],[["模拟面试：对着白板讲 3 个项目难点",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:28,ph:7,t:"复盘③ 项目作品化与简历",days:[[["写项目 README：架构图/截图/技术栈/亮点",4]],[["录 3 分钟项目演示视频",4]],[["简历：把项目写成 STAR 描述（3-5 条）",4]],[["GitHub：整理 commit/打 release/写 LICENSE",4]],[["准备 3 个追问点：你做了什么取舍/遇到什么坑/怎么优化",4]],[["模拟面试：让 AI 当面试官问 20 题",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},
-{w:29,ph:7,t:"缓冲·最终验收",days:[[["从零 docker compose up 跑通（干净环境）",4]],[["按终极 checklist 逐项打勾",4]],[["补遗漏：任何没跑通的环节",4]],[["写一篇学习总结：35 周到这里收获了什么",4]],[["放松：看一遍自己的代码地图，准备进入下一个项目",4]],[["D-Day：项目专家验收，录最终演示",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]}
-];
+const BASE_PLAN = [{w:1,ph:1,t:"环境就绪：Docker 五容器跑通 + Git 基线",days:[[["docker compose up -d，确认五容器 postgres/redis/qdrant/backend/frontend Up",2],["docker compose logs -f backend 看启动日志无报错",1],["访问 :5173 前端与 :8000/docs 后端可打开",1]],[["申请硅基流动 Key，.env 填 LLM_API_KEY + Embedding bge-m3",1.5],["重启后端，发一条对话验证流式回复正常",1],["画一张系统架构图：前端→FastAPI→检索→LLM",2.5],["配好 Git：user.name/user.email，git init",1]],[["上传 1 份 PDF，走查上传→切片→向量化→问答→看来源",2.5],["打开 :8000/docs 浏览全部接口并记下用途",1.5],["白板默写一次问答的数据流",2]],[["Git 首次 commit：提交当前可跑代码作为基线",1],["装 VSCode 插件：Python/Volar/Docker/ES7+React Snippets",1],["补前置：Python async/await 与事件循环原理",3],["补前置：FastAPI Depends 与 Pydantic v2",3]],[["精读 README 学习指南八章，建立全局认知",2],["读 docker-compose.yml，理解五容器网络与卷",2],["读 backend/.env.example，理解每个配置项",2],["记录环境问题到 env-troubleshoot.md",1]],[["补前置：Vue3 组合式 API ref/reactive/computed",3],["补前置：TypeScript interface/type/泛型基础",3],["读 frontend/package.json 理解技术栈",1]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:2,ph:2,t:"读懂 RAG 主链路（精读源码）",days:[[["精读 document_parser.py：PDF/Word 解析与分块",2.5],["精读 text_splitter.py：切片策略与 overlap",2.5],["白板画解析→切片的数据流",2]],[["精读 vector_store.py / qdrant_store.py：向量写入与检索",3],["精读 rag_service.py：检索+拼Prompt+生成主流程",3]],[["精读 llm_service.py：LLM 调用与流式封装",2.5],["精读 routers/chat.py：SSE 流式出口",2.5],["画 SSE 后端 yield 时序图",2]],[["精读 frontend/src/api/chat.ts：ReadableStream 解析",2.5],["精读 Chat.vue：打字机渲染与滚动",2.5],["对照后端 SSE 画前端消费时序图",2]],[["改 chunk_size=500/1000/2000，观察切片与召回变化",3],["记录三组参数的效果差异到 notes",2.5],["读 config/settings.py 理解参数注入",1.5]],[["白板：默写从上传文档到回答的完整链路（不看代码）",3.5],["费曼：把链路讲给不懂的人听并录音",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:3,ph:2,t:"走查全页面 + 补前端前置",days:[[["注册登录，走查所有前端页面（知识库/对话/设置）",2.5],["记录每个页面对应的后端接口",1.5],["走查失败态：断网/空知识库的提示",1.5]],[["前端补前置：Vue3 setup 语法糖与响应式原理",3.5],["对照项目 Chat.vue/知识库页读一遍",2.5]],[["前端补前置：Pinia store 与持久化",3],["前端补前置：Vue Router 路由守卫",3]],[["后端补前置：Pydantic v2 model 与 validator",3],["后端补前置：SQLAlchemy 异步 ORM",3]],[["真实数据走查：上传 3-5 份自己领域文档并提问",3],["记录第一版 bad case 到 badcase.md",2.5]],[["写一篇笔记：一次问答背后的完整数据流",3.5],["画前端→后端→DB→向量库→LLM 的时序图",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:4,ph:3,t:"P0① 评测体系：Hit@K/MRR/Context Precision",days:[[["读 01-RAG评测体系深度指南",3],["理解 Hit@K / MRR / Context Precision / Recall@K 定义",2.5]],[["跑通现有 golden_qa.json，跑基线评测",3],["读 evaluation/metrics.py 源码",2.5]],[["白板：手算 Hit@K 与 MRR（给一组结果列表）",3],["对照 eval_reports/ 读指标含义",2.5]],[["补 golden QA：加 10 条事实型问答",3.5],["覆盖事实型题型",1.5]],[["补 golden QA：加 10 条推理型问答",3.5],["记录题型分布",1.5]],[["写一个评测脚本：批量跑 golden 并输出报告",3.5],["把基线报告存到 eval_reports/baseline/",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:5,ph:3,t:"P0② BM25 关键词检索",days:[[["读 BM25 论文核心公式与字段归一化",3],["理解 ES/OpenSearch BM25 与内存版实现差异",2.5]],[["精读项目 BM25 检索器源码（如已接入）",3],["对比纯向量检索的 bad case",2.5]],[["白板：手算一个 3 文档集合的 BM25 分数",3.5],["调 b/k1 参数观察 TopK 变化",2.5]],[["实现：给项目加一个 BM25 检索器类",4]],[["对比实验：纯向量 vs 纯 BM25 在 golden 上的指标",3.5],["记录结果",1.5]],[["写笔记：什么时候 BM25 优于向量（专有名词/ID/编号）",3.5],["费曼讲解 BM25",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:6,ph:3,t:"P0③ 向量检索与 Embedding",days:[[["理解 Embedding 原理：双塔/对比学习/归一化",3.5],["读 bge-m3 模型卡与维度/最大长度",2.5]],[["精读 vector_store.py 的 upsert/query 实现",3],["理解 Qdrant collection/payload/filter",3]],[["白板：向量相似度 cosine/dot/L2 计算与适用场景",3.5],["理解归一化对 cosine 的影响",2.5]],[["实验：换 text-embedding-3-small 对比 bge-m3",4]],[["实验：调 top_k=3/5/10 看 Precision/Recall 权衡",3.5],["记录最优 top_k",1.5]],[["写笔记：Embedding 维度/中英文/长文档截断注意点",3.5],["过本周所有白板",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:7,ph:3,t:"P0④ 混合检索 + RRF 融合",days:[[["读 RRF(Reciprocal Rank Fusion) 公式与直觉",3.5],["理解为什么 RRF 比加权分数更稳",2.5]],[["实现 hybrid_search：BM25 结果 + 向量结果",4]],[["实现 RRF 融合：合并两路 TopK 并打分",3.5]],[["在 golden 上跑混合检索 vs 单路，对比指标",3.5],["记录提升幅度",1.5]],[["调 RRF 常数 k=20/40/60，观察稳定性",3.5],["写实验记录",1.5]],[["白板：画混合检索流程图",3.5],["费曼：为什么 RRF 抗漂移",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:8,ph:3,t:"P0⑤ Rerank 重排序",days:[[["理解 Rerank 与双塔 Embedding 的区别（Cross-Encoder）",3.5],["读 bge-reranker-v2 模型卡",2.5]],[["接入 rerank 服务：先检索 20 条再 rerank 到 5 条",4]],[["实验：加 rerank 前后 Context Precision 变化",3.5],["记录延迟代价",1.5]],[["理解 rerank 延迟与成本权衡（CPU/GPU/API）",3.5],["实验：rerank top_n=10/20/50",2.5]],[["写笔记：rerank 何时值得加（高价值问答/长文档）",3.5],["白板：两阶段检索漏斗",2.5]],[["本周综合实验：纯向量→混合→rerank 三级对比报告",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:9,ph:3,t:"P0⑥ 切片策略深度调优",days:[[["理解固定切片/语义切片/父子切片/Proposition 切片",3.5],["读项目 splitter 源码",2.5]],[["实验：chunk_size=300/500/800 + overlap=50/100",4]],[["实验：按标题/Markdown 结构切片 vs 固定长度",4]],[["实验：父子切片（小切片检索/大切片给 LLM）",4]],[["在 golden 上对比四种切片策略的 Context Precision",3.5],["写结论",1.5]],[["白板：切片为什么是 RAG 最大杠杆",3.5],["写笔记：切片决策树",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:10,ph:3,t:"P0⑦ 上下文组装与 Prompt 工程",days:[[["读 rag_service.py 的 Prompt 模板",3],["理解系统/用户/上下文/问题四段结构",2.5]],[["实验：上下文条数 3/5/8 + 去重 + 引用标注",4]],[["理解上下文压缩：NL 压缩/抽取式压缩",3.5],["实现一个简单的去重+重排序组装",2.5]],[["Prompt 工程：加角色/格式约束/拒答规则",3.5],["实验：Prompt 变体对回答质量影响",2.5]],[["实验：幻觉抑制——要求无依据时说不知道",3.5],["在 golden 上测拒答正确率",2.5]],[["白板：Prompt 模板演化史（zero-shot→few-shot→CoT）",3.5],["写最佳实践清单",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:11,ph:3,t:"P0⑧ MCP 工具调用 + Self-RAG/LLM Wiki",days:[[["读 MCP(Model Context Protocol) 规范核心概念",3.5],["在 LLM 循环里挂两个 tool",2.5],["写笔记：MCP vs 传统 function calling 的关系",3.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["理解 tool 定义/schema/调用循环",2.5],["理解 LLM Wiki：知识编译 vs 运行时检索分工",3.5],["白板：tool calling 循环图",2.5],["弹性缓冲补落下任务",2.2]],[["读 Self-RAG 论文核心：反思 token/检索决策",3.5],["读项目里 wiki/ 目录结构",2.5],["白板：Self-RAG 的反思节点设计",3.5],["过间隔重复卡片",0.3]],[["理解何时该检索/何时拒答",2.5],["理解 tool calling 的 prompt 协议与 function calling",3.5],["写笔记：什么时候 RAG 会过度检索",2.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["实现一个查知识库的 tool：输入 query 返回片段",4],["实验：让模型自主选择 tool",2.5],["把 tool 调用接进项目 chat 接口，跑通一轮",4],["弹性缓冲补落下任务",2.2]],[["实现一个简化版：query 分类（事实型/闲聊型）",4],["实验：事实型才检索，闲聊型直接答，对比成本",3.5],["阶段2 综合复盘：把 P0①-⑨ 的实验报告整理成一篇文档",4]],[["实现一个时间/计算器 tool 做实验",3.5],["记录 token 节省",2.5],["过间隔重复卡片",0.3]]]},{w:12,ph:4,t:"P1① 可观测性 Langfuse",days:[[["自托管 Langfuse 或用云版，接入项目",3.5],["读 Langfuse trace/score/session 模型",2.5]],[["给 chat/rag/llm 调用加装饰器埋点",4]],[["实验：在 Langfuse 里看一次请求的完整 trace",3.5],["给好/坏回答打分",2.5]],[["配置 prompt 版本管理与线上比对",3.5],["写笔记：可观测性对 RAG 的价值",2.5]],[["用 Langfuse 数据找 top5 bad case",3.5],["记录到 badcase.md",2.5]],[["白板：一次请求在 Langfuse 里的 trace 树",3.5],["本周综合整理",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:13,ph:4,t:"P1② LangGraph 状态机重构",days:[[["读 LangGraph 核心：StateGraph/Node/Edge/Conditional",3.5],["理解与裸 while 循环的区别",2.5]],[["把 rag_service 重构成 LangGraph：retrieve→rerank→generate",4]],[["加条件边：检索结果空时走拒答节点",3.5],["加 human-in-the-loop 节点（可选）",2.5]],[["实现流式输出：LangGraph token stream",3.5],["对比之前裸 SSE 写法",2.5]],[["写笔记：LangGraph 适合多步/分支/循环 Agent",3.5],["白板：本项目的状态图",2.5]],[["测试：新图与旧版在 golden 上指标对齐",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:14,ph:4,t:"P1③ 成本延迟 + Bad case 闭环",days:[[["统计当前每次问答的 token 成本与延迟",3.5],["实验：分级模型降本",2.5],["设预算告警阈值",2.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["分解：Embedding/rerank/LLM 各占多少",2.5],["针对检索差：调 BM25/向量权重/top_k",4],["建 bad case 回归集：每次改完跑一遍",3.5],["弹性缓冲补落下任务",2.2]],[["整理 badcase.md 里 top20 问题",3.5],["优化：上下文压缩——只送最相关 N 条",3.5],["写 CI 脚本（手动即可）",2.5],["过间隔重复卡片",0.3]],[["分类：切片差/检索差/Prompt差/LLM错",2.5],["测延迟 P50/P95",2.5],["白板：成本优化的四个杠杆（模型/缓存/上下文/批量）",3.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["优化：缓存相同 query 的检索结果",4],["针对 Prompt 差：改模板/加例子",3.5],["整理笔记",2.5],["弹性缓冲补落下任务",2.2]],[["针对切片差：调切片策略并重跑评测",4],["重跑评测看指标提升",2.5],["写 P1 总结：从 baseline 到优化后指标对比",4]],[["优化：小模型做 query 改写/分类，大模型做生成",3.5],["写成本报告：优化前后对比表",3.5],["过间隔重复卡片",0.3]]]},{w:15,ph:5,t:"P2① Agent 多步推理",days:[[["读 ReAct/Plan-Execute/Reflexion 范式",3.5],["理解单 Agent vs 多 Agent",2.5]],[["用 LangGraph 实现一个研究 Agent：分解问题→检索→综合",4]],[["实验：多轮检索（先检索摘要再检索细节）",3.5],["对比单轮 RAG 回答质量",2.5]],[["理解 Agent 记忆：短期对话/长期向量记忆",3.5],["给项目加对话历史摘要",2.5]],[["写笔记：什么时候需要 Agent（多跳/需要工具/不确定）",3.5],["白板：ReAct 循环",2.5]],[["给项目加一个『深度研究』模式开关",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:16,ph:5,t:"P2② 多模态文档理解 + 流式体验深化",days:[[["理解多模态 RAG：图片/表格/公式抽取",3.5],["记录提升",2.5],["写笔记：多模态 RAG 的工程复杂度",3.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["看项目 parser 是否支持 OCR",2.5],["前端：回答中引用标号点击定位原文",3.5],["白板：文档解析流水线",2.5],["弹性缓冲补落下任务",2.2]],[["优化流式：首 token 延迟 TTFT 降到 1s 内",3.5],["做高亮弹窗",2.5],["写笔记：流式 UX 的细节清单",3.5],["过间隔重复卡片",0.3]],[["测各环节耗时",2.5],["理解表格结构化：markdown/HTML/JSON",3.5],["整理截图 before/after",2.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["接入一个 OCR/表格抽取方案（如 paddleocr）",4],["实验：表格问答",2.5],["扩展 parser：支持 1 种新格式（如 epub/html）",4],["弹性缓冲补落下任务",2.2]],[["前端：打字机/代码高亮/引用可点击",4],["理解 SSE 断线重连与心跳",3.5],["本周综合：录一段产品演示视频",4]],[["实验：带图文档问答 vs 纯文本问答",3.5],["实验：弱网下的体验",2.5],["过间隔重复卡片",0.3]]]},{w:17,ph:6,t:"专家① 前端 Vue3 深化：状态管理与组件设计",days:[[["精读 Pinia：getter/action/持久化插件原理",3.5],["重构一个 store 加上类型",2.5]],[["精读 Vue3 响应式原理：proxy/effect/render",3.5],["写一个迷你响应式 demo",2.5]],[["设计一个可复用组件：对话气泡/Markdown 渲染器",4]],[["实验：Vue3 `<script setup>` + TS 最佳实践",3.5],["重构 Chat.vue 抽取子组件",2.5]],[["前端补：Vite 构建优化/懒加载/环境变量",3.5],["配置代理与生产环境",2.5]],[["白板：Vue3 渲染流程（template→vnode→DOM）",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:18,ph:6,t:"专家② 后端 FastAPI 深化：中间件/依赖/异步",days:[[["精读 FastAPI 中间件/CORS/异常处理",3.5],["加一个请求日志中间件",2.5]],[["理解 async 数据库：asyncpg/async SQLAlchemy",3.5],["排查一处异步阻塞",2.5]],[["实现：接口限流 + API Key 鉴权中间件",4]],[["写单元测试：pytest + httpx AsyncClient",3.5],["覆盖率提到核心接口 80%",2.5]],[["读 Pydantic v2 性能：model_validate/serialization",3.5],["优化一个热路径接口",2.5]],[["白板：FastAPI 请求生命周期",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:19,ph:6,t:"专家③ 数据库与向量库优化",days:[[["PostgreSQL：索引/N+1/慢查询分析",3.5],["加合适索引并 EXPLAIN",2.5]],[["Qdrant：shard/replication/filter 优化",3.5],["读官方最佳实践",2.5]],[["理解混合架构：PG 存元数据+Qdrant 存向量",3.5],["设计多租户数据隔离方案",2.5]],[["写一个数据迁移脚本：文档更新时同步向量",4]],[["实验：百万向量级（造数据）下 top_k 延迟",3.5],["记录 P95",2.5]],[["白板：RAG 存储层架构图",3.5],["写笔记",2.5]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:20,ph:6,t:"专家④ 容器化与部署上线",days:[[["docker-compose.prod.yml：多阶段构建/非 root/健康检查",4]],[["理解 Nginx 反向代理 + 前端静态资源托管",3.5],["配 HTTPS（自签先跑通）",2.5]],[["配置环境分离：dev/staging/prod .env",3.5],["写部署脚本 deploy.sh",2.5]],[["日志：集中收集（简单方案：docker logs + 文件轮转）",3.5],["监控：健康检查接口",2.5]],[["在一台机器上完整部署一次（本机或云）",4]],[["写部署文档：从零到访问线上地址",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:21,ph:6,t:"专家⑤ 安全权限 + 二开实战",days:[[["鉴权：JWT 刷新机制/过期/续期",3.5],["敏感信息：.env 不入库/密钥轮换",3.5],["写安全 checklist 文档",3.5],["过间隔重复卡片",0.3]],[["加权限分级（用户/管理员）",2.5],["检查前端是否泄露 key",2.5],["过一遍 OWASP Top10",2.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["选一个新功能：对话分享/收藏/多知识库隔离",4],["写前端页面与状态接入",4],["写一篇博客：这个功能从需求到上线",3.5],["弹性缓冲补落下任务",2.2]],[["文件上传安全：类型/大小/病毒扫描（基础）",3.5],["SQL 注入/XSS/CSRF 自查清单",3.5],["录演示",2.5],["过间隔重复卡片",0.3]],[["路径穿越防护",2.5],["修发现的问题",2.5],["白板：一个请求的安全链路",3.5],["周复盘：写本周搞懂了什么+遗留问题",1.5]],[["设计 API：路由/Schema/权限",3.5],["加测试 + 跑评测不回归",3.5],["整理笔记",2.5],["弹性缓冲补落下任务",2.2]],[["写后端",3.5],["修 bug",2.5],["把二开代码合并主分支，打 tag v0.2",4]]]},{w:22,ph:7,t:"复盘① 代码地图与源码精读",days:[[["画整个项目的代码地图（目录→职责→关键函数）",4]],[["挑 3 个核心文件逐行精读（rag_service/vector_store/chat.vue）",4]],[["把所有实验报告整理成 docs/experiments/",4]],[["过一遍 badcase.md，确认每个问题都有归因",4]],[["白板：不看代码画数据流图",4]],[["写一篇『这个项目的技术决策为什么这么选』",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:23,ph:7,t:"复盘② 八股与面试题准备",days:[[["RAG 八股：切片/检索/rerank/幻觉/评测 各写 1 页",4]],[["FastAPI 八股：异步/依赖注入/中间件/SSE",4]],[["Vue3 八股：响应式/生命周期/Pinia/SSR",4]],[["LangChain/LangGraph：链/Agent/状态图/工具调用",4]],[["数据库：索引/事务/隔离级别/向量索引 HNSW",4]],[["模拟面试：对着白板讲 3 个项目难点",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:24,ph:7,t:"复盘③ 项目作品化与简历",days:[[["写项目 README：架构图/截图/技术栈/亮点",4]],[["录 3 分钟项目演示视频",4]],[["简历：把项目写成 STAR 描述（3-5 条）",4]],[["GitHub：整理 commit/打 release/写 LICENSE",4]],[["准备 3 个追问点：你做了什么取舍/遇到什么坑/怎么优化",4]],[["模拟面试：让 AI 当面试官问 20 题",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]},{w:25,ph:7,t:"缓冲·最终验收",days:[[["从零 docker compose up 跑通（干净环境）",4]],[["按终极 checklist 逐项打勾",4]],[["补遗漏：任何没跑通的环节",4]],[["写一篇学习总结：25 周到这里收获了什么",4]],[["放松：看一遍自己的代码地图，准备进入下一个项目",4]],[["D-Day：项目专家验收，录最终演示",4]],[["过间隔重复卡片",0.3],["周复盘：写本周搞懂了什么+遗留问题",1.5],["弹性缓冲补落下任务",2.2]]]}];
+;
 /* 批次2：PLAN 可被「计划重排向导」的草案覆盖——BASE_PLAN 恒为官方原始计划 */
 let PLAN = (function(){
   try{
@@ -3292,7 +3263,7 @@ function renderStats(){
   renderDeviation();
   const o = overallStat();
   const _bn = document.getElementById("banner");
-  if(o.pct>=1 && !_bn.classList.contains("show")) announce("35 周计划已全部完成！");
+  if(o.pct>=1 && !_bn.classList.contains("show")) announce("25 周计划已全部完成！");
   _bn.classList.toggle("show", o.pct>=1);
 }
 
@@ -3452,7 +3423,7 @@ plTrack.addEventListener("keydown", e=>{
    做法：body 级事件委托 + 命中排除表，避免与卡内既有交互（勾选框/任务链接/日卡跳转/按钮）冲突。
    键盘用户不受影响：卡内「查看详情 ›」是真实 <button>，Tab 可达、Enter 可触发，本委托只补鼠标命中区。 */
 /* 每张卡的空白区点击 → 转发到该卡自身已有的跳转按钮（语义与卡内「查看详情 ›」完全一致）。
-   .pano-card 刻意不在表内：它是 35 周全景网格，卡内 35 个 .wk-cell 各自可点，
+   .pano-card 刻意不在表内：它是 25 周全景网格，卡内 35 个 .wk-cell 各自可点，
    空白区没有唯一合理目标（跳哪一周？），强行转发会造出与q kPlan（仅滚动到自身）不符的假动作。
    同理 .now-card 转发到 heroDetail —— 它与 hero 卡同属「本周概览」，进入本周周视图语义正确。 */
 const CARD_CLICK = [
@@ -3489,7 +3460,7 @@ document.getElementById("wvReviewLink").addEventListener("click",()=>{
   announce("已定位到本周完整复盘笔记");
 });
 document.getElementById("qkPlan").addEventListener("click",()=>{
-  /* 语义修正：完整计划表 = 首页侧栏 35 周全景网格（此前误跳单周详情） */
+  /* 语义修正：完整计划表 = 首页侧栏 25 周全景网格（此前误跳单周详情） */
   const card = document.querySelector(".pano-card");
   if(card){
     card.scrollIntoView({behavior:RM()?"auto":"smooth",block:"center"});
@@ -4013,7 +3984,7 @@ function bg3dMul(){ return 1; }
     const box = buildIndex();
     q = q.trim().toLowerCase();
     if(!q){
-      list.innerHTML = `<div class="sr-hint">输入关键词，搜索 35 周计划<br>
+      list.innerHTML = `<div class="sr-hint">输入关键词，搜索 25 周计划<br>
         <button type="button" class="sr-chip" data-q="RAG">RAG</button><button type="button" class="sr-chip" data-q="面试">面试</button><button type="button" class="sr-chip" data-q="Docker">Docker</button><button type="button" class="sr-chip" data-q="复盘">复盘</button></div>`;
       items = []; active = -1; return;
     }
