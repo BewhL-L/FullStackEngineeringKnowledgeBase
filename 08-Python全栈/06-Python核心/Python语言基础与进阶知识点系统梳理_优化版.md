@@ -3041,6 +3041,38 @@ class UserTD(TypedDict):
     age: int
 
 user: UserTD = {"name": "张三", "age": 25}  # 就是字典
+'''
+语法：变量注解（Type Annotation）
+
+- `user`：变量名
+- `: UserTD`：**类型注解**，声明这个变量应该是什么类型
+- `= {"name": "张三", "age": 25}`：给变量赋实际的值（普通字典）
+
+> 等价理解：**变量 user，它的类型是 UserTD，值是这个字典**
+
+---
+
+### ✅ 为什么要写 `: UserTD`？
+
+`UserTD` 是 `TypedDict`，它只是**给类型检查工具看的约束**： 告诉 VSCode /pyright/mypy：
+
+> 这个字典，必须包含 `name: str`、`age: int`，不能乱加乱减 key，类型不能错。
+
+对比不加注解的写法：
+
+user = {"name": "张三", "age": 25}
+
+只写这一句，IDE 只知道它是一个普通 `dict`，不知道里面有什么 key：
+
+- 写 `user["nam"]`（拼写错）IDE **不会提示**
+- 传错类型、少字段，IDE 看不出来
+
+加上 `: UserTD` 之后：
+
+- IDE 自动补全 `user["name"]`、`user["age"]`
+- 写错 key、类型不对，IDE 直接飘红警告
+- mypy 静态类型检查时会校验结构
+'''
 ```
 
 #### dataclass 的继承
