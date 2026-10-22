@@ -1021,6 +1021,43 @@ print(p2.greet())  # 你好，我是李四，今年30岁
 
 `__init__` 是初始化方法，在对象创建后自动调用，用于设置实例的初始状态。
 
+📌 核心要点
+1. **self**：第一个形参，接收刚创建出来的实例对象；调用时 Python 自动传，不用自己传
+2. **返回值限制**：`__init__` 只能返回 `None`，写 `return xxx`（非 None）直接抛 `TypeError`Python
+3. **可以设置默认参数**
+
+```python
+class Person:
+    def __init__(self, name, age=18):
+        self.name = name
+        self.age = age
+
+p = Person("李四")
+```
+
+4. **继承场景：super () 调用父类** init子类重写 `__init__`，默认不会自动执行父类初始化，需要手动调用：
+
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+class Dog(Animal):
+    def __init__(self, name, color):
+        super().__init__(name)  # 调用父类初始化
+        self.color = color
+```
+
+⚠️ 容易混淆：`__new__` vs `__init__`
+- `__new__`：**创建实例、分配内存**，是构造器，返回新对象
+- `__init__`：**初始化实例属性**，拿到已经创建好的对象做赋值，无返回值 执行顺序：`__new__` → 创建对象 → `__init__`
+
+❌ 常见坑
+1. 忘记写 `self`，直接 `name=name` 变成局部变量，不是实例属性
+2. 继承时漏掉 `super().__init__()`，父类属性没有初始化
+3. 试图在 `__init__` return 自定义对象
+4. 前后下划线是**两个**：`__init__`，少写一个就不是魔术方法
+
 > 🔍 **深度解析**：`__init__` 不是构造方法，真正的构造方法是 `__new__`。`__new__` 负责创建并返回对象实例，`__init__` 负责对已创建的实例进行初始化。`__new__` 是静态方法（隐式），接收类作为第一个参数；`__init__` 接收实例作为第一个参数。只有当 `__new__` 返回当前类的实例时，`__init__` 才会被自动调用。
 
 ```python
