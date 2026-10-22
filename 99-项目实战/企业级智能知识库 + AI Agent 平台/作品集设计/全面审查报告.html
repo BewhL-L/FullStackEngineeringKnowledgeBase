@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EVIDENCE · 全面审查报告 v2.0</title>
+<meta name="description" content="视觉、体验、工程三方交叉审查：34 项问题、字体模糊根因、模块尺寸与动效明细、三批修复路线。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4F0E8'/%3E%3Crect x='6' y='6' width='20' height='20' fill='%23C13A23'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F0E8; --card:#FBF8F2; --ink:#17150F; --ink-2:#4C473C; --ink-3:#6A6355;
+  --line:rgba(23,21,15,.16); --line-2:rgba(23,21,15,.08);
+  --signal:#C13A23; --mint:#1F7357;
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC",Georgia,serif;
+  --sans:"Noto Sans SC","Inter","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --maxw:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.78;font-weight:300;-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--signal);color:#F6F1E7}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul{margin:0}
+ul{padding:0;list-style:none}
+.mono{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 clamp(20px,4vw,54px);background:rgba(244,240,232,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);gap:14px}
+.top b{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;font-weight:500;white-space:nowrap}
+.top b i{font-style:normal;color:var(--signal)}
+.top .r{display:flex;gap:20px;align-items:center;white-space:nowrap}
+.top .r a{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-3);border-bottom:1px solid var(--line);padding-bottom:2px}
+.top .r a:hover{color:var(--signal);border-color:var(--signal)}
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px);display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,52px)}
+.toc{position:sticky;top:56px;align-self:start;padding:30px 0 40px}
+.toc p{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:var(--ink-3);margin-bottom:10px}
+.toc a{display:flex;gap:8px;padding:4.5px 0;font-size:11.5px;color:var(--ink-2)}
+.toc a span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);padding-top:2px}
+.toc a:hover{color:var(--signal)}
+main{min-width:0;padding-bottom:80px}
+section{scroll-margin-top:72px;padding:38px 0 8px;border-top:1px solid var(--line-2)}
+section:first-child{border-top:0}
+.h2{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:13px;margin-bottom:6px}
+.h2 .n{font-family:var(--mono);font-size:9px;color:var(--signal);letter-spacing:.1em;position:relative;top:-7px}
+.h2 h2{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.7vw,29px);line-height:1.2;letter-spacing:-.01em}
+.h2 .en{margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:var(--ink-3)}
+p.lede{font-family:var(--serif);font-size:17px;line-height:1.8;margin:10px 0 16px;max-width:34em}
+p.body{margin:9px 0;max-width:68ch;color:var(--ink-2);font-size:13.5px;line-height:1.85}
+p.body b{color:var(--ink);font-weight:500}
+.small{font-size:11.5px;color:var(--ink-3);line-height:1.8}
+
+/* cover */
+.cover{padding:44px 0 24px}
+.cover .eyebrow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px;gap:12px}
+.cover h1{font-family:var(--serif);font-weight:500;font-size:clamp(42px,6vw,72px);line-height:1.04;letter-spacing:-.02em}
+.cover h1 em{display:block;font-style:normal;font-size:.2em;letter-spacing:.2em;color:var(--signal);margin-top:13px;font-family:var(--mono);font-weight:400}
+.cover .sub{font-family:var(--serif);font-size:clamp(16.5px,1.9vw,20px);line-height:1.8;margin-top:22px;max-width:33em}
+.cover .sub b{font-weight:500;border-bottom:1px solid var(--signal)}
+
+/* score */
+.score{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:24px 0 8px}
+.score div{background:var(--paper);padding:12px 14px}
+.score dt{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:4px}
+.score dd{margin:0;font-size:12px;line-height:1.5}
+.score dd b{font-family:var(--mono);font-size:9.5px;color:var(--signal);letter-spacing:.05em;display:block;margin-bottom:2px;font-weight:500}
+
+/* finding */
+.find{border:1px solid var(--line);background:var(--card);margin:12px 0}
+.f-head{display:flex;align-items:baseline;gap:9px;padding:12px 15px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.f-id{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);letter-spacing:.06em}
+.f-head h3{font-family:var(--serif);font-size:16px;font-weight:500;line-height:1.45;flex:1;min-width:180px}
+.sev{font-family:var(--mono);font-size:8px;letter-spacing:.08em;padding:2px 6px;border:1px solid var(--signal);color:var(--signal);white-space:nowrap}
+.sev.p0{background:var(--signal);color:#F6F1E7;border-color:var(--signal)}
+.sev.p1{border-color:var(--ink-3);color:var(--ink-3)}
+.sev.p2{border-color:var(--line);color:var(--ink-3)}
+.f-body{display:grid;grid-template-columns:1fr 1fr}
+.f-col{padding:12px 15px}
+.f-col+.f-col{border-left:1px solid var(--line-2)}
+.f-col h5{font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--ink-3);font-weight:400;margin-bottom:4px}
+.f-col p{font-size:12px;color:var(--ink-2);line-height:1.75}
+.f-col p+p{margin-top:5px}
+.f-col b{color:var(--ink);font-weight:500}
+
+/* tables */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tw table{min-width:560px}
+table{width:100%;border-collapse:collapse;margin:12px 0 6px;font-size:12px}
+th{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;font-weight:400;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:9px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2);line-height:1.65}
+td:first-child{color:var(--ink);font-weight:400}
+td b{color:var(--ink);font-weight:500}
+td .m{font-family:var(--mono);font-size:9.5px;color:var(--signal)}
+td.num{font-family:var(--mono);font-size:10.5px;white-space:nowrap}
+tr:hover td{background:rgba(193,58,35,.03)}
+
+/* weight bar */
+.wbar{display:inline-block;width:70px;height:4px;background:var(--line-2);vertical-align:middle;margin-right:6px}
+.wbar i{display:block;height:100%;background:var(--signal)}
+
+/* note */
+.note{border-left:2px solid var(--signal);background:rgba(193,58,35,.045);padding:12px 16px;margin:14px 0;font-size:12px;line-height:1.85;color:var(--ink-2)}
+.note.ok{border-left-color:var(--mint);background:rgba(31,115,87,.05)}
+.note b{color:var(--ink);font-weight:500}
+.note .t{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;color:var(--signal);display:block;margin-bottom:4px}
+.note.ok .t{color:var(--mint)}
+
+/* code */
+.code{background:#0C0C0E;color:#DCD6CB;font-family:var(--mono);font-size:11px;line-height:1.9;padding:12px 14px;margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.code .c{color:#7C766D}
+.code .k{color:#FF7A5E}
+.code .g{color:#95E8C4}
+
+/* batches */
+.batch{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.batch div{border:1px solid var(--line);background:var(--card);padding:14px}
+.batch b{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--signal);display:block;margin-bottom:5px}
+.batch strong{display:block;font-size:13px;font-weight:500;margin-bottom:4px}
+.batch p{font-size:11px;color:var(--ink-2);line-height:1.7}
+.batch em{font-style:normal;font-family:var(--mono);font-size:9px;color:var(--ink-3);display:block;margin-top:6px}
+
+.center-cta{border:1px solid var(--ink);background:var(--card);padding:18px;margin:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.center-cta b{font-family:var(--serif);font-size:17px;font-weight:500;display:block}
+.center-cta span{font-size:11.5px;color:var(--ink-3)}
+.center-cta a{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;background:var(--signal);color:#F6F1E7;padding:9px 14px;white-space:nowrap}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .toc{display:none}
+  .f-body{grid-template-columns:1fr}
+  .f-col+.f-col{border-left:0;border-top:1px solid var(--line-2)}
+  .score{grid-template-columns:1fr 1fr}
+  .batch{grid-template-columns:1fr}
+  .top .r .mono,.top .r a{display:none}
+  .center-cta{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:720px){
+  .tw{overflow-x:visible}
+  .tw table{min-width:0}
+  .tw thead{display:none}
+  .tw tbody,.tw tr,.tw td{display:block}
+  .tw tr{border:1px solid var(--line);background:var(--card);margin:0 0 9px;padding:9px 12px}
+  .tw td{border:0;padding:4px 0;display:grid;grid-template-columns:70px 1fr;gap:8px}
+  .tw td:before{content:attr(data-th);font-family:var(--mono);font-size:8px;letter-spacing:.08em;color:var(--ink-3);padding-top:2px}
+  .tw tr:hover td{background:transparent}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <b>EVIDENCE <i>/</i> 全面审查 <span style="color:var(--ink-3);font-weight:400">v2.0</span></b>
+  <div class="r">
+    <a href="index.html">原型 ↗</a>
+    <a href="设计方案.html">规范 ↗</a>
+    <a href="复查报告.html">上一轮 ↗</a>
+    <span class="mono">2026-10-22</span>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="toc">
+    <p>CONTENTS</p>
+    <a href="#s0"><span>00</span>结论</a>
+    <a href="#s1"><span>01</span>字体为什么糊</a>
+    <a href="#s2"><span>02</span>整体设计缺陷</a>
+    <a href="#s3"><span>03</span>七个模块逐项</a>
+    <a href="#s4"><span>04</span>字号与排版</a>
+    <a href="#s5"><span>05</span>动效细节</a>
+    <a href="#s6"><span>06</span>布局与响应式</a>
+    <a href="#s7"><span>07</span>交互与状态</a>
+    <a href="#s8"><span>08</span>内容可信度</a>
+    <a href="#s9"><span>09</span>修复路线</a>
+  </aside>
+
+  <main>
+    <section class="cover" id="s0">
+      <div class="eyebrow">
+        <span class="mono">THREE-ROLE AUDIT / 34 FINDINGS</span>
+        <span class="mono">00 / 10</span>
+      </div>
+      <h1>全面审查<em>V I S U A L · U X · E N G I N E E R I N G</em></h1>
+      <p class="sub">视觉、体验、工程三方独立审阅后交叉核对。结论不是"哪里不好看"，而是：<b>这套设计有三处结构性错位，和一处被误诊的渲染问题</b>。字体模糊不是字体的错。</p>
+
+      <dl class="score">
+        <div><dt>概念与叙事</dt><dd><b>4 / 5</b>主张仍然成立，但兑现不足</dd></div>
+        <div><dt>视觉语言</dt><dd><b>3 / 5</b>气质在，配额与阶梯失控</dd></div>
+        <div><dt>可读性</dt><dd><b>2 / 5</b>小字承载决策信息，模糊有五重成因</dd></div>
+        <div><dt>交互完整性</dt><dd><b>2 / 5</b>四处假入口、检索闭环断、手机死路</dd></div>
+        <div><dt>响应式</dt><dd><b>2 / 5</b>移动端不是"适配差"，是功能缺失</dd></div>
+        <div><dt>工程实现</dt><dd><b>2.5 / 5</b>死代码、失效选择器、XSS、无空值保护</dd></div>
+        <div><dt>内容可信</dt><dd><b>2.5 / 5</b>52 写成 60+，79 的先后说不清</dd></div>
+        <div><dt>可维护性</dt><dd><b>2 / 5</b>同块内自我覆盖，说明是叠改出来的</dd></div>
+      </dl>
+      <p class="small">共 34 项：P0 七项、P1 十七项、P2 十项。三方分工：视觉组负责字号/字重/对比度/配额/中文排版；体验组负责流程/状态/无障碍/移动端；工程组负责渲染链路/动效实现/断点与代码缺陷。冲突处一律以代码证据为准。</p>
+
+      <div class="note"><span class="t">最重要的一句</span>如果只修一件事，不要修字体——<b>先把盖在所有文字上的那层噪点拿掉</b>。它是全站唯一一个"同时降低清晰度、对比度和色彩准确度"的元素，而它只值 4% 的质感。</div>
+    </section>
+
+    <!-- 01 FONT -->
+    <section id="s1">
+      <div class="h2"><span class="n">01</span><h2>字体为什么糊</h2><span class="en">WHY TEXT LOOKS BLURRY</span></div>
+      <p class="lede">不是字体选错了，是渲染链路被三层东西破坏了。</p>
+
+      <p class="body">浏览器只在<b>文字所在层背景不透明、且不处于合成层</b>时才启用 LCD 次像素抗锯齿（ClearType）；否则退化为灰度 AA。这套页面把最不该破的条件破了：<b>最大的两块文字面——Work 卡片与构建日志——底色是 2% 白的 alpha</b>，从第一行起就落在灰度 AA 里；再叠加一层全屏噪点、两处 backdrop-filter、300 字重与 9px 字号，细笔画就"糊成一团灰"。<b>换字体解决不了，因为问题不在字形。</b></p>
+
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>成因</th><th>权重</th><th>证据（index.html）</th><th>为什么糊</th></tr></thead>
+        <tbody>
+          <tr><td>F1</td><td><b>最大文字面的底色是 alpha</b></td><td><span class="wbar"><i style="width:100%"></i></span>30%</td><td class="num">L23 --card-tint:rgba(255,255,255,.02)<br>L153 .work / L125 .log</td><td>2% 白让背景不算"不透明"，LCD 抗锯齿直接被关；13.5px 正文与 9px 标签全在灰度 AA 里</td></tr>
+          <tr><td>F2</td><td><b>全屏噪点层盖在文字之上</b></td><td><span class="wbar"><i style="width:83%"></i></span>25%</td><td class="num">L42 body::after<br>z-index:9998; opacity:.04</td><td>4% 湍流叠在字形边缘，1px 宽的笔画被进一步拉灰</td></tr>
+          <tr><td>F3</td><td><b>backdrop-filter 把小字关进合成层</b></td><td><span class="wbar"><i style="width:66%"></i></span>20%</td><td class="num">L57 .nav.is-scrolled blur(14px)<br>L125 .log blur(4px)</td><td>合成层内必为灰度 AA；10px 字在 4px 模糊底上重采样</td></tr>
+          <tr><td>F4</td><td><b>300 字重 + 8.5–11.5px + SimSun 回退</b></td><td><span class="wbar"><i style="width:50%"></i></span>15%</td><td class="num">L41 font-weight:300<br>L14 wght@300 / L24 SimSun</td><td>细宋体在 13px 下笔画不足 1px；规范写"最小 12px"，代码违约 14 处</td></tr>
+          <tr><td>F5</td><td><b>h1 负字距 −0.035em</b></td><td><span class="wbar"><i style="width:33%"></i></span>10%</td><td class="num">L91 = −3.64px/字</td><td>104px 时字间白仅 0.6px，横画末端相咬，像重影</td></tr>
+          <tr><td>F6</td><td><b>印章整块旋转 −4°</b></td><td><span class="wbar"><i style="width:16%"></i></span>5%</td><td class="num">L94 rotate(-4deg)<br>L95 竖排 + .16em 字距</td><td>旋转层重采样，12.5px 竖排（手机 9px）双重重采样</td></tr>
+          <tr><td>F7</td><td><b>.reveal 的 opacity+transform 过渡</b></td><td><span class="wbar"><i style="width:20%"></i></span>macOS 专项</td><td class="num">L296 约 30 块 / .85s</td><td>滚动中正在过渡的块被提层，文字发虚。与位移大小无关，与速度有关（21px/s 太慢）；Windows 上 InducedLayer 不改变文字 AA，故只命中 macOS</td></tr>
+          <tr><td>F0</td><td>canvas DPR 封顶 2</td><td><span class="wbar"><i style="width:0"></i></span>0%</td><td class="num">L85</td><td><b>不是原因。</b>只影响点线自身；但 canvas opacity:.9 必被合成，已计入 F1</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="note"><span class="t">否证 · 五个别做的偏方</span>① <b>-webkit-font-smoothing 在 Windows 上无效</b>，它只改 macOS 的彩边；站上多数访客是 Windows。② <b>translateZ(0) / will-change 会反向恶化</b>——主动提升图层等于主动关掉 LCD 抗锯齿。③ <b>font-display:block 会把首帧文字藏起来</b>，抬高 LCP 且违背 swap 策略。④ <b>放宽 canvas DPR 只增加显存</b>（约 20MB→46MB），文字不在 canvas 里。⑤ <b>换字体没用</b>：Noto / 思源 / 苹方都会被同一套合成层降级。</div>
+
+      <h3 style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--signal);margin:20px 0 8px;font-weight:400">最小改动集（按顺序，约 90 分钟）</h3>
+      <div class="code"><span class="c">/* 1. 最大两块文字面：alpha → 实色（视觉零差异） */</span>
+--card-tint:#101011;                 <span class="c">/* paper: #F8F6F2 */</span>
+
+<span class="c">/* 2. 噪点从"盖在字上"移到背景层 */</span>
+body::after{ display:none }
+body{ background-image:url("data:image/svg+xml,...") }
+
+<span class="c">/* 3. 去掉会把文字关进合成层的模糊 */</span>
+.log{ backdrop-filter:none; background:var(--bg-1) }
+.nav.is-scrolled{ background:var(--bg); backdrop-filter:none }
+
+<span class="c">/* 4. 正文加粗；只改单条小字规则，不动 .mono 全局 */</span>
+body{ font-weight:400; font-synthesis-weight:none }  <span class="c">/* 长写，别用简写 */</span>
+.metric span,.now-cell dt,.work-cols h4{ font-size:11px }
+
+<span class="c">/* 5. 标题停止负字距；印章去旋转 */</span>
+h1{ letter-spacing:0 }
+.seal{ transform:translateY(-8px) }
+</div>
+      <p class="small">约 25 行。效果分平台：<b>Windows（多数访客）约 80%</b>；<b>macOS 约 55%</b>，且主因不同（噪点 &gt; alpha），剩下的要靠 F7——把 reveal 从 850ms 提到 500–600ms，保留两属性，不要改成只动画 transform。注意 <span class="mono" style="font-size:9.5px">.mono</span> 全局 11px 不要动，只改点名的单条规则。</p>
+      <p class="small">字体链路剩下的 20% 严格按序：自建子集（3500 常用字 + 页专有词）→ 本地托管 → 才有资格 preload → 最后 size-adjust 对齐 fallback。请求可从 8 字重收敛到 5（净省体积≈0，省的是 3 组 @font-face 与规则数）：<span class="mono" style="font-size:9.5px">JetBrains+Mono:wght@400;500 &amp; Noto+Sans+SC:wght@400 &amp; Noto+Serif+SC:wght@400;500</span>。mono 的 500 不能删，品牌字标在用。另把 <span class="mono" style="font-size:9.5px">--serif</span> 里的 SimSun 去掉，避免子集缺字时回落到点阵宋体。</p>
+      <p class="small"><b>验收口径：</b>Windows + deviceScaleFactor 1、<b>同滚动位置</b>、400% 放大汉字边缘截图——换位置会改变分数像素偏移，色边"时有时无"是误判主因。看有无红蓝色边——有色边说明 LCD 亚像素生效；<b>纯灰边只说明"该机器上 card-tint 这条无效"，不否定字重/字号/噪点/字距</b>。不要用 chrome://gpu，它看不到单段文字状态。P0-2c 的通过线写成：<b>正常阅读速度滚动时，任一时刻处于过渡期的块 ≤ 2、单块暴露 ≤ 500ms；甩动不适用</b>（甩动时 500ms 窗口必然超限，但内容本身不可读）。</p>
+    </section>
+
+    <!-- 02 CONCEPT -->
+    <section id="s2">
+      <div class="h2"><span class="n">02</span><h2>整体设计缺陷</h2><span class="en">CONCEPTUAL</span></div>
+      <p class="lede">三个结构性错位，不是审美问题。</p>
+
+      <article class="find">
+        <div class="f-head"><span class="f-id">C1</span><h3>「可点开」不等于「可验证」：抽屉里全是自述</h3><span class="sev p0">P0</span></div>
+        <div class="f-body">
+          <div class="f-col"><h5>证据</h5><p>十个抽屉的内容全是手写字符串：pytest 输出、ASCII 架构、文件树。全站唯一真实外链是页脚的「设计方案.html」。没有 commit、没有仓库、没有截图、没有可复现命令。</p></div>
+          <div class="f-col"><h5>影响与改法</h5><p>面试官点三次，看到三次"你说"，会把「每个数字都能点开」翻译成「点开是一段你自己写的字」。</p><p><b>改法：</b>每个抽屉底部固定一条<b>出处</b>：<span class="mono" style="font-size:9.5px">repo/blob/&lt;sha&gt;/backend/tests/test_retrieval.py#L42</span>。给不出外链的数字，降级为纯文本，别做成按钮。</p></div>
+        </div>
+      </article>
+
+      <article class="find">
+        <div class="f-head"><span class="f-id">C2</span><h3>只有过程指标，没有业务结果</h3><span class="sev p1">P1</span></div>
+        <div class="f-body">
+          <div class="f-col"><h5>证据</h5><p>79 tests / 10 layers / 3 paths / 5 containers 全是"我怎么干活"。HR 折算不了，面试官容易归为练习项目。</p></div>
+          <div class="f-col"><h5>影响与改法</h5><p>没有一个人因为"5 个容器"决定面试你。</p><p><b>改法：</b>至少补一个结果指标：谁在用、日均多少问、幻觉率从 x 到 y、客服工单降多少。给不出，就先别把容器数放首屏。</p></div>
+        </div>
+      </article>
+
+      <article class="find">
+        <div class="f-head"><span class="f-id">C3</span><h3>用 RAG 的形做导航，却只"找"不"答"</h3><span class="sev p1">P1</span></div>
+        <div class="f-body">
+          <div class="f-col"><h5>证据</h5><p>输入问题 → 返回三个段落标题 → 跳到章节顶部。没有答案，没有引用，没有高亮。分数还恒为 1.00。</p></div>
+          <div class="f-col"><h5>影响与改法</h5><p>面试官必问"为什么不直接生成答案"，你只能答"这是静态页"——一分钟内从"懂 RAG"变成"没做 RAG"。</p><p><b>改法：</b>结果区先给一句预生成结论 + 出处，或把入口改名为「按证据找」。别叫检索。</p></div>
+        </div>
+      </article>
+
+      <article class="find">
+        <div class="f-head"><span class="f-id">C4</span><h3>双模式、双主题在服务设计者，不是读者</h3><span class="sev p1">P1</span></div>
+        <div class="f-body">
+          <div class="f-col"><h5>证据</h5><p>速览只减 5.8% 页高；折叠掉的恰好是"自建 golden QA""MCP/A2A"两条差异化证据；手机端直接隐藏该控件；唯一解释在 title 里。</p></div>
+          <div class="f-col"><h5>影响与改法</h5><p>读者点一次发现没变化，就不再碰任何开关——包括你真正想让他点的证据。</p><p><b>改法：</b>改名「招聘速读 / 技术细读」，折叠解释句而非证据，切换时用 role=status 播报"已折叠 12 段"。</p></div>
+        </div>
+      </article>
+
+      <article class="find">
+        <div class="f-head"><span class="f-id">C5</span><h3>首屏同时承担 6 个任务</h3><span class="sev p1">P1</span></div>
+        <div class="f-body">
+          <div class="f-col"><h5>证据</h5><p>主张、身份、状态、印章、检索、构建日志、滚动提示、左侧索引——首屏有 8 组视觉元素，其中 3 组在动。</p></div>
+          <div class="f-col"><h5>影响与改法</h5><p>3 秒测试里，读者记住的是"一块红的和一堆小字"，不是主张。</p><p><b>改法（结构性）：</b>把 Now 四格并进 Hero 右栏替换日志，日志压成搜索框下一行 ticker。首屏只留：一句话 + 四个事实 + 一个入口。</p></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 03 MODULES -->
+    <section id="s3">
+      <div class="h2"><span class="n">03</span><h2>七个模块逐项</h2><span class="en">MODULE BY MODULE</span></div>
+      <p class="lede">尺寸、排版、层级、动效，逐屏过一遍。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>模块</th><th>当前尺寸 / 排版</th><th>问题</th><th>改法</th></tr></thead>
+        <tbody>
+          <tr><td><b>Hero</b></td><td>h1 clamp(44,7.6vw,104) / lh1.02 / −3.64px；副文 16.5/1.85；输入框高 43.5、字 12.5；日志 268px 宽、10px 六行；印章 52/12.5</td><td>字距挤压；输入框触发 iOS 缩放；日志 10px 读不了却占大块；三处同时动画</td><td>字距 −0.01em；输入 16px；日志改 11.5px 或降为一行 ticker；只保留点云一个动效</td></tr>
+          <tr><td><b>Now</b></td><td>四格 1fr、标签 9px、值 13.5；lede 25.6px 在四格之前</td><td>HR 的第一需求（城市/时间）被推到约 1,100px 处；9px 标签是全站最低对比度之一</td><td>四格上移、lede 降为 19px 并后置；标签 11px；把"2027-06 可入职 · 杭州/上海"做进 nav 状态胶囊</td></tr>
+          <tr><td><b>Work</b></td><td>卡片 padding 40；h3 34 与指标 34 同号；指标标签 9px；三栏 13.5；tag 10；流程节点 9.5</td><td>主项目没有主次；一屏 6 处朱砂；证据链接 10px/17px 高；流程 5 条无限循环</td><td>h3→36、指标→28；证据条 11.5px + 44px 高；流程只播一次；朱砂收到 3 处</td></tr>
+          <tr><td><b>Stack</b></td><td>行高 22px；层名 10 + 8.5；技术串 11.5；深度条 4/4/3/3；16 处朱砂</td><td><b>深度条与叙事倒置</b>：界面 4/5 &gt; 检索 3/5，等于自认前端偏科；朱砂全站最密集的一屏</td><td>删深度条或改中性色；只保留"能白板手写"的标记；朱砂收到 2 处</td></tr>
+          <tr><td><b>Method</b></td><td>六步 14/12.5；prompt 11.5/1.95；备注 9</td><td>代码块下方留着"请替换成真实数字"；79 与"新增 3 条"先后不清；速览模式把备注藏了、数字留下</td><td>先标先后（76→79），再删备注，速览保留这组数字</td></tr>
+          <tr><td><b>Writing</b></td><td>四列 92/1fr/auto/26；标题 19；类型 9.5</td><td>三行 href="#" 在 smooth 下会滚回首屏，比无反馈更糟；条目稀疏</td><td>未发布去掉链接样式 + "即将发布"；或补第 4 篇让区块成立</td></tr>
+          <tr><td><b>Contact</b></td><td>h2 124；邮箱 17；按钮 34；页脚 9.5</td><td>页脚 9.5px 承载构建信息；主题色 meta 固定深色；大字"聊"压到页脚文字</td><td>页脚 11px；theme-color 随主题；大字下移或降到 0.3 透明度</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 04 TYPE -->
+    <section id="s4">
+      <div class="h2"><span class="n">04</span><h2>字号与排版</h2><span class="en">TYPE SCALE</span></div>
+      <p class="lede">阶梯有三处塌陷，小字承担了不该它承担的决策信息。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>元素</th><th>现在</th><th>问题</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td>Work 标题</td><td class="num">clamp(24,2.6vw,34) = 34</td><td>与指标数字 <span class="m">34</span> 同号，标题不像标题</td><td class="num">36 / 500</td></tr>
+          <tr><td>指标数字</td><td class="num">clamp(24,2.8vw,34) = 34</td><td>四个等权，79 不突出</td><td class="num">79→40，其余→24</td></tr>
+          <tr><td>副项目标题</td><td class="num">clamp(19,2vw,23) = 23</td><td>与 lede 在 1150px 附近同为 23，层级重合</td><td class="num">21 / 500</td></tr>
+          <tr><td>Now 标签</td><td class="num">9px / 4.43:1</td><td>承载"方向/城市/时间"，HR 最先读的就是它</td><td class="num">11px / ≥5:1</td></tr>
+          <tr><td>深度数字</td><td class="num">9px</td><td>承载 4/5 这个判断，却是全站最小字号之一</td><td class="num">11px 或删掉</td></tr>
+          <tr><td>层名副标</td><td class="num">8.5px</td><td>全站最小；拉丁大写 + 字距，灰度 AA 下几乎不可读</td><td class="num">9.5px（仅装饰）</td></tr>
+          <tr><td>页脚</td><td class="num">9.5px</td><td>构建时间、隐私声明是可信度信息</td><td class="num">11px</td></tr>
+          <tr><td>正文</td><td class="num">15px / 300</td><td>深色底细字，笔画不足 1px</td><td class="num">15px / 400</td></tr>
+          <tr><td>h1 字距</td><td class="num">−0.035em = −3.64px</td><td>中文间隙仅 0.6px，横画相贴</td><td class="num">−0.01em 或 0</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="note"><span class="t">对比度实测</span>深色 <span class="mono" style="font-size:10px">#7C7770 on #0B0B0C</span> = <b>4.43:1</b>；纸白 <span class="mono" style="font-size:10px">#7B756B on #F2EEE6</span> = <b>3.95:1</b>。均低于 4.5，且都用在 9–10px 上。建议深色改 <span class="mono" style="font-size:10px">#8C867C</span>（5.45:1），纸白改 <span class="mono" style="font-size:10px">#5E584C</span>（6.1:1）。</div>
+
+      <div class="note"><span class="t">发丝线不存在</span><span class="mono" style="font-size:10px">--line-2: .07</span> 合成后是 <b>1.13:1</b>，<span class="mono" style="font-size:10px">--line: .15</span> 是 <b>1.41:1</b>。而 now-grid、metrics、work-grid、wrow、step、foot 全靠这两级线分隔。墨底读者看到的其实是一堆没有分隔的文字；纸白下同一条线是 17% 黑，结构突然出现——两套主题等于两套信息结构。建议 <span class="mono" style="font-size:10px">--line:.28 / --line-2:.16</span>，另加 <span class="mono" style="font-size:10px">--line-strong:.42</span> 给卡片外框。</div>
+
+      <p class="body"><b>另外三处排版细节：</b>① 源码换行在中文标点后注入了空格（"设计、\n指标" → "设计、 指标"），出现在全站最长的两段正文里；② 等宽字体的中文回退到系统雅黑，与拉丁字重不齐；③ 全站 px 字号，浏览器 200% 缩放时 1440 直接掉进 ≤760 断点，导航与密度开关同时消失。</p>
+    </section>
+
+    <!-- 05 MOTION -->
+    <section id="s5">
+      <div class="h2"><span class="n">05</span><h2>动效细节</h2><span class="en">MOTION</span></div>
+      <p class="lede">五个光点在跑，但没有一个在正确的地方。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>问题</th><th>证据</th><th>改法</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td><b>光点动画驱动 left，每帧触发布局</b></td><td class="num">L163 @keyframes travel{left:0→calc(100%-4px)}</td><td>定稿：<span class="m">transform:translateX(var(--travel))</span>，0.9s linear，只播一次（IO + data-play）；<span class="m">--travel</span> 由 ResizeObserver 写 <span class="m">offsetWidth-4px</span>；无 JS 兜底 <span class="m">opacity:0</span></td></tr>
+          <tr><td>A2</td><td><b>延迟选择器有一半永远不匹配</b></td><td class="num">L168–172 nth-of-type(2/4/6/8/10)<br>实际只有 5 条 .flow-line</td><td>重构为 <span class="m">ol&gt;li</span> 后改 <span class="m">li:nth-child(2n)::after</span>；5 个相位 <span class="m">0/.13/.26/.39/.52s</span>，全套 1.42s；光点色改 <span class="m">--fg-3</span>（不是 mint）</td></tr>
+          <tr><td>A3</td><td><b>canvas 鼠标斥力是死代码</b></td><td class="num">L85 pointer-events:none<br>L1201 pointermove 绑在 canvas</td><td>事件永远不触发。改绑到 hero 容器，或用 <span class="m">window</span> 坐标换算</td></tr>
+          <tr><td>A4</td><td><b>暂停逻辑互相覆盖</b></td><td class="num">L1208 visibilitychange 直接改 running</td><td>切回标签页时会忽略"是否在视口内"。用 <span class="m">shouldRun = visible && inView</span> 单一状态</td></tr>
+          <tr><td>A5</td><td><b>进度条每帧读 scrollHeight</b></td><td class="num">L791 scroll 回调内读取布局</td><td>缓存 docHeight，resize 时再算</td></tr>
+          <tr><td>A6</td><td><b>五条无限循环 + 呼吸点</b></td><td class="num">animation: travel 4.8s linear infinite ×5</td><td>进视口播一次，hover 重播；规范自己写的是"禁止无限"</td></tr>
+          <tr><td>A7</td><td><b>大卡片要露出 8% 才显现</b></td><td class="num">L812 threshold:.08 + .85s + delay</td><td>1400px 高的卡片要滚 112px 才触发，最长 1s 空白。大容器改 threshold:0</td></tr>
+          <tr><td>A8</td><td><b>reduced-motion 是静态快照</b></td><td class="num">L342 animation:none + opacity 直接显示</td><td>尊重了"减少"，但没有"替代"。可给 0.01ms 的淡入，避免内容突然出现</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="code"><span class="c">/* A1 + A2 一起改：位移走合成器，延迟按真实条数 */</span>
+@keyframes travel{
+  from{ transform:translateX(0); opacity:0 }
+  10%{ opacity:.9 } 90%{ opacity:.9 }
+  to{ transform:translateX(var(--run,120px)); opacity:0 }
+}
+.flow-line::after{ animation:travel 4.8s linear infinite }
+.flow-line:nth-child(4)::after{ animation-delay:.5s }
+.flow-line:nth-child(6)::after{ animation-delay:1s }
+.flow-line:nth-child(8)::after{ animation-delay:1.5s }
+.flow-line:nth-child(10)::after{ animation-delay:2s }
+</div>
+      <p class="small">注意：<span class="mono" style="font-size:9.5px">--run</span> 需要按容器宽度算，或用 <span class="mono" style="font-size:9.5px">translateX(calc(100cqw - 4px))</span> 配 container query；否则位移距离不准。</p>
+    </section>
+
+    <!-- 06 LAYOUT -->
+    <section id="s6">
+      <div class="h2"><span class="n">06</span><h2>布局与响应式</h2><span class="en">LAYOUT</span></div>
+      <p class="lede">移动端的问题不是"挤"，是"没有"。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>问题</th><th>证据 / 触发条件</th><th>影响</th><th>改法</th></tr></thead>
+        <tbody>
+          <tr><td>R1</td><td><b>761–870px 导航溢出，"聊聊"被裁</b></td><td class="num">brand 180 + links 332 + actions 330 ≈ 842</td><td>窄笔记本/竖屏平板右上角按钮消失，最关键的 CTA 点不到</td><td>≤900 隐藏 nav-links，或把 CTA 收成图标</td></tr>
+          <tr><td>R2</td><td><b>检索结果面板被 hero 裁掉</b></td><td class="num">.results 绝对定位在 .hero{overflow:hidden} 内</td><td>844×390 下后两条结果看不见，点不到</td><td>只删 overflow:hidden 这一个 token（body 已有 overflow-x:hidden 兜底）</td></tr>
+          <tr><td>R3</td><td><b>iOS 聚焦输入框整页放大</b></td><td class="num">input 12.5px（全宽度）/ 11.5px（≤760）</td><td>点检索框 → 页面 130% → 结果更裁 → 想收键盘 → 点空白 → 结果关闭</td><td>无条件 16px；outside-click 只在 pointer:fine 生效</td></tr>
+          <tr><td>R4</td><td><b>100svh 无回退，横屏溢出</b></td><td class="num">min-height:100svh + padding 110/56</td><td>844×390 横屏时 hero 内容被推出首屏</td><td>补 min-height:100vh; 再覆盖 svh</td></tr>
+          <tr><td>R5</td><td><b>320px 下类型标签溢出</b></td><td class="num">.type{white-space:nowrap} + 92px 日期列</td><td>写作列表右边缘被切，出现横向滚动</td><td>≤360 隐藏类型标签或改两行</td></tr>
+          <tr><td>R6</td><td><b>px 字号导致 200% 缩放掉断点</b></td><td class="num">body 15px 固定；1440@200% ≈ 720</td><td>放大后直接进入手机布局，导航与密度开关消失</td><td>根字号用 rem/clamp，断点按内容而非设备</td></tr>
+          <tr><td>R7</td><td><b>开抽屉整页右移 15px</b></td><td class="num">body.style.overflow="hidden" 覆盖 overflow-x</td><td>正文横向抖一下，精确感被抵消</td><td><span class="m">html{scrollbar-gutter:stable}</span>（Safari &lt;18 用 padding-right 补偿）</td></tr>
+          <tr><td>R8</td><td><b>同一断点内自我覆盖的死代码</b></td><td class="num">L329 .seal 42/10 → L339 38/−8 覆盖</td><td>不是 bug，是证据：这段是叠着改出来的</td><td>删 L329 的宽高与 margin；通读整块清重复</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 07 INTERACTION -->
+    <section id="s7">
+      <div class="h2"><span class="n">07</span><h2>交互与状态</h2><span class="en">INTERACTION</span></div>
+      <p class="lede">四处假入口、一个恒满的分数、一个抓不住的焦点。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>问题</th><th>证据</th><th>影响</th><th>改法</th></tr></thead>
+        <tbody>
+          <tr><td>I1</td><td><b>四个假入口</b></td><td class="num">metric 是 div；exp-row 无链接；wrow href="#"; 看深潜→#method</td><td>点一次没反应，读者不再相信第二次</td><td>统一 data-ev；# 改 disabled；深潜指向真实页或页内展开</td></tr>
+          <tr><td>I2</td><td><b>检索分数恒为 1.00，单字也跑</b></td><td class="num">L875 score=s/max → 第一名恒 1.00<br>q.length&lt;2 仍在检索</td><td>首个可验证动作就不可信；输入"的"会返回全站 chunk 并显示 1.00，正好教坏读分数的人</td><td>删分数；q&lt;2 直接短路；命中段落先包 <span class="m">&lt;mark id="hit"&gt;</span> 再滚过去（+0.5 人日）</td></tr>
+          <tr><td>I3</td><td><b>hero 不在索引里</b></td><td class="num">只有 6 个 [data-chunk]，hero 无</td><td>搜站点自己的主张「AI 负责快」返回"没有命中"</td><td>hero 加 data-chunk，标题权重 ×2</td></tr>
+          <tr><td>I4</td><td><b>索引剔除规则误删正文</b></td><td class="num">readableText 删 button 与 [aria-hidden]</td><td>流程六步（aria-hidden）与证据链接（button）全部搜不到</td><td>只剔装饰，不剔语义；给流程加文本替代</td></tr>
+          <tr><td>I5</td><td><b>检索词直接拼进 innerHTML</b></td><td class="num">L898 'QUERY: ' + q.slice(0,18)</td><td>属结构性 DOM 注入（中危）。当前恰好不可执行：q 被截在引号内，注入片段无法闭合；但 q≥18 字符时引号可被闭合。别把截断当防护</td><td>用 textContent 或转义补位，不依赖长度截断</td></tr>
+          <tr><td>I6</td><td><b>结果不播报、无键盘导航</b></td><td class="num">results 有 aria-live 但容器 display:none</td><td>读屏用户不知道出了结果；键盘只能 Tab</td><td>独立 role=status 区域 + ↑↓/Enter</td></tr>
+          <tr><td>I7</td><td><b>抽屉关闭态仍在 Tab 序</b></td><td class="num">translateX(101%) 移出，未 hidden/inert</td><td>一路 Tab 会停在一个看不见的关闭键上</td><td>关闭态 hidden + inert；打开时背景 inert</td></tr>
+          <tr><td>I8</td><td><b>焦点环被裁 / 被去掉</b></td><td class="num">.seg overflow:hidden 切 outline-offset；input outline:none</td><td>键盘用户看不见密度开关与输入框的焦点</td><td>seg 用 inset 焦点环；input 恢复 focus-visible</td></tr>
+          <tr><td>I9</td><td><b>首帧闪主题、闪密度</b></td><td class="num">data-theme 写死；localStorage 在 body 末尾读</td><td>纸白用户每次刷新先见黑帧；速读用户先展开再折叠，顶一次滚动</td><td>head 内联脚本同时写 theme/density/theme-color</td></tr>
+          <tr><td>I10</td><td><b>状态反馈不成体系</b></td><td class="num">复制只改 textContent；按钮宽度随文字变</td><td>相邻按钮跳动；读屏无提示</td><td>全站一个 role=status；复制键定宽 + 3s 回退</td></tr>
+          <tr><td>I11</td><td><b>h1 可访问名被印章污染</b></td><td class="num">.seal 在 h1 内，aria-label 在无 role 的 span 上</td><td>读屏把标题读成"…我负责对。已评测"</td><td>印章移出 h1，做成打开证据的按钮</td></tr>
+          <tr><td>I12</td><td><b>标题层级跳级</b></td><td class="num">.log h4 出现在第一个 h2 之前</td><td>按标题导航的结构是断的</td><td>日志改 p/span；或整体降为 aside</td></tr>
+          <tr><td>I13</td><td><b>IIFE 无空值保护</b></td><td class="num">qForm.addEventListener 直接调用</td><td>任一处改 DOM 就整段脚本挂掉，检索与抽屉一起失效</td><td>关键节点加 if 守卫，或拆模块</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 08 DATA -->
+    <section id="s8">
+      <div class="h2"><span class="n">08</span><h2>内容可信度</h2><span class="en">DATA INTEGRITY</span></div>
+      <p class="lede">在"每个数字都能验证"的站上，数字必须自洽。</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>现状</th><th>事实</th><th>影响</th><th>改法</th></tr></thead>
+        <tbody>
+          <tr><td>D1</td><td>「60+ 接口」</td><td class="num">实际 52（13 个路由文件）</td><td>夸大 15%，一查就破</td><td>改 52；或写"13 个路由模块 · 52 个端点"</td></tr>
+          <tr><td>D2</td><td>「第 05 周」</td><td class="num">9/28 起算今天是第 4 周</td><td>连自己的进度都算错</td><td>PROFILE 存起始日，运行时算</td></tr>
+          <tr><td>D3</td><td>「10-18 pytest 79 passed」</td><td class="num">README 无此日期</td><td>构建日志因此变成装饰</td><td>换 git log 真实日期，或删掉日期列</td></tr>
+          <tr><td>D4</td><td>「新增 3 条用例 · 全量 79」</td><td class="num">读者按 79+3=82 算，卡住</td><td>不是算错，是先后不清；卡住的人不会问，直接减分</td><td>写成「原有 76 全绿 → 新增 3 条 = 79」</td></tr>
+          <tr><td>D5</td><td>示例批注留在正文</td><td class="num">"请替换成你的真实数字"</td><td>当面承认刚看的数字是占位；速览模式还把批注藏了</td><td>先换真数字，再删批注；速览保留数字</td></tr>
+          <tr><td>D6</td><td>「1.1 万行」</td><td class="num">README 1.17 万（含测试脚本）</td><td>精度前后不一</td><td>统一 1.17 万，并注明统计口径</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 09 PLAN -->
+    <section id="s9">
+      <div class="h2"><span class="n">09</span><h2>修复路线</h2><span class="en">FIX ORDER</span></div>
+      <p class="lede">先让它"不假"，再让它"能读"，最后才是"好看"。</p>
+
+      <div class="batch">
+        <div><b>BATCH 0 · 2 小时</b><strong>止血</strong><p>删噪点层覆盖 / 删示例批注并标 76→79 / 四处假入口 / 52 与周数 / 检索分数改命中词。</p><em>验收：不存在点了没反应的元素</em></div>
+        <div><b>BATCH 1 · 1.5 天</b><strong>可信</strong><p>字体最小改动集 / head 内联主题与密度 / 焦点陷阱 + inert / 输入框 16px / 结果面板去裁切 / 抽屉出处链接 / 命中卡 A 档（+0.5 天，不阻塞上线）。</p><em>验收：键盘走完全程，首帧不闪，Windows 截图无彩边</em></div>
+        <div><b>BATCH 2 · 2 天</b><strong>可用</strong><p>字号阶梯 / 对比度 / 发丝线 / 朱砂配额 / 移动导航 / 触控 44px / .flow 改 ol + 字号 11px + 动效（同一交付单元）/ canvas 修复。</p><em>验收：390 与 200% 缩放可用</em></div>
+      </div>
+      <div class="batch" style="grid-template-columns:1fr">
+        <div><b>BATCH 3 · 1 天</b><strong>打磨</strong><p>印章语义 / 等宽中文回退 / 死代码清理 / hover 统一 / 标点空格 / theme-color / 320px / 标题层级 / 空值守卫。</p><em>验收：放大 200% 不露馅，axe 0 告警</em></div>
+      </div>
+
+      <div class="note"><span class="t">依赖顺序（容易做反）</span>① 把 <span class="mono" style="font-size:9.5px">.flow</span> 的 <span class="mono" style="font-size:9.5px">span/i</span> 结构整体改成 <span class="mono" style="font-size:9.5px">&lt;ol&gt;&lt;li&gt;</span>（视觉不变，连接件走 <span class="mono" style="font-size:9.5px">li::after</span>；补 <span class="mono" style="font-size:9.5px">list-style:none;padding:0</span> 与 <span class="mono" style="font-size:9.5px">aria-label="处理流程"</span>）——这一步同时修可达性、召回和 <span class="mono" style="font-size:9.5px">nth-of-type</span> 失效的动效 bug；<b>并且必须同批把 <span class="mono" style="font-size:9.5px">.flow-node</span> 从 9.5px 升到 11px</b>：去掉 <span class="mono" style="font-size:9.5px">aria-hidden</span> 后它就是正文，分两次做会出现"一段 9.5px 的正文"，比现状更差。<b>结构 + 字号 + 动效，一个交付单元，不拆 PR</b>；② <span class="mono" style="font-size:9.5px">readableText</span> <b>继续删 <span class="mono" style="font-size:9.5px">[aria-hidden]</span></b>（不要放开，否则将来任何装饰文本会静默进索引），另删 <span class="mono" style="font-size:9.5px">button</span> 与 <span class="mono" style="font-size:9.5px">.ev-link</span>；③ hero 入索引；④ <span class="mono" style="font-size:9.5px">q&lt;2</span> 短路；⑤ 最后做命中卡。顺序错一步，命中率仍是 0。</div>
+
+      <div class="note"><span class="t">两个实现陷阱</span>① 命中卡的有效性<b>不要靠调用方记得清</b>，改成状态派生：<span class="mono" style="font-size:9.5px">if (cardQuery !== null &amp;&amp; q !== cardQuery) clearCard();</span>。这条必须放在 <span class="mono" style="font-size:9.5px">if (!q) return</span> 之前，且 <span class="mono" style="font-size:9.5px">clearCard()</span> 内把 <span class="mono" style="font-size:9.5px">cardQuery</span> 置 null——否则清空输入会把写着旧查询的卡留在页面上，变成无上下文的残留标注。② A 档 0.5 人日，<b>不阻塞上线</b>；B 档若做，force-show 严格限定"本次命中所在的那一段"，<span class="mono" style="font-size:9.5px">closeResults()</span> 时撤销。</div>
+
+      <div class="note ok"><span class="t">结构性建议（可选）</span>如果愿意重做一处：<b>把 Now 四格并进 Hero，替换构建日志；日志压成搜索框下的一行 ticker；Hero 底部放三个角色入口</b>——我是 HR / 我是面试官 / 我是同行。一次解决四件事：HR 的第一需求提前 1,100px、首屏从 8 组元素降到 5 组、双模式从一个谜语变成三个动词、7 屏自然收成 6 屏。</div>
+
+      <div class="note"><span class="t">不要动</span>三声音阶（宋/等宽/黑）、墨纸双主题、朱砂印章、数字纪律、手写 CSS 不用 UI 库。这五样是这套设计仍然像"一个人做的"而不是"一个模板生成的"的原因。<b>但印章要从装饰变成入口，双主题要修首帧闪，数字纪律要先把 52 改对。</b></div>
+
+      <div class="center-cta">
+        <div><b>报告到这儿。要动手的话，从 Batch 0 开始。</b><span>四项加起来两小时，改完这一轮，"证据链"才第一次成立。</span></div>
+        <a href="index.html">回到原型 ↗</a>
+      </div>
+
+      <p class="small" style="margin-top:24px;border-top:1px solid var(--line);padding-top:12px">EVIDENCE / 全面审查 v2.0 · 2026-10-22 · 三方交叉：视觉（12 项）/ 体验（13 项）/ 工程（16 项），去重后 34 项<br>统计口径：接口 52 个（13 个路由文件）；视图 13 个 / 3,759 行；后端 app 108 文件 / 9,521 行；字体估算 400–900KB。</p>
+    </section>
+  </main>
+</div>
+</body>
+</html>

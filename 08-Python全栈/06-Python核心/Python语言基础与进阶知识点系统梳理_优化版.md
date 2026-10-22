@@ -4936,24 +4936,52 @@ import sqlite3
 
 class DatabaseConnection:
     def __init__(self, db_path):
+        # __init__：实例初始化魔术方法；实例创建时自动调用，只负责初始化实例属性
+        # 底层：类实例在内存创建完成后，由Python解释器自动调用，不属于上下文管理器协议
         self.db_path = db_path
         self.conn = None
 
     def __enter__(self):
+        # __enter__：上下文管理器协议方法【协议规定1】
+        # 底层：执行 with 表达式时，先拿到上下文管理器实例，自动调用 __enter__()
+        # 返回值会绑定到 with ... as 后面的变量；
+        # 作用：资源的【申请/打开】逻辑（这里打开数据库连接）
         self.conn = sqlite3.connect(self.db_path)
         return self.conn
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        # __exit__：上下文管理器协议方法【协议规定2】
+        # 底层：with 代码块正常走完 / 代码块抛出异常，【无论如何都会自动执行】
+        # 参数固定三个：
+        # exc_type：异常类型；无异常时值为 None
+        # exc_val：异常实例（异常对象）；无异常时值为 None
+        # exc_tb：traceback 异常回溯栈，就是前面学的 tb；无异常时值为 None
         if exc_type is None:
-            self.conn.commit()  # 无异常时提交
+            # 无异常：提交事务，把本次事务DML改动持久写入磁盘
+            # sqlite3底层：开启事务后，变更先写在事务日志，commit之后才落地主库文件
+            self.conn.commit()
         else:
-            self.conn.rollback()  # 有异常时回滚
+            # 存在异常：回滚rollback
+            # sqlite3底层：丢弃本次事务日志里全部未提交修改，数据恢复到事务开始前状态
+            self.conn.rollback()
+        # 底层：关闭连接，释放sqlite文件锁、释放文件句柄资源
         self.conn.close()
+        # return False：__exit__ 返回布尔值是协议规则
+        # False：不压制异常，异常继续向上抛出，外层try可以捕获
+        # True：吃掉异常，上层代码感知不到曾经报错
         return False
 
+# with 底层执行协议时序：
+# 1. 计算 with 后面表达式：DatabaseConnection("app.db") → 得到上下文管理器实例
+# 2. 自动调用实例.__enter__()，拿到返回值，赋值给 as 后的 conn
+# 3. 执行缩进块内代码 conn.execute(...)
+# 4. 缩进块结束 OR 缩进块抛出异常 → 自动调用 __exit__(exc_type, exc_val, exc_tb)
+# 5. __exit__ 执行完成，with语句结束
 with DatabaseConnection("app.db") as conn:
+    # conn 就是 __enter__ return 的 sqlite3.Connection 对象
+    # sqlite 默认自动开启事务，INSERT/UPDATE/DELETE 不会自动提交，必须commit
     conn.execute("INSERT INTO users (name) VALUES (?)", ("Alice",))
-# 自动 commit 或 rollback，并关闭连接
+# 正常执行完毕：自动 commit + close
 ```
 
 #### 线程锁
