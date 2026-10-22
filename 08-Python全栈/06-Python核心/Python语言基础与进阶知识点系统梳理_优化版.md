@@ -3231,6 +3231,83 @@ class ErrorCode(Enum):
 
 print(ErrorCode.NOT_FOUND.code)     # 404
 print(ErrorCode.NOT_FOUND.message)  # 资源不存在
+'''
+> 先记住核心一句话： 枚举类在**定义阶段（类加载时）**，就会自动遍历每一个枚举成员，把等号后面的元组拆包，传给你写的 `__init__`。 
+> Enum 的 `__init__` **不是你手动调用，是枚举框架自动调用**。
+
+## 分步时序（从上到下）
+
+1. 执行 `class ErrorCode(Enum):`，开始定义枚举子类
+2. 扫描类体内的成员：`SUCCESS = (0, "成功")`
+    - Enum 机制捕获：名字 `SUCCESS`，原始值 `(0, "成功")`
+    - **自动调用 `ErrorCode.__init__(self, 0, "成功")`**
+        - `self`：即将创建的枚举实例 `ErrorCode.SUCCESS`
+        - 把 `0` 赋值给 `self.code`，`"成功"` 赋值给 `self.message`
+3. 同理处理：
+    - `NOT_FOUND = (404, "资源不存在")` → 自动调用 `__init__(self, 404, "资源不存在")`
+    - `SERVER_ERROR = (500, "服务器内部错误")` → 自动调用 `__init__(self, 500, "服务器内部错误")`
+4. 所有成员实例构造完成，存入枚举的成员注册表；此时 `ErrorCode.NOT_FOUND` 已经是一个**装好 `.code`、`.message` 属性的枚举实例**
+5. 到代码 `print(ErrorCode.NOT_FOUND.code)`：直接访问实例上已经存在的实例属性
+
+## 🧩 关键细节（和普通类的 **init** 巨大区别）
+
+普通类：
+
+class Demo:
+    def __init__(self,a,b):
+        self.a=a
+d = Demo(1,2) # 实例化的时候，用户主动触发 __init__
+
+Enum 自定义 `__init__`：
+
+- **不是写代码 `ErrorCode(404, "xxx")` 才触发**
+- **在类定义阶段、解释器读到这一行 `NOT_FOUND = (404, "资源不存在")` 的瞬间，Enum 元类（`EnumMeta`）就帮你执行 `__init__`**
+- 等你后面写 `ErrorCode.NOT_FOUND`，实例早就造好了，属性早就绑定完毕
+
+> 背后驱动力：Enum 的元类 `EnumMeta`。元类拦截类的创建过程，解析每一个枚举成员的值，自动传入你定义的 `__init__`。
+
+## ❓ 那枚举自带的 `.value` 是什么？
+
+print(ErrorCode.NOT_FOUND.value)  # (404, '资源不存在')
+
+- 等号右边整个元组 `(404, "资源不存在")` 是枚举原生的 `.value`
+- 你写的 `__init__` 只是**额外拆出两个字段，挂到实例上**：`.code` 和 `.message`
+- 两者互不冲突：`.value` 是 Enum 原生属性；`.code/.message` 是你自己新增的实例属性
+
+## 调用链路极简版
+
+类定义开始 → EnumMeta元类接管
+    ↓
+读到 SUCCESS = (0, "成功")
+    ↓
+创建枚举实例 self
+    ↓
+调用你写的 __init__(self, 0, "成功")
+    ↓
+self.code=0，self.message="成功"
+    ↓
+存入枚举成员表
+...循环处理NOT_FOUND、SERVER_ERROR...
+类定义结束
+——————到运行时print代码——————
+取出预生成好的实例 ErrorCode.NOT_FOUND，读取它身上的 .code / .message
+
+## 补充高频坑
+
+1. 你这个写法，**不能 `ErrorCode(404)` 拿到 NOT_FOUND**，因为 Enum 默认是按`.value`匹配：
+
+print(ErrorCode((404,"资源不存在"))) # ✅ 这样才能查到
+# ErrorCode(404) ❌ 报错，因为value是整个元组
+如果想要 `ErrorCode(404)` 通过 code 反向查找，要自己写 `_missing_` 或者写一个类方法。
+
+2. `__init__` 参数数量必须和**等号后面的值拆包后的数量对齐** 这里每个成员后面是二元元组，
+   所以 `__init__(self, code, message)` 两个参数，一一对应； 如果写成三元元组，`__init__` 就要写 3 个入参，否则抛参数数量异常。
+
+## 和之前知识点联动
+
+- Enum 成员是可哈希的 → 可以做字典 key，和 `frozen=True` dataclass 一样
+- 这个 `__init__` 是**枚举元类驱动自动执行**，和普通类、dataclass 自动生成的`__init__`触发时机完全不一样
+'''
 ```
 
 #### 枚举的迭代和比较
