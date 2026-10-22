@@ -2935,7 +2935,8 @@ s1 = Student("张三", 20, [90, 85])
 s2 = Student("张三", 20, [90, 85], student_id="001")
 print(s1)  # Student(name='张三', age=20, grades=[90, 85], student_id='')
 print(s1 == s2)  # True —— student_id 不参与比较
-print(s1._internal)  # internal_张三 —— __post_init__ 中设置
+print(s1._internal)  # internal_张三 —— __post_init__ 中设置，
+# 如果**没有 `__post_init__` 去覆盖赋值**，实例创建完成后，`self._internal` 就等于 `"secret"`
 ```
 
 **field() 参数详解**：
@@ -2994,6 +2995,11 @@ p = ImmutablePoint(1, 2)
 d = {p: "原点"}
 s = {p, ImmutablePoint(3, 4)}
 print(d[p])  # 原点
+'''
+字典 `d[p] = xxx` 是两件东西分开的：
+- key：对象 `p`（这个对象本身不能改）
+- value：`"原点"`，value 完全不受 frozen 限制！
+'''
 ```
 
 > 💡 **最佳实践**：不可变数据类（`frozen=True`）是线程安全的，可哈希，适合作为配置对象、值对象、字典键。但如果需要修改字段，不能用 frozen。需要"修改"时用 `dataclasses.replace(obj, field=new_value)` 创建新实例。
