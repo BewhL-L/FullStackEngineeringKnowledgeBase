@@ -447,6 +447,17 @@ html.deck .chapter.out-down{animation:dkOutDown .76s var(--e-enter) both;visibil
 @keyframes dkInDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
 @keyframes dkOutUp{from{transform:translateY(0);opacity:1}to{transform:translateY(-28%) scale(.96);opacity:.35}}
 @keyframes dkOutDown{from{transform:translateY(0)}to{transform:translateY(100%)}}
+
+/* 证据幕：一次镜头推近 */
+@keyframes shotIn{from{opacity:0;transform:translateY(22px) scale(1.035);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+html.deck .rv{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+html.deck .chapter.on .proof-item{animation:shotIn 1.05s var(--e-enter) both}
+html.deck .chapter.on .proof-item:nth-child(2){animation-delay:.08s}
+html.deck .chapter.on .proof-item:nth-child(3){animation-delay:.16s}
+html.deck .chapter.on .proof-item:nth-child(4){animation-delay:.24s}
+html.deck .chapter.on .pull{animation:shotIn 1.1s var(--e-enter) .26s both}
+html.deck .chapter.on .proof-side{animation:shotIn 1.1s var(--e-enter) .36s both}
+html.deck .chapter.on .proof-top{animation:shotIn .9s var(--e-enter) both}
 html.deck .chapter>.wrap,html.deck .chapter>.plate{opacity:1!important;transform:none!important}
 html.deck .stage3d{min-height:0}
 
@@ -1188,6 +1199,29 @@ html.deck .stage3d{min-height:0}
   $$("[data-open-evidence]").forEach(b=>b.addEventListener("click",function(){ openDrawer(this.getAttribute("data-open-evidence")); }));
   $("#dClose").addEventListener("click",closeDrawer);
   scrim.addEventListener("click",closeDrawer);
+  /* ---------- 证据幕：数字计数 ---------- */
+  const proofNums=$$(".proof-item b");
+  proofNums.forEach(function(el){ el.dataset.n=el.textContent.replace(/[^0-9]/g,""); });
+  let countToken=0;
+  function countUp(){
+    if(reduce) return;
+    const my=++countToken;
+    proofNums.forEach(function(el,i){
+      const target=parseInt(el.dataset.n,10);
+      if(!isFinite(target)) return;
+      const t0=performance.now()+i*90;
+      el.textContent="0";
+      (function tick(t){
+        if(my!==countToken) return;
+        if(t<t0){ requestAnimationFrame(tick); return; }
+        const p=Math.min(1,(t-t0)/850);
+        const e=1-Math.pow(1-p,3);
+        el.textContent=String(Math.round(target*e));
+        if(p<1) requestAnimationFrame(tick); else el.textContent=String(target);
+      })(performance.now());
+    });
+  }
+
   /* ---------- 单屏舞台：状态机 ---------- */
   const chs=$$(".chapter"), railLinks=$$(".rail a"), dPrev=$("#prevCh"), dNext=$("#nextCh");
   const deckMQ=matchMedia("(min-width:1101px)");
@@ -1225,6 +1259,7 @@ html.deck .stage3d{min-height:0}
     B.classList.remove("in-up","in-down","out-up","out-down");
     A.classList.remove("in-up","in-down","out-up","out-down");
     B.classList.add("on");
+    if(n===1) setTimeout(countUp,320);
     void B.offsetWidth;
     B.classList.add(up?"in-up":"in-down");
     A.classList.add(up?"out-up":"out-down");
@@ -1291,6 +1326,15 @@ html.deck .stage3d{min-height:0}
     if(i<0) return;
     e.preventDefault(); go(i);
   });
+
+  (function(){
+    const p1=document.getElementById("s01");
+    if(!p1||!("IntersectionObserver" in window)) return;
+    let done=false;
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting&&!done){ done=true; if(!document.documentElement.classList.contains("deck")) countUp(); } });
+    },{threshold:.35}).observe(p1);
+  })();
 
   if(deckMQ.matches&&!reduce) enableDeck();
   setTimeout(function(){ if(isDeck()) chromeActive(cur); },0);
