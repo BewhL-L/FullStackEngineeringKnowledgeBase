@@ -13,8 +13,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23100E0C'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23E8420B'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/noto-serif-sc-300.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/instrument-serif-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/noto-serif-sc-300.woff2" as="font" type="font/woff2">
+<link rel="preload" href="fonts/instrument-serif-400.woff2" as="font" type="font/woff2">
 <style>
 /* 自托管子集：只含页面实际用到的字形（49 汉字 + ASCII），四文件共 114KB
    改文案后需重跑子集脚本，否则新字会回退到系统宋体 */
@@ -1144,8 +1144,7 @@ html.deck .stage3d{min-height:0}
   function render(query,animate,stream){
     const list=buildResults(query,animate);
     if(!list.length) return;
-    const keep=selectedId && list.find(x=>x.c.id===selectedId);
-    selectAnswer(keep?selectedId:list[0].c.id,stream);
+    selectAnswer(list[0].c.id,stream);
   }
   resultsEl.addEventListener("click",e=>{
     const tryBtn=e.target.closest("[data-try]");

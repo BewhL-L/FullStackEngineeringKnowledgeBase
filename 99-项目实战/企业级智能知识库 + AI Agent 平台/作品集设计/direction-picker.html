@@ -336,6 +336,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine=window.matchMedia("(pointer:fine)").matches;
   const evidence=document.getElementById("evidence");
+  const pickerMQ=window.matchMedia("(max-width:560px)");
+  function positionPicker(){ if(pickerMQ.matches) picker.setAttribute("data-position","top"); else picker.removeAttribute("data-position"); }
+  positionPicker();
+  try{pickerMQ.addEventListener("change",positionPicker);}catch(err){pickerMQ.addListener(positionPicker);}
   let current=0,cleanup=null,mountId=0;
 
   const CHUNKS=[
@@ -480,13 +484,17 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
     nodes.forEach((el,i)=>el.addEventListener("click",()=>select(i)));
     function draw(t){
       ctx.clearRect(0,0,w,h);
-      const centerX=w*(w>1000?.54:.5),centerY=h*.5,scale=Math.min(w/9.4,h/4.5);
+      const compact=w<600;
+      const centerX=w*(w>1000?.54:.5),centerY=h*.5;
+      const scale=Math.min(w/9.4,h/4.5);
+      const scaleX=compact?w/4.4:scale,scaleY=compact?h/6.2:scale;
+      const layout=compact?mobilePos:pos;
       const ry=cx,rx=cy,cosY=Math.cos(ry),sinY=Math.sin(ry),cosX=Math.cos(rx),sinX=Math.sin(rx);
-      const projected=pos.map(p=>{
+      const projected=layout.map(p=>{
         const x=p[0]*cosY+p[2]*sinY,z1=-p[0]*sinY+p[2]*cosY;
         const y=p[1]*cosX-z1*sinX,z2=p[1]*sinX+z1*cosX;
         const perspective=5.8/(5.8+z2);
-        return {x:centerX+x*scale*perspective,y:centerY+y*scale*perspective,z:z2,p:perspective};
+        return {x:centerX+x*scaleX*perspective,y:centerY+y*scaleY*perspective,z:z2,p:perspective};
       });
       const pulseAge=pulseStart==null?Infinity:t-pulseStart;
       const activeIndex=Math.floor(pulseAge/150);
