@@ -32,7 +32,7 @@ h1,h2,h3,h4,p{margin:0}
 :focus-visible{outline:2px solid var(--accent-soft);outline-offset:3px}
 ::selection{background:var(--accent);color:#120A06}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);width:100%}
-.bg-grid{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+.bg-grid{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.38;
   background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
   background-size:72px 72px;
   -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000,transparent 78%);mask-image:radial-gradient(80% 60% at 50% 0%,#000,transparent 78%)}
@@ -81,6 +81,11 @@ html.no-3d .bg-fallback{display:block;background:
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 55% at 70% 45%,rgba(197,111,60,.12),transparent 62%),radial-gradient(50% 50% at 8% 88%,rgba(181,147,93,.08),transparent 60%)}
 .hero-grid{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:40px;align-items:center;pointer-events:none}
 .hero-copy,.demo{pointer-events:auto}
+.hero-copy,.case-copy,.system-copy{padding:24px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 26px 70px -55px #000}
+.case-copy,.system-copy{max-width:520px;padding:20px}
+.system-copy h2{font-size:clamp(30px,3.4vw,44px)}
+.system-copy p{margin-top:12px}
+.nums{margin-top:14px}
 .hero-copy h1{margin-top:18px;font-family:var(--display);font-weight:400;font-size:clamp(44px,6.4vw,80px);line-height:.98;letter-spacing:-.03em}
 .hero-copy h1 em{font-style:normal;color:var(--accent)}
 .thesis{margin-top:20px;max-width:24em;font-size:17px;line-height:1.62;color:var(--text)}
@@ -94,7 +99,7 @@ html.no-3d .bg-fallback{display:block;background:
 .hero-note b{color:var(--accent-soft);font-weight:400}
 
 /* ---------- demo panel ---------- */
-.demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 80px -50px rgba(0,0,0,.9);overflow:hidden}
+.demo{position:relative;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(18px) saturate(1.25);backdrop-filter:blur(18px) saturate(1.25);border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 30px 80px -50px rgba(0,0,0,.9);overflow:hidden}
 .demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-bottom:1px solid var(--line-2);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .demo-bar b{color:var(--text);font-weight:500;display:inline-flex;align-items:center;gap:7px}
 .demo-bar b i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(197,111,60,.16)}
@@ -130,7 +135,7 @@ html.no-3d .bg-fallback{display:block;background:
 .proof{width:100%}
 .sec-head{display:flex;justify-content:space-between;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:28px}
 .proof-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.metric{padding:18px;border:1px solid var(--line-2);border-radius:14px;background:linear-gradient(180deg,var(--surface),rgba(18,18,26,.55));transition:border-color .2s var(--ease-out),transform .2s var(--ease-out)}
+.metric{padding:18px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 24px 60px -48px #000;transition:border-color .2s var(--ease-out),transform .2s var(--ease-out)}
 .metric:hover{border-color:var(--line);transform:translateY(-2px)}
 .metric .cube{width:26px;height:26px;margin-bottom:14px;position:relative;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(38deg)}
 .metric .cube i{position:absolute;inset:0;border:1px solid rgba(226,163,123,.55);background:rgba(197,111,60,.10)}
@@ -157,7 +162,7 @@ html.no-3d .bg-fallback{display:block;background:
 .case-list i{font:italic 18px var(--display);color:var(--accent-soft)}
 .case-list b{font-weight:500;font-size:14px}
 .case-list em{font:10px var(--mono);font-style:normal;color:var(--muted)}
-.case-detail{padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:0 30px 80px -60px #000}
+.case-detail{padding:20px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);box-shadow:0 30px 80px -60px #000}
 .case-detail .step{font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-soft)}
 .case-detail h3{margin-top:10px;font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:-.02em}
 .case-detail p{margin-top:12px;color:var(--muted)}
@@ -167,19 +172,20 @@ html.no-3d .bg-fallback{display:block;background:
 
 /* ---------- system ---------- */
 .system{width:100%}
-.system-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:center}
+.system-wrap{position:relative;height:100%;min-height:520px;display:grid;grid-template-rows:auto minmax(240px,1fr) auto;gap:12px}
+.system-copy{max-width:430px}
 .system-copy p{margin-top:16px;max-width:28em;color:var(--muted)}
 .nums{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.sys-stage{perspective:1200px;perspective-origin:70% 45%;min-height:min(460px,54vh);display:flex;align-items:center;justify-content:flex-end;--sys-gap:4.2vh}
-.sys-stack{position:relative;width:100%;max-width:430px;height:min(486px,56vh);transform-style:preserve-3d;transform:rotateX(7deg) rotateY(-13deg);will-change:transform}
-.layer{position:absolute;left:0;right:0;top:0;height:36px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(180deg,var(--surface-3),var(--surface));box-shadow:0 20px 36px -30px #000;transform:translate3d(0,calc(var(--i)*8px),-180px);opacity:0;transition:transform var(--move) var(--ease-out) calc(var(--i)*24ms),opacity var(--move) ease-out calc(var(--i)*24ms),border-color .2s var(--ease-out),background .2s var(--ease-out)}
-.system.on .layer{transform:translate3d(calc(var(--i)*6px),calc(var(--i)*var(--sys-gap,44px)),calc(var(--i)*-18px));opacity:1}
-.system.on .layer:hover{border-color:var(--accent);transform:translate3d(calc(var(--i)*6px + 8px),calc(var(--i)*var(--sys-gap,44px) - 2px),calc(var(--i)*-18px + 26px))}
-.layer.on{border-color:var(--accent);background:linear-gradient(180deg,rgba(197,111,60,.24),var(--surface-2))}
+.sys-stage{position:relative;perspective:1200px;perspective-origin:68% 42%;--step-x:-68px;--step-y:42px;--step-z:10px}
+.sys-stack{position:absolute;inset:0;top:-18px;transform-style:preserve-3d;transform:rotateX(6deg) rotateY(-8deg);will-change:transform}
+.layer{position:absolute;left:auto;right:0;top:0;width:min(320px,66%);height:34px;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);box-shadow:0 22px 40px -30px #000,inset 0 1px 0 rgba(255,255,255,.05);transform:translate3d(0,calc(var(--i)*10px),-240px);opacity:0;transition:transform var(--move) var(--ease-out) calc(var(--i)*26ms),opacity var(--move) ease-out calc(var(--i)*26ms),border-color .2s var(--ease-out),background .2s var(--ease-out),box-shadow .2s var(--ease-out)}
+.system.on .layer{transform:translate3d(calc(var(--i)*var(--step-x)),calc(var(--i)*var(--step-y)),calc(var(--i)*var(--step-z)));opacity:1}
+.system.on .layer:hover{border-color:var(--accent);transform:translate3d(calc(var(--i)*var(--step-x) - 5px),calc(var(--i)*var(--step-y) - 3px),calc(var(--i)*var(--step-z) + 20px))}
+.system.on .layer.on{border-color:var(--accent);background:rgba(197,111,60,.30);box-shadow:0 30px 55px -34px #000,inset 0 1px 0 rgba(255,255,255,.10);transform:translate3d(calc(var(--i)*var(--step-x)),calc(var(--i)*var(--step-y) - 4px),calc(var(--i)*var(--step-z) + 26px))}
 .layer .ln{font:italic 11px var(--display);color:var(--muted)}
 .layer h3{font-size:14px;font-weight:500}
 .layer .m{font:10px var(--mono);color:var(--muted);white-space:nowrap}
-.sys-detail{margin-top:16px;padding:14px 16px;border:1px solid var(--line-2);border-left:2px solid var(--accent);border-radius:0 10px 10px 0;background:var(--surface-2)}
+.sys-detail{justify-self:end;max-width:430px;padding:12px 14px;border:1px solid var(--line-2);border-left:2px solid var(--accent);border-radius:0 12px 12px 0;background:rgba(18,18,26,.30);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 24px 60px -48px #000}
 .sys-detail .step{font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft)}
 .sys-detail p{margin-top:6px;font-size:13px;color:var(--muted)}
 
@@ -230,8 +236,9 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 @media(max-width:1080px){
   .hero-grid{grid-template-columns:1fr;gap:24px;padding-top:6px}
   .demo{max-width:620px}
-  .case-grid,.system-grid{grid-template-columns:1fr;gap:24px}
-  .sys-stage{justify-content:flex-start;min-height:min(380px,46vh)}
+  .case-grid{grid-template-columns:1fr;gap:24px}
+  .system-wrap{min-height:0;gap:14px}
+  .sys-stage{--step-x:-50px;--step-y:40px;--step-z:8px}
   .proof-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr;gap:22px}
   .contact-r{justify-self:start;text-align:left}
@@ -246,10 +253,11 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
   .screen-scroll{padding-bottom:6px}
   .proof-grid{grid-template-columns:1fr 1fr}
   .metric b{font-size:34px}
-  .sys-stage{min-height:0;perspective:none;--sys-gap:0px}
-  .sys-stack{height:auto;max-width:none;transform:none!important;display:flex;flex-direction:column;gap:8px}
-  .layer{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:46px;padding:10px 12px;transform:none!important;opacity:1!important;transition:border-color .2s var(--ease-out),background .2s var(--ease-out)}
-  .system.on .layer,.system.on .layer:hover{transform:none!important}
+  .system-wrap{display:flex;flex-direction:column;gap:14px;min-height:0}
+  .sys-stage{position:relative;min-height:0;perspective:none}
+  .sys-stack{position:relative;inset:auto;height:auto;max-width:none;transform:none!important;display:flex;flex-direction:column;gap:8px}
+  .layer{position:relative;left:auto;right:auto;top:auto;width:auto;height:auto;min-height:46px;padding:10px 12px;transform:none!important;opacity:1!important;transition:border-color .2s var(--ease-out),background .2s var(--ease-out)}
+  .system.on .layer,.system.on .layer:hover,.system.on .layer.on{transform:none!important}
   .dock button{padding:0 11px;font-size:10px}
   .dock button i{display:none}
   .ev-chain{grid-template-columns:1fr 1fr}
@@ -267,8 +275,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
   .dock button{flex:1;justify-content:center;padding:0 6px}
 }
 @media(max-height:700px){
-  .sys-stage{--sys-gap:3.7vh;min-height:min(400px,50vh)}
-  .sys-stack{height:min(430px,50vh)}
+  .sys-stage{--step-x:-40px;--step-y:34px;--step-z:6px}
+  .layer{height:30px}
   .metric b{font-size:34px}
   .case-detail h3{font-size:22px}
 }
@@ -277,12 +285,14 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   html.js .rv:not(.in){opacity:1;transform:none}
   .metric:hover,.result:hover,.case-list button:hover{transform:none}
-  .layer{opacity:1!important;transform:translate3d(calc(var(--i)*6px),calc(var(--i)*44px),calc(var(--i)*-18px))!important}
-  .system.on .layer{transform:translate3d(calc(var(--i)*6px),calc(var(--i)*44px),calc(var(--i)*-18px))!important}
+  .layer{opacity:1!important;transform:translate3d(calc(var(--i)*var(--step-x,-26px)),calc(var(--i)*var(--step-y,52px)),calc(var(--i)*var(--step-z,10px)))!important}
+  .system.on .layer,.system.on .layer:hover,.system.on .layer.on{transform:translate3d(calc(var(--i)*var(--step-x,-26px)),calc(var(--i)*var(--step-y,52px)),calc(var(--i)*var(--step-z,10px)))!important}
 }
 @media(prefers-reduced-transparency:reduce){
   .nav{background:var(--bg);backdrop-filter:none}
   .chips button{background:var(--surface)}
+  .demo,.metric,.case-detail,.sys-detail,.layer{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .system.on .layer.on{background:rgba(197,111,60,.24)}
 }
 @media(prefers-contrast:more){
   :root{--muted:#C8C6D0;--line:rgba(255,255,255,.28);--line-2:rgba(255,255,255,.18)}
@@ -385,21 +395,19 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 
   <!-- SYSTEM -->
   <section class="system screen" id="s03">
-    <div class="screen-scroll"><div class="wrap system-grid">
+    <div class="screen-scroll"><div class="wrap system-wrap">
       <div class="system-copy">
         <span class="kicker rv">03 / System</span>
         <h2 class="rv" style="--d:60ms">从网关到部署，<br>每一层<em>自己写</em>。</h2>
         <p class="rv" style="--d:120ms">从请求进来，到容器跑起来，一共十层。每一层都能单独替换——这是它唯一坚持的事。</p>
         <div class="nums rv" style="--d:180ms"><span>108 FILES</span><span>9,521 LINES</span><span>5 CONTAINERS</span></div>
       </div>
-      <div>
-        <div class="sys-stage rv" style="--d:120ms">
-          <div class="sys-stack js-sys-stack"></div>
-        </div>
-        <div class="sys-detail rv" style="--d:180ms">
-          <span class="step js-sys-step">LAYER 05</span>
-          <p class="js-sys-text">检索层：三路召回 + RRF 融合 + 精排，670 行 / 8 个文件。</p>
-        </div>
+      <div class="sys-stage rv" style="--d:120ms">
+        <div class="sys-stack js-sys-stack"></div>
+      </div>
+      <div class="sys-detail rv" style="--d:180ms">
+        <span class="step js-sys-step">LAYER 05</span>
+        <p class="js-sys-text">检索层：三路召回 + RRF 融合 + 精排，670 行 / 8 个文件。</p>
       </div>
     </div></div>
   </section>
@@ -701,8 +709,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
     const world=new THREE.Group(); scene.add(world);
 
     const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.25,0),new THREE.MeshStandardMaterial({color:0x754B3A,flatShading:true,roughness:.52,metalness:.18}));
-    const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(2.05,1),new THREE.MeshBasicMaterial({color:0xB5935D,wireframe:true,transparent:true,opacity:.18}));
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(2.7,.014,8,150),new THREE.MeshBasicMaterial({color:0xC56F3C,transparent:true,opacity:.5}));
+    const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(2.05,1),new THREE.MeshBasicMaterial({color:0xB5935D,wireframe:true,transparent:true,opacity:.10}));
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(2.7,.014,8,150),new THREE.MeshBasicMaterial({color:0xC56F3C,transparent:true,opacity:.32}));
     ring.rotation.x=Math.PI/2.15; ring.rotation.y=.2;
     world.add(core,shell,ring);
 
@@ -726,6 +734,18 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
       g.add(mesh,edge); g.scale.setScalar(.001); world.add(g); return g;
     });
 
+    const flowCount=72;
+    const flowGeo=new THREE.BufferGeometry();
+    const flowPos=new Float32Array(flowCount*3);
+    const flowSeed=[];
+    for(let i=0;i<flowCount;i++){
+      flowSeed.push({t:Math.random(),speed:.004+Math.random()*.006,ox:(Math.random()-.5)*.42,oy:(Math.random()-.5)*.3,oz:(Math.random()-.5)*.35});
+    }
+    flowGeo.setAttribute("position",new THREE.BufferAttribute(flowPos,3));
+    const flow=new THREE.Points(flowGeo,new THREE.PointsMaterial({color:0xE2A37B,size:.036,transparent:true,opacity:.20,depthWrite:false}));
+    world.add(flow);
+    function flowPath(t){ return [-3.2+t*6.4,-2.1+t*4.0,Math.sin(t*Math.PI)*.55]; }
+
     scene.add(new THREE.AmbientLight(0xffffff,.30));
     const key=new THREE.DirectionalLight(0xfff1e2,1.12); key.position.set(4.5,6,5.5); scene.add(key);
     const rim=new THREE.PointLight(0xC56F3C,1.30,14); rim.position.set(-4.5,-2.5,3); scene.add(rim);
@@ -734,7 +754,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
     function layerTarget(i,state){
       if(state===1){ const a=i/10*Math.PI*2; return {p:[Math.cos(a)*3.5,Math.sin(i*1.7)*.5,Math.sin(a)*1.4],r:[0,-a,0],s:.42}; }
       if(state===2){ return {p:[-3.4+i*.76,Math.sin(i*.8)*.18,0],r:[0,-.35,0],s:.38}; }
-      if(state===3){ return {p:[2.5,-2.3+i*.51,-i*.1],r:[.08,-.2,0],s:.72}; }
+      if(state===3){ return {p:[2.5-i*.72,1.75-i*.39,-i*.06],r:[.06,-.16,0],s:.78}; }
       if(state===4){ const a=i/10*Math.PI*2; return {p:[Math.cos(a)*3.9,0,Math.sin(a)*1.5],r:[0,-a,0],s:.5}; }
       return {p:[0,0,0],r:[0,0,0],s:.001};
     }
@@ -797,8 +817,20 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
         l.children[1].material.opacity=hot?.6:.28;
       });
       if(!reduce){ world.rotation.y+=.0012;world.rotation.x=cy;world.rotation.z=cx*.1;shell.rotation.x-=.0007;shell.rotation.z+=.0004;ring.rotation.z-=.001; }
+      const focus=cur===3?.42:1;
+      core.scale.setScalar(core.scale.x+(focus-core.scale.x)*.08);
+      shell.material.opacity+=((cur===3?.05:.10)-shell.material.opacity)*.08;
+      ring.material.opacity+=((cur===3?.16:.32)-ring.material.opacity)*.08;
+      const flowArr=flow.geometry.attributes.position.array;
+      for(let i=0;i<flowSeed.length;i++){
+        const s=flowSeed[i];
+        if(!reduce){ s.t+=s.speed; if(s.t>1)s.t-=1; }
+        const p=flowPath(s.t);
+        flowArr[i*3]=p[0]+s.ox;flowArr[i*3+1]=p[1]+s.oy;flowArr[i*3+2]=p[2]+s.oz;
+      }
+      flow.geometry.attributes.position.needsUpdate=true;
       const pulseAge=t-pulseT;
-      nodes.forEach((n,i)=>{const target=(i===pulse&&pulseAge<900)?1.5:1;n.scale.lerp(new THREE.Vector3(target,target,target),.12);n.material.emissive.setHex(i===pulse&&pulseAge<900?0x3a1a0c:0x000000);});
+      nodes.forEach((n,i)=>{const base=cur===3?.55:1;const target=(i===pulse&&pulseAge<900?1.5:1)*base;n.scale.lerp(new THREE.Vector3(target,target,target),.12);n.material.emissive.setHex(i===pulse&&pulseAge<900?0x3a1a0c:0x000000);});
       core.material.emissive.setHex(pulse>=0&&pulseAge<900?0x2a1108:0x000000);
       renderer.render(scene,camera);
       requestAnimationFrame(loop);
