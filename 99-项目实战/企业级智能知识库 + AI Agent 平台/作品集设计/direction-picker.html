@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17100D">
+<title>栗漆秋叶 · 作品集设计方向</title>
+<style>
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/instrument-serif-400.woff2") format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url("fonts/instrument-serif-400-italic.woff2") format("woff2")}
+:root{
+  --chestnut:#754B3A;--persimmon:#C56F3C;--gold:#B5935D;--ivory:#D8CAB0;
+  --night:#17100D;--night-2:#21150F;--paper:#E7DCC8;--ink:#251811;
+  --serif:"Instrument Serif","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"PingFang SC","HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--night);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+button,input{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3{margin:0}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--persimmon);outline-offset:3px}
+::selection{background:var(--persimmon);color:var(--night)}
+#stage{min-height:100svh}
+.variant{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;padding-bottom:76px}
+.topbar{position:relative;z-index:20;height:72px;display:flex;align-items:center;gap:24px;padding:0 42px;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+.brand{font-family:var(--serif);font-size:25px;letter-spacing:0;line-height:1;text-transform:none}
+.topbar .descriptor{opacity:.58}
+.topbar .avail{margin-left:auto;display:flex;align-items:center;gap:8px;letter-spacing:.08em}
+.avail i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.text-btn{min-height:38px;padding:0 12px;border:1px solid currentColor;background:transparent;color:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:background 180ms ease,color 180ms ease,transform 130ms ease-out}
+.text-btn:hover{background:var(--ivory);color:var(--night)}
+.text-btn:active{transform:translateY(1px)}
+.eyebrow{font-size:11px;line-height:1.4;letter-spacing:.18em;text-transform:uppercase}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.025em;line-height:1.02}
+.display em{font-style:normal;color:var(--persimmon)}
+.lede{font-size:15px;line-height:1.85}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.action{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 18px;border:1px solid currentColor;background:transparent;color:inherit;font-size:11px;letter-spacing:.1em;transition:background 180ms ease,color 180ms ease,transform 130ms ease-out}
+.action.primary{background:var(--persimmon);border-color:var(--persimmon);color:var(--night)}
+.action:hover{background:var(--ivory);border-color:var(--ivory);color:var(--night)}
+.action:active{transform:translateY(1px)}
+.search-form{display:flex;align-items:center;gap:10px}
+.search-form input{min-width:0;flex:1;height:48px;border:0;border-bottom:1px solid currentColor;border-radius:0;background:transparent;color:inherit;padding:0 2px;outline:none;font-size:14px}
+.search-form input:focus{border-bottom-color:var(--persimmon)}
+.search-form button{height:40px;min-width:68px;border:1px solid currentColor;background:transparent;color:inherit;font:500 10px var(--mono);letter-spacing:.12em;transition:background 160ms ease,color 160ms ease,transform 130ms ease-out}
+.search-form button:hover{background:var(--persimmon);border-color:var(--persimmon);color:var(--night)}
+.search-form button:active{transform:translateY(1px)}
+.hit{border:0;background:transparent;color:inherit;text-align:left}
+.hit .rank{font-family:var(--serif);font-style:italic}
+.source{border:1px solid currentColor;background:transparent;color:inherit;padding:4px 7px;font:10px var(--mono);opacity:.72;transition:opacity 150ms ease,background 150ms ease,color 150ms ease}
+.source:hover{opacity:1;background:var(--gold);color:var(--night)}
+.no-hit{font-size:12px;line-height:1.8;opacity:.72}
+.no-hit button{border:0;border-bottom:1px solid currentColor;background:transparent;color:inherit;padding:0 2px;margin-left:8px}
+.reveal{animation:enter .82s var(--ease-out) both;animation-delay:var(--d,0ms)}
+@keyframes enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ---------- 漆曜：单一光源下的漆器雕塑 ---------- */
+.lacquer{background:
+  radial-gradient(90% 72% at 78% 10%,rgba(216,202,176,.11),transparent 48%),
+  radial-gradient(70% 70% at 42% 110%,rgba(117,75,58,.48),transparent 64%),
+  var(--night);color:var(--ivory)}
+.lacquer::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,rgba(0,0,0,.32),transparent 42%,rgba(0,0,0,.14))}
+.la-bar{border-bottom:1px solid rgba(216,202,176,.17)}
+.la-veins{position:absolute;right:-4vw;top:4vh;width:58vw;height:88vh;z-index:-1;opacity:.16;pointer-events:none}
+.la-veins path{fill:none;stroke:var(--gold);stroke-width:.7}
+.la-grid{position:relative;z-index:2;max-width:1480px;margin:0 auto;padding:54px 42px 20px;display:grid;grid-template-columns:minmax(390px,.88fr) minmax(500px,1.12fr);gap:42px;align-items:center;min-height:calc(100svh - 164px)}
+.la-copy{max-width:590px}
+.la-copy .eyebrow{color:var(--gold);margin-bottom:22px}
+.la-copy h1{font-size:clamp(62px,6.4vw,102px)}
+.la-copy .lede{max-width:31em;margin-top:24px;color:rgba(216,202,176,.69)}
+.la-copy .actions{margin-top:28px}
+.la-form{margin-top:38px;padding-top:18px;border-top:1px solid rgba(216,202,176,.22);flex-wrap:wrap}
+.la-form label{display:block;flex:0 0 100%;margin-bottom:8px;font:10px var(--mono);letter-spacing:.13em;color:var(--gold)}
+.la-hits{margin-top:12px;border-top:1px solid rgba(216,202,176,.1)}
+.la-hit{width:100%;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:10px 4px;border-bottom:1px solid rgba(216,202,176,.1);font-size:12px;color:rgba(216,202,176,.58);transition:color 160ms ease,transform 180ms var(--ease-out)}
+.la-hit .rank{color:var(--gold);font-size:15px}
+.la-hit .cover{font:10px var(--mono)}
+.la-hit.on{color:var(--ivory)}
+.la-hit.on .rank{color:var(--persimmon)}
+@media(hover:hover) and (pointer:fine){.la-hit:hover{color:var(--ivory);transform:translateX(3px)}}
+.la-scene{position:relative;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;perspective:1200px}
+.la-object-wrap{position:relative;width:min(42vw,560px);height:min(42vw,520px);min-height:430px;transform-style:preserve-3d;animation:fade .9s var(--ease-out) .12s both}
+.la-object{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.la-ring{position:absolute;left:50%;top:45%;width:calc(190px + var(--i)*58px);aspect-ratio:1;border:1px solid rgba(181,147,93,calc(.64 - var(--i)*.07));border-radius:50%;transform:translate(-50%,-50%) rotateX(67deg) rotateZ(calc(var(--i)*19deg)) translateZ(calc(var(--i)*-15px));box-shadow:0 1px 0 rgba(216,202,176,.08),inset 0 1px 0 rgba(216,202,176,.07)}
+.la-ring:nth-child(2n){border-style:solid dashed}
+.la-seal{position:absolute;left:50%;top:45%;width:174px;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%) translateZ(56px);display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 30% 22%,#D58A59 0%,var(--persimmon) 18%,var(--chestnut) 52%,#2B170F 88%);box-shadow:inset 12px 14px 26px rgba(216,202,176,.2),inset -34px -38px 50px rgba(0,0,0,.52),28px 42px 60px -24px rgba(0,0,0,.88)}
+.la-seal::after{content:"";position:absolute;inset:10px;border:1px solid rgba(216,202,176,.28);border-radius:50%}
+.la-seal b{font:400 54px/1 var(--serif);letter-spacing:-.03em;color:var(--ivory)}
+.la-seal span{margin-top:8px;font-size:10px;letter-spacing:.18em;color:rgba(216,202,176,.72)}
+.la-node{position:absolute;z-index:4;border:1px solid rgba(181,147,93,.45);background:var(--night);color:var(--gold);padding:7px 10px;font:10px var(--mono);letter-spacing:.1em;transition:background 160ms ease,color 160ms ease,transform 180ms var(--ease-out)}
+.la-node:hover{background:var(--gold);color:var(--night);transform:translateY(-2px)}
+.la-node.n1{left:4%;top:27%}.la-node.n2{right:1%;top:36%}.la-node.n3{left:12%;bottom:20%}
+.la-axis{position:absolute;left:50%;top:45%;width:1px;height:72%;background:linear-gradient(transparent,rgba(181,147,93,.3),transparent);transform:translate(-50%,-50%) rotateX(67deg)}
+.la-response{width:min(100%,520px);margin-top:-18px;padding:18px 20px;border-top:1px solid var(--gold);background:rgba(23,16,13,.88)}
+.la-response .meta{display:flex;justify-content:space-between;gap:16px;font:10px var(--mono);letter-spacing:.1em;color:var(--gold)}
+.la-answer{margin-top:10px;min-height:3.6em;font-size:13px;line-height:1.75;color:rgba(216,202,176,.84)}
+.la-sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.la-foot{position:absolute;left:42px;right:42px;bottom:24px;z-index:3;display:flex;gap:28px;font:10px var(--mono);letter-spacing:.1em;color:rgba(216,202,176,.4)}
+.la-foot span:last-child{margin-left:auto}
+
+/* ---------- 秋卷：非对称编辑版式 + 样张重排 ---------- */
+.editorial{background:var(--ivory);color:var(--ink)}
+.editorial::before{content:"AUTUMN";position:absolute;left:-.04em;bottom:-.22em;z-index:-1;font:400 34vw/.8 var(--serif);letter-spacing:-.06em;color:rgba(117,75,58,.055);pointer-events:none}
+.ed-bar{border-bottom:1px solid rgba(37,24,17,.24)}
+.ed-bar .text-btn:hover,.ed-bar .text-btn:focus-visible{background:var(--ink);color:var(--ivory)}
+.ed-layout{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:56px minmax(380px,.88fr) minmax(480px,1.12fr);min-height:calc(100svh - 148px)}
+.ed-index{border-right:1px solid rgba(37,24,17,.18);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:30px 0}
+.ed-index span{writing-mode:vertical-rl;font:10px var(--mono);letter-spacing:.18em}
+.ed-index b{font:italic 24px var(--serif);color:var(--chestnut)}
+.ed-copy{padding:58px 42px 26px;display:flex;flex-direction:column;align-items:flex-start}
+.ed-copy .eyebrow{color:var(--chestnut)}
+.ed-copy h1{margin-top:24px;font-size:clamp(62px,6.2vw,96px)}
+.ed-copy .lede{max-width:29em;margin-top:26px;color:rgba(37,24,17,.68)}
+.ed-copy .actions{margin-top:28px}
+.ed-copy .action:hover{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.ed-note{margin-top:auto;padding-top:30px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:22px;border-top:1px solid rgba(37,24,17,.25)}
+.ed-note p{font-family:var(--serif);font-size:22px;line-height:1.35}
+.ed-note small{font:10px/1.8 var(--mono);letter-spacing:.08em;color:rgba(37,24,17,.56)}
+.palette{display:grid;grid-template-columns:repeat(4,1fr);width:100%;margin-top:22px}
+.palette span{height:42px;display:flex;align-items:flex-end;padding:5px;font:8px var(--mono);color:rgba(23,16,13,.7)}
+.palette span:nth-child(1){background:var(--chestnut);color:var(--ivory)}.palette span:nth-child(2){background:var(--persimmon)}.palette span:nth-child(3){background:var(--gold)}.palette span:nth-child(4){background:var(--paper)}
+.ed-stage{position:relative;min-height:650px;display:grid;place-items:center;perspective:1400px;border-left:1px solid rgba(37,24,17,.12)}
+.ed-stack-wrap{width:min(90%,570px);animation:fade .9s var(--ease-out) .16s both}
+.ed-stack{position:relative;transform-style:preserve-3d;will-change:transform}
+.ed-under{position:absolute;inset:0;background:var(--gold);border:1px solid rgba(37,24,17,.3);transform:translate3d(18px,18px,-46px) rotateZ(2deg)}
+.ed-under.two{background:var(--chestnut);transform:translate3d(34px,34px,-90px) rotateZ(4deg)}
+.ed-card{position:relative;min-height:570px;padding:22px 24px 20px;background:var(--paper);border:1px solid rgba(37,24,17,.55);box-shadow:24px 34px 55px -34px rgba(37,24,17,.58);transform:translateZ(0)}
+.ed-card-head{display:flex;justify-content:space-between;gap:20px;padding-bottom:12px;border-bottom:1px solid var(--ink);font:10px var(--mono);letter-spacing:.11em}
+.ed-card-head b{font-weight:500;color:var(--chestnut)}
+.ed-card .search-form{margin-top:16px}
+.ed-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ed-presets button{border:1px solid rgba(37,24,17,.28);background:transparent;color:var(--ink);padding:4px 8px;font-size:10px;transition:background 150ms ease,color 150ms ease}
+.ed-presets button:hover{background:var(--chestnut);color:var(--ivory)}
+.ed-hits{margin-top:16px;border-top:1px solid rgba(37,24,17,.2)}
+.ed-hit{width:100%;display:grid;grid-template-columns:30px 1fr 42px;gap:8px;align-items:center;padding:11px 2px;border-bottom:1px solid rgba(37,24,17,.15);font-size:12px;transition:background 160ms ease,color 160ms ease}
+.ed-hit .rank{color:var(--chestnut);font-size:17px}
+.ed-hit .cover{text-align:right;font:10px var(--mono);color:rgba(37,24,17,.55)}
+.ed-hit.on{background:rgba(197,111,60,.14);color:var(--chestnut)}
+.ed-answer-box{margin-top:18px;padding:15px 16px;background:var(--ivory);border-left:2px solid var(--persimmon)}
+.ed-answer-box .meta{display:flex;justify-content:space-between;font:9px var(--mono);letter-spacing:.1em;color:var(--chestnut)}
+.ed-answer{margin-top:8px;min-height:4.8em;font-size:12px;line-height:1.75}
+.ed-sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ed-caption{position:absolute;right:24px;bottom:20px;writing-mode:vertical-rl;font:9px var(--mono);letter-spacing:.16em;color:rgba(37,24,17,.5)}
+
+/* ---------- 星图：检索关系驱动的三维信息场 ---------- */
+.field{background:radial-gradient(80% 70% at 54% 38%,rgba(117,75,58,.32),transparent 66%),var(--night);color:var(--ivory)}
+.field::after{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(181,147,93,.18) .7px,transparent .8px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent 78%);pointer-events:none}
+.field-bar{border-bottom:1px solid rgba(216,202,176,.14)}
+.field-title{position:absolute;z-index:5;left:42px;top:116px;width:min(390px,31vw)}
+.field-title .eyebrow{color:var(--gold)}
+.field-title h1{margin-top:18px;font-size:clamp(48px,4.6vw,74px)}
+.field-title .lede{margin-top:18px;font-size:13px;color:rgba(216,202,176,.62)}
+.field-title .actions{margin-top:22px}
+.field-scene{position:absolute;z-index:2;left:0;right:0;top:76px;bottom:184px;overflow:hidden}
+.field-scene canvas{position:absolute;inset:0;width:100%;height:100%}
+.field-nodes{position:absolute;inset:0;pointer-events:none}
+.field-node{position:absolute;left:0;top:0;pointer-events:auto;white-space:nowrap;border:1px solid rgba(181,147,93,.34);background:rgba(23,16,13,.9);color:rgba(216,202,176,.68);padding:6px 9px;font:10px var(--mono);letter-spacing:.08em;will-change:transform;transition:color 160ms ease,background 160ms ease,border-color 160ms ease,opacity 160ms ease}
+.field-node:hover,.field-node.on{color:var(--night);background:var(--gold);border-color:var(--gold)}
+.field-node.active{color:var(--night);background:var(--persimmon);border-color:var(--persimmon)}
+.field-inspector{position:absolute;z-index:5;right:42px;top:116px;width:240px;padding:14px 0;border-top:1px solid var(--gold);border-bottom:1px solid rgba(216,202,176,.18)}
+.field-inspector .num{font:italic 32px var(--serif);color:var(--persimmon)}
+.field-inspector h2{margin-top:4px;font:400 25px var(--serif)}
+.field-inspector p{margin-top:8px;font-size:11px;line-height:1.75;color:rgba(216,202,176,.58)}
+.field-inspector small{display:block;margin-top:10px;font:9px var(--mono);letter-spacing:.1em;color:var(--gold)}
+.field-console{position:absolute;z-index:8;left:42px;right:42px;bottom:70px;min-height:108px;display:grid;grid-template-columns:minmax(340px,.9fr) minmax(400px,1.1fr);gap:34px;padding:16px 0 0;border-top:1px solid rgba(181,147,93,.6);background:var(--night)}
+.field-query .search-form{max-width:620px}
+.field-hits{display:flex;gap:6px;margin-top:10px}
+.field-hit{flex:1;min-width:0;display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid rgba(216,202,176,.15);font-size:10px;color:rgba(216,202,176,.5);transition:border-color 150ms ease,color 150ms ease}
+.field-hit .rank{font-size:13px;color:var(--gold)}
+.field-hit .title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.field-hit .cover{display:none}
+.field-hit.on{border-color:var(--persimmon);color:var(--ivory)}
+.field-answer-wrap{padding-left:28px;border-left:1px solid rgba(216,202,176,.15)}
+.field-answer-wrap .meta{display:flex;justify-content:space-between;font:9px var(--mono);letter-spacing:.1em;color:var(--gold)}
+.field-answer{margin-top:7px;font-size:12px;line-height:1.65;color:rgba(216,202,176,.78)}
+.field-sources{display:flex;gap:6px;margin-top:8px}
+.field-foot{position:absolute;left:42px;bottom:28px;z-index:4;font:9px var(--mono);letter-spacing:.12em;color:rgba(216,202,176,.35)}
+
+/* ---------- 证据对话框 ---------- */
+.evidence{width:min(760px,calc(100vw - 32px));max-height:84svh;margin:auto;padding:0;border:1px solid var(--gold);background:var(--paper);color:var(--ink);box-shadow:0 30px 90px rgba(0,0,0,.45)}
+.evidence::backdrop{background:rgba(23,16,13,.76)}
+.evidence[open]{animation:enter .32s var(--ease-out) both}
+.ev-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--ink);background:var(--paper)}
+.ev-head h2{font:400 28px var(--serif)}
+.ev-head button{border:1px solid var(--ink);background:transparent;color:var(--ink);min-height:36px;padding:0 10px;font:10px var(--mono)}
+.ev-body{padding:24px 20px 28px}
+.ev-metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ev-metrics div{padding:18px 12px;border-right:1px solid rgba(37,24,17,.18)}
+.ev-metrics div:last-child{border:0}
+.ev-metrics b{display:block;font:400 44px/1 var(--serif);color:var(--chestnut)}
+.ev-metrics span{display:block;margin-top:7px;font:9px var(--mono);letter-spacing:.08em}
+.ev-chain{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border:1px solid rgba(37,24,17,.25)}
+.ev-chain div{padding:16px 12px;border-right:1px solid rgba(37,24,17,.18)}
+.ev-chain div:last-child{border:0}
+.ev-chain b{font:10px var(--mono);color:var(--persimmon)}
+.ev-chain h3{margin-top:8px;font-size:13px}
+.ev-chain p{margin-top:6px;font-size:11px;line-height:1.65;color:rgba(37,24,17,.64)}
+.ev-note{margin-top:20px;font-size:11px;line-height:1.8;color:rgba(37,24,17,.62)}
+
+/* ---------- Picker：固定比较工具，不参与方案设计 ---------- */
+.proto-picker {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.82);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.proto-picker-highlight {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  will-change: transform;
+}
+.proto-picker[data-ready] .proto-picker-highlight {
+  transition:
+    transform 250ms cubic-bezier(0.23, 1, 0.32, 1),
+    width 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .proto-picker[data-ready] .proto-picker-highlight { transition: none; }
+}
+.proto-picker-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font: inherit;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+.proto-picker-item:hover { color: rgba(255, 255, 255, 0.85); }
+.proto-picker-item:active { transform: scale(0.97); }
+.proto-picker-item:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.4); outline-offset: 2px; }
+.proto-picker-item[data-active] { color: #fff; }
+.proto-picker-divider { width: 1px; height: 16px; margin: 0 4px; background: rgba(255, 255, 255, 0.12); }
+.proto-picker-replay { padding: 0 10px; font-size: 14px; }
+.proto-picker[data-position="top"] {
+  bottom: auto;
+  top: 24px;
+}
+
+@media(max-width:1120px){
+  .topbar{padding:0 26px}.topbar .descriptor{display:none}
+  .la-grid{grid-template-columns:1fr 1fr;padding:44px 26px 30px;gap:20px}.la-copy h1{font-size:64px}.la-object-wrap{width:46vw}.la-foot{left:26px;right:26px}
+  .ed-layout{grid-template-columns:42px minmax(330px,.85fr) minmax(400px,1.15fr)}.ed-copy{padding:48px 26px 24px}.ed-copy h1{font-size:62px}.ed-card{padding:20px}.ed-note{grid-template-columns:1fr}
+  .field-title{left:26px;width:330px}.field-inspector{right:26px;width:200px}.field-console{left:26px;right:26px;grid-template-columns:1fr 1fr;gap:20px}.field-foot{left:26px}
+}
+@media(max-width:860px){
+  .variant{overflow:visible;min-height:100svh}.topbar{height:64px;padding:0 20px}.topbar .avail{display:none}.top-actions{margin-left:auto}.brand{font-size:23px}
+  .la-grid{grid-template-columns:1fr;padding:42px 20px 70px}.la-copy{max-width:680px}.la-copy h1{font-size:clamp(54px,11vw,82px)}.la-veins{right:0}.la-object-wrap{width:min(90vw,560px);height:480px}.la-scene{margin-top:20px}.la-response{margin-top:-30px}.la-foot{display:none}
+  .ed-layout{grid-template-columns:36px 1fr}.ed-copy{padding:42px 24px}.ed-stage{grid-column:2;border-left:0;border-top:1px solid rgba(37,24,17,.18);padding:38px 0 70px}.ed-index{grid-row:1/3}.ed-note{margin-top:36px}.ed-copy h1{font-size:clamp(52px,10vw,76px)}
+  .field{min-height:1180px}.field-title{position:relative;left:auto;top:auto;width:auto;padding:42px 20px 0}.field-title h1{font-size:58px}.field-title .lede{max-width:500px}.field-scene{top:340px;bottom:280px}.field-inspector{top:auto;right:20px;bottom:272px;width:220px}.field-console{position:absolute;left:20px;right:20px;bottom:64px;grid-template-columns:1fr;gap:16px}.field-answer-wrap{padding:14px 0 0;border-left:0;border-top:1px solid rgba(216,202,176,.15)}.field-foot{left:20px;bottom:26px}
+}
+@media(max-width:560px){
+  body{padding-top:64px}
+  .topbar{padding:0 16px;gap:10px}.top-actions .text-btn:first-child{display:none}.text-btn{padding:0 9px;font-size:9px}
+  .la-copy h1{font-size:52px}.la-copy .lede{font-size:14px}.la-grid{padding-top:34px}.la-form{margin-top:28px}.la-object-wrap{height:380px;min-height:380px}.la-ring{width:calc(130px + var(--i)*43px)}.la-seal{width:136px}.la-seal b{font-size:44px}.la-node{font-size:8px;padding:6px}.la-response{padding:16px 14px}.la-hit{font-size:11px}
+  .ed-layout{grid-template-columns:26px 1fr}.ed-copy{padding:34px 16px}.ed-copy h1{font-size:49px}.ed-note{grid-template-columns:1fr}.ed-stage{padding-top:26px}.ed-stack-wrap{width:90%}.ed-card{min-height:550px;padding:16px 14px}.ed-under{transform:translate3d(7px,8px,-46px) rotateZ(1deg)}.ed-under.two{transform:translate3d(12px,15px,-90px) rotateZ(1.5deg)}.ed-hit{font-size:11px}.ed-caption{display:none}
+  .field{min-height:1220px}.field-title{padding:34px 16px 0}.field-title h1{font-size:48px}.field-scene{top:360px;bottom:330px}.field-inspector{left:16px;right:16px;bottom:326px;width:auto;display:grid;grid-template-columns:34px 1fr;gap:0 10px}.field-inspector p{grid-column:2}.field-inspector small{grid-column:2}.field-console{left:16px;right:16px;bottom:60px}.field-hits{flex-direction:column}.field-hit .cover{display:block;margin-left:auto}.field-foot{left:16px;font-size:8px}
+  .ev-metrics{grid-template-columns:1fr 1fr}.ev-metrics div:nth-child(2){border-right:0}.ev-metrics div:nth-child(-n+2){border-bottom:1px solid rgba(37,24,17,.18)}.ev-chain{grid-template-columns:1fr 1fr}.ev-chain div:nth-child(2){border-right:0}.ev-chain div:nth-child(-n+2){border-bottom:1px solid rgba(37,24,17,.18)}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.la-object-wrap,.ed-stack-wrap{animation:fade .2s ease-out both}
+  .evidence[open]{animation:fade .2s ease-out both}
+  .la-hit,.la-node,.ed-hit,.field-node{transition:color .2s ease,background .2s ease,border-color .2s ease}
+}
+@media(prefers-contrast:more){
+  .la-copy .lede,.la-answer,.field-title .lede,.field-answer{color:var(--ivory)}
+  .ed-copy .lede,.ed-answer{color:var(--ink)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .proto-picker,.la-response,.field-node{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--night)}
+}
+</style>
+</head>
+<body>
+<main id="stage" aria-live="off"></main>
+<nav class="proto-picker" aria-label="Prototype variants">
+  <span class="proto-picker-highlight" aria-hidden="true"></span>
+  <button class="proto-picker-item" data-active aria-current="true">漆曜</button>
+  <button class="proto-picker-item">秋卷</button>
+  <button class="proto-picker-item">星图</button>
+  <span class="proto-picker-divider" aria-hidden="true"></span>
+  <button class="proto-picker-item proto-picker-replay" aria-label="Replay animation (R)">↻</button>
+</nav>
+<dialog class="evidence" id="evidence" aria-labelledby="evTitle">
+  <div class="ev-head"><h2 id="evTitle">Evidence / 可验证的工程证据</h2><button type="button" data-close-evidence>ESC / CLOSE</button></div>
+  <div class="ev-body">
+    <div class="ev-metrics"><div><b>79</b><span>TESTS / 9 FILES</span></div><div><b>52</b><span>ENDPOINTS / 13 ROUTERS</span></div><div><b>12</b><span>TABLES / 109 FIELDS</span></div><div><b>10</b><span>LAYERS / 108 FILES</span></div></div>
+    <div class="ev-chain"><div><b>01 / RECALL</b><h3>三路召回</h3><p>vector / BM25 / graph，各取 8 条。</p></div><div><b>02 / FUSE</b><h3>RRF 融合</h3><p>按排名而非分数，k=60。</p></div><div><b>03 / RERANK</b><h3>精排</h3><p>LLM 打分，前 5 条进入上下文。</p></div><div><b>04 / STREAM</b><h3>带来源输出</h3><p>SSE 流式输出，引用可回到原文。</p></div></div>
+    <p class="ev-note">9,521 行代码 · 5 个容器 · 检索与生成解耦。此预览使用与原页面相同的 8 条本地片段；检索真实执行，回答为预写内容，不连接线上模型。</p>
+  </div>
+</dialog>
+<script>
+(function(){
+  "use strict";
+  const stage=document.getElementById("stage");
+  const picker=document.querySelector(".proto-picker");
+  const highlight=picker.querySelector(".proto-picker-highlight");
+  const items=[...picker.querySelectorAll(".proto-picker-item:not(.proto-picker-replay)")];
+  const replay=picker.querySelector(".proto-picker-replay");
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine=window.matchMedia("(pointer:fine)").matches;
+  const evidence=document.getElementById("evidence");
+  let current=0,cleanup=null,mountId=0;
+
+  const CHUNKS=[
+    {id:"hybrid",title:"Hybrid / 为什么混合",text:"单一向量对型号、订单号不稳；BM25 补精确命中，图谱补跨文档关系。",kw:"混合 检索 向量 bm25 为什么 有效 召回 精确",answer:"单一向量对型号、订单号不稳：BM25 补精确命中，图谱补跨文档关系。RRF 按排名融合，避免两套分数的量纲问题。",sources:["retrieval.py","rerank"]},
+    {id:"retrieval",title:"Retrieval / 三路召回",text:"向量、BM25、GraphRAG 三路召回，RRF 融合后 Rerank；TOP_K 5，RRF k=60。",kw:"检索 召回 向量 bm25 graph rrf 重排 混合 融合",answer:"三路召回：vector / BM25 w .4 / graph；RRF k=60 融合，再 Rerank 取前 5 条进上下文。",sources:["retrieval.py","RRF k=60"]},
+    {id:"trace",title:"Trace / 一次问答",text:"query → 三路召回 → RRF k=60 → Rerank top 5 → SSE。",kw:"检索 问答 链路 召回 融合 流式 trace",answer:"一次问答经过四段：三路召回、RRF 融合、Rerank、带来源 SSE。首字先出，整段后至。",sources:["/api/chat/stream","trace"]},
+    {id:"eval",title:"Evaluation / 四指标",text:"Hit@K、MRR、Context P/R、LLM 裁判；不看单值，四指标并看。",kw:"评测 指标 准确率 mrr 忠实度 幻觉 召回 排序 上下文",answer:"检索差、排序差、上下文脏、生成胡说，是四种病。四指标并看，才能归因到层；只看一个总分只会盲目调参。",sources:["golden QA","evaluation.py"]},
+    {id:"case",title:"Interface / 电商知识库",text:"商品参数、售后政策、活动规则；答案带来源，SSE 流式首字。",kw:"客服 商品 参数 售后 活动 知识库 电商 答案 来源",answer:"把文档变成可检索的答案：三路召回、RRF 融合、Rerank，最后带引用流式输出。客服不用等整段生成。",sources:["documents","/api/chat/stream"]},
+    {id:"system",title:"System / 十层剖面",text:"接入、网关、异步、编排、检索、LLM、输出、缓存、存储、部署。",kw:"系统 分层 架构 部署 容器 缓存 存储 接入 网关",answer:"10 层，每层能指出文件：接入 13 路由、检索 670 行、编排 354 行、服务 3,454 行；5 容器一条命令起全栈。",sources:["app/","compose.yml"]},
+    {id:"notes",title:"Notes / 失败记录",text:"jieba 静默降级、Prompt 注入、AST 白名单。",kw:"失败 降级 注入 安全 风险 jieba 日志",answer:"最危险的不是报错，是静默降级。BM25 缺 jieba 会降级成单字 + bigram，不崩也不提示；启动日志必须写出来。",sources:["startup.log","guard.py"]},
+    {id:"profile",title:"Overview / 坐标",text:"杭州 / 上海，2024 届，可即时到岗；方向 RAG / Agent。",kw:"地点 入职 时间 方向 杭州 上海 届 招聘",answer:"2024 届，杭州 / 上海，可即时到岗。方向 RAG / Agent，偏应用工程与全栈交付。",sources:["profile","availability"]}
+  ];
+  const PIPELINE=[
+    {name:"QUERY",title:"一次提问",text:"从用户问题开始，保留原始查询与上下文。",meta:"INPUT / QUERY"},
+    {name:"VECTOR",title:"向量召回",text:"寻找语义相近的内容，补足自然语言表达。",meta:"RECALL / SEMANTIC"},
+    {name:"BM25",title:"关键词召回",text:"补足型号、订单号与专有名词的精确命中。",meta:"RECALL / EXACT"},
+    {name:"GRAPH",title:"图谱召回",text:"沿实体关系补齐跨文档信息。",meta:"RECALL / RELATION"},
+    {name:"RRF",title:"RRF 融合",text:"按排名融合三路结果，避免不同分数量纲直接比较。",meta:"FUSION / K=60"},
+    {name:"RERANK",title:"精排",text:"对候选片段重新评分，取前 5 条进入上下文。",meta:"RANK / TOP 5"},
+    {name:"LLM",title:"生成",text:"只依据上下文组织答案，检索与生成保持解耦。",meta:"GENERATE / GROUNDED"},
+    {name:"SOURCE",title:"来源输出",text:"流式输出答案，同时保留可回查的引用。",meta:"SSE / CITATION"}
+  ];
+
+  function terms(s){
+    const str=String(s).toLowerCase().trim();if(!str)return[];
+    const out=new Set();
+    (str.match(/[a-z0-9]+|[\u4e00-\u9fa5]+/g)||[]).forEach(p=>{
+      if(/[\u4e00-\u9fa5]/.test(p)){for(let i=0;i<p.length;i++){out.add(p[i]);if(i<p.length-1)out.add(p.slice(i,i+2));}}
+      else if(p.length>1)out.add(p);
+    });
+    return Array.from(out);
+  }
+  function search(query){
+    const ts=terms(query);if(!ts.length)return[];
+    return CHUNKS.map(c=>{
+      const hit=ts.filter(t=>c.title.toLowerCase().includes(t)||c.kw.includes(t)||c.text.includes(t));
+      const score=hit.reduce((s,t)=>s+(c.title.toLowerCase().includes(t)?3:c.kw.includes(t)?2:1),0);
+      return {c,score,cover:hit.length/ts.length};
+    }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,3);
+  }
+  function topbar(kind){
+    return '<header class="topbar '+kind+'-bar reveal"><span class="brand">L—2027</span><span class="descriptor">Chestnut Autumn / AI Application</span><span class="avail"><i></i>杭州 / 上海 · 可即时到岗</span><div class="top-actions"><button class="text-btn" type="button" data-evidence>证据面板</button><a class="text-btn" href="mailto:2398198416@qq.com" style="display:inline-flex;align-items:center">写邮件 ↗</a></div></header>';
+  }
+  function actions(){
+    return '<div class="actions reveal" style="--d:240ms"><button class="action primary" type="button" data-focus-search>运行一次检索 →</button><button class="action" type="button" data-evidence>查看工程证据 ↗</button></div>';
+  }
+  function renderLacquer(){
+    return '<section class="variant lacquer" data-mode="lacquer" aria-label="漆曜设计方向">'+
+      '<svg class="la-veins" viewBox="0 0 700 900" aria-hidden="true"><path d="M720 40C520 170 500 310 350 420S180 690 20 860"/><path d="M505 280c-80-70-160-65-230-20 80 65 150 75 230 20Z"/><path d="M390 390c90-55 170-35 220 25-90 45-155 35-220-25Z"/><path d="M280 540c-100-45-160-10-195 55 95 25 155 5 195-55Z"/><path d="M510 278L350 420M390 390L280 540M275 260l120 145M605 410L390 500"/></svg>'+
+      topbar("la")+
+      '<div class="la-grid"><div class="la-copy"><p class="eyebrow reveal" style="--d:40ms">01 / Lacquer · 可溯源的 AI 应用</p><h1 class="display reveal" style="--d:100ms">AI 负责快，<br>我负责<em>对</em>。</h1><p class="lede reveal" style="--d:170ms">把商品参数、售后政策、活动规则，变成可问答、可溯源的答案。单一光源下，每一层都有位置。</p>'+actions()+
+      '<form class="la-form search-form js-search reveal" style="--d:300ms" role="search"><label for="la-q">LOCAL INDEX / 8 CHUNKS</label><input class="js-q" id="la-q" value="混合检索为什么有效" aria-label="输入检索问题" autocomplete="off"><button type="submit">RUN</button></form><div class="la-hits js-results reveal" style="--d:350ms" aria-label="检索结果"></div></div>'+
+      '<div class="la-scene reveal" style="--d:140ms"><div class="la-object-wrap"><div class="la-object"><i class="la-axis"></i><i class="la-ring" style="--i:0"></i><i class="la-ring" style="--i:1"></i><i class="la-ring" style="--i:2"></i><i class="la-ring" style="--i:3"></i><i class="la-ring" style="--i:4"></i><div class="la-seal"><b>RAG</b><span>检索核心</span></div></div><button class="la-node n1" data-query="向量 检索" type="button">VECTOR</button><button class="la-node n2" data-query="BM25 精确" type="button">BM25</button><button class="la-node n3" data-query="Graph RRF" type="button">GRAPH</button></div>'+
+      '<div class="la-response"><div class="meta"><span class="js-count">3 个片段</span><span>ANSWER + SOURCE</span></div><p class="la-answer js-answer"></p><div class="la-sources js-sources"></div></div></div></div>'+
+      '<footer class="la-foot"><span>79 TESTS</span><span>52 ENDPOINTS</span><span>12 TABLES</span><span>10 LAYERS</span><span>移动指针，观察漆层</span></footer></section>';
+  }
+  function renderEditorial(){
+    return '<section class="variant editorial" data-mode="editorial" aria-label="秋卷设计方向">'+topbar("ed")+
+      '<div class="ed-layout"><aside class="ed-index"><span>CHINESE LACQUER 03 / 04</span><b>02</b><span>CHESTNUT AUTUMN</span></aside>'+
+      '<div class="ed-copy"><p class="eyebrow reveal" style="--d:40ms">02 / Editorial · 罗子强的工程样张</p><h1 class="display reveal" style="--d:100ms">AI 负责快，<br>我负责<em>对</em>。</h1><p class="lede reveal" style="--d:170ms">不是把 AI 放在封面上，而是把检索、排序和来源摊开给你看。每张样张都可以操作。</p>'+actions()+
+      '<div class="ed-note reveal" style="--d:290ms"><p>每一次回答，<br>都应该有出处。</p><small>VECTOR + BM25 + GRAPH<br>RRF K=60 / TOP 5 / SSE<br>9,521 LINES / 79 TESTS</small></div><div class="palette reveal" style="--d:340ms" aria-label="栗漆秋叶色板"><span>#754B3A</span><span>#C56F3C</span><span>#B5935D</span><span>#D8CAB0</span></div></div>'+
+      '<div class="ed-stage"><div class="ed-stack-wrap"><div class="ed-stack"><i class="ed-under"></i><i class="ed-under two"></i><article class="ed-card"><div class="ed-card-head"><b>RETRIEVAL / LIVE</b><span>PLATE 01 · LOCAL</span></div><form class="search-form js-search" role="search"><input class="js-q" aria-label="输入检索问题" value="混合检索为什么有效" autocomplete="off"><button type="submit">RUN</button></form><div class="ed-presets"><button type="button" data-query="评测 指标">评测</button><button type="button" data-query="系统 部署">部署</button><button type="button" data-query="客服 来源">客服</button></div><div class="ed-hits js-results" aria-label="检索结果"></div><div class="ed-answer-box"><div class="meta"><span class="js-count">3 个片段</span><span>ANSWER</span></div><p class="ed-answer js-answer"></p><div class="ed-sources js-sources"></div></div></article></div></div><span class="ed-caption">QUERY → RECALL → FUSION → ANSWER</span></div></div></section>';
+  }
+  function renderField(){
+    return '<section class="variant field" data-mode="field" aria-label="星图设计方向">'+topbar("field")+
+      '<div class="field-title"><p class="eyebrow reveal" style="--d:40ms">03 / Retrieval Field · 关系可见</p><h1 class="display reveal" style="--d:100ms">AI 负责快，<br>我负责<em>对</em>。</h1><p class="lede reveal" style="--d:170ms">三路召回不是装饰名词。移动指针观察关系，点击节点查看每一步，再运行一次真实检索。</p>'+actions()+'</div>'+
+      '<div class="field-scene reveal" style="--d:120ms"><canvas aria-hidden="true"></canvas><div class="field-nodes">'+PIPELINE.map((n,i)=>'<button type="button" class="field-node" data-node="'+i+'">'+String(i+1).padStart(2,"0")+" "+n.name+'</button>').join("")+'</div></div>'+
+      '<aside class="field-inspector"><span class="num js-node-num">05</span><div><h2 class="js-node-title">RRF 融合</h2><p class="js-node-text">按排名融合三路结果，避免不同分数量纲直接比较。</p><small class="js-node-meta">FUSION / K=60</small></div></aside>'+
+      '<div class="field-console"><div class="field-query"><form class="search-form js-search" role="search"><input class="js-q" aria-label="输入检索问题" value="混合检索为什么有效" autocomplete="off"><button type="submit">RUN</button></form><div class="field-hits js-results" aria-label="检索结果"></div></div><div class="field-answer-wrap"><div class="meta"><span class="js-count">3 个片段</span><span>LOCAL ANSWER + SOURCE</span></div><p class="field-answer js-answer"></p><div class="field-sources js-sources"></div></div></div><span class="field-foot">79 TESTS / 52 ENDPOINTS / 12 TABLES / 10 LAYERS</span></section>';
+  }
+
+  const variants=[renderLacquer,renderEditorial,renderField];
+
+  function wireRetrieval(root,mode,onRun){
+    const form=root.querySelector(".js-search"),input=root.querySelector(".js-q"),hits=root.querySelector(".js-results");
+    const answer=root.querySelector(".js-answer"),sources=root.querySelector(".js-sources"),count=root.querySelector(".js-count");
+    let list=[],selected=null;
+    function select(id){
+      const item=list.find(x=>x.c.id===id)||list[0];if(!item)return;
+      selected=item.c.id;
+      hits.querySelectorAll(".hit").forEach(el=>{const on=el.dataset.id===selected;el.classList.toggle("on",on);el.setAttribute("aria-pressed",on?"true":"false");});
+      answer.textContent=item.c.answer;
+      sources.innerHTML=item.c.sources.map(s=>'<button type="button" class="source" data-evidence="chain">'+s+'</button>').join("");
+    }
+    function render(animate){
+      const old=new Map();
+      if(mode==="editorial"&&animate&&!reduce)hits.querySelectorAll(".hit").forEach(el=>old.set(el.dataset.id,el.getBoundingClientRect().top));
+      list=search(input.value);
+      if(!list.length){
+        hits.innerHTML='<div class="no-hit">没有命中。试试<button type="button" data-query="评测">评测</button><button type="button" data-query="部署">部署</button><button type="button" data-query="客服">客服</button></div>';
+        answer.textContent="没有可回答的本地片段，请换一个关键词。";sources.innerHTML="";count.textContent="0 个片段";selected=null;return;
+      }
+      hits.innerHTML=list.map((r,i)=>'<button type="button" class="hit '+mode+'-hit" data-id="'+r.c.id+'" aria-pressed="false"><span class="rank">0'+(i+1)+'</span><span class="title">'+r.c.title+'</span><span class="cover">'+Math.round(r.cover*100)+'%</span></button>').join("");
+      count.textContent=list.length+" 个片段";
+      select(list[0].c.id);
+      if(mode==="editorial"&&animate&&!reduce){
+        hits.querySelectorAll(".hit").forEach(el=>{
+          const prev=old.get(el.dataset.id);if(prev==null)return;
+          const dy=prev-el.getBoundingClientRect().top;if(!dy)return;
+          el.style.transition="none";el.style.transform="translateY("+dy+"px)";
+          requestAnimationFrame(()=>{el.style.transition="transform 250ms var(--ease-out)";el.style.transform="translateY(0)";});
+        });
+      }
+    }
+    form.addEventListener("submit",e=>{e.preventDefault();render(true);if(onRun)onRun(list);});
+    root.addEventListener("click",e=>{
+      const preset=e.target.closest("[data-query]");
+      if(preset){input.value=preset.dataset.query;render(true);if(onRun)onRun(list);input.focus();return;}
+      const hit=e.target.closest(".hit");if(hit)select(hit.dataset.id);
+    });
+    render(false);
+    return {render};
+  }
+
+  function initLacquer(root){
+    wireRetrieval(root,"la");
+    const scene=root.querySelector(".la-scene"),object=root.querySelector(".la-object");
+    if(!fine||reduce)return null;
+    let tx=0,ty=0,cx=0,cy=0,raf=null;
+    function loop(){cx+=(tx-cx)*.075;cy+=(ty-cy)*.075;object.style.transform="rotateX("+(-8-cy).toFixed(2)+"deg) rotateY("+(-12+cx).toFixed(2)+"deg)";raf=(Math.abs(tx-cx)>.02||Math.abs(ty-cy)>.02)?requestAnimationFrame(loop):null;}
+    function request(){if(!raf)raf=requestAnimationFrame(loop);}
+    scene.addEventListener("pointermove",e=>{const r=scene.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*18;ty=((e.clientY-r.top)/r.height-.5)*12;request();},{passive:true});
+    scene.addEventListener("pointerleave",()=>{tx=0;ty=0;request();},{passive:true});
+    return ()=>{if(raf)cancelAnimationFrame(raf);};
+  }
+  function initEditorial(root){
+    /* 交互样张保持稳定：3D 只用于装饰叠层，结果重排承担空间反馈。 */
+    wireRetrieval(root,"ed");
+    return null;
+  }
+  function initField(root){
+    let pulseStart=null;
+    wireRetrieval(root,"field",()=>{if(reduce)return;pulseStart=performance.now();request();});
+    const scene=root.querySelector(".field-scene"),canvas=scene.querySelector("canvas"),ctx=canvas.getContext("2d");
+    const nodes=[...scene.querySelectorAll(".field-node")],num=root.querySelector(".js-node-num"),title=root.querySelector(".js-node-title"),text=root.querySelector(".js-node-text"),meta=root.querySelector(".js-node-meta");
+    const pos=[[-3,0,0],[-1.9,.9,.35],[-1.9,-.7,.65],[-1.9,.05,-.85],[0,0,0],[1.25,.65,-.2],[2.25,-.05,.25],[3.05,-.6,0]];
+    const mobilePos=[[0,-2.5,0],[-1.1,-1.55,.35],[0,-1.55,.65],[1.1,-1.55,-.85],[0,-.55,0],[0,.45,-.2],[0,1.4,.25],[0,2.35,0]];
+    const edges=[[0,1],[0,2],[0,3],[1,4],[2,4],[3,4],[4,5],[5,6],[6,7]];
+    const controller=new AbortController();let w=0,h=0,dpr=1,raf=null,tx=0,ty=0,cx=0,cy=0,selected=4;
+    function resize(){w=scene.clientWidth;h=scene.clientHeight;dpr=Math.min(1.5,window.devicePixelRatio||1);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";ctx.setTransform(dpr,0,0,dpr,0,0);request();}
+    function select(i){selected=i;const n=PIPELINE[i];num.textContent=String(i+1).padStart(2,"0");title.textContent=n.title;text.textContent=n.text;meta.textContent=n.meta;nodes.forEach((el,j)=>el.classList.toggle("on",j===i));request();}
+    nodes.forEach((el,i)=>el.addEventListener("click",()=>select(i)));
+    function draw(t){
+      ctx.clearRect(0,0,w,h);
+      const centerX=w*(w>1000?.54:.5),centerY=h*.5,scale=Math.min(w/9.4,h/4.5);
+      const ry=cx,rx=cy,cosY=Math.cos(ry),sinY=Math.sin(ry),cosX=Math.cos(rx),sinX=Math.sin(rx);
+      const projected=pos.map(p=>{
+        const x=p[0]*cosY+p[2]*sinY,z1=-p[0]*sinY+p[2]*cosY;
+        const y=p[1]*cosX-z1*sinX,z2=p[1]*sinX+z1*cosX;
+        const perspective=5.8/(5.8+z2);
+        return {x:centerX+x*scale*perspective,y:centerY+y*scale*perspective,z:z2,p:perspective};
+      });
+      const pulseAge=pulseStart==null?Infinity:t-pulseStart;
+      const activeIndex=Math.floor(pulseAge/150);
+      edges.forEach((edge,idx)=>{
+        const a=projected[edge[0]],b=projected[edge[1]];
+        const active=pulseAge<1500&&idx<=activeIndex;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=active?"rgba(197,111,60,.95)":"rgba(181,147,93,.24)";ctx.lineWidth=active?1.5:1;ctx.stroke();
+      });
+      projected.forEach((p,i)=>{
+        const active=pulseAge<1500&&i<=activeIndex;
+        const radius=(i===selected?5:3.5)*p.p;
+        ctx.beginPath();ctx.arc(p.x,p.y,radius+7,0,Math.PI*2);ctx.fillStyle=active?"rgba(197,111,60,.12)":"rgba(181,147,93,.06)";ctx.fill();
+        ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);ctx.fillStyle=active?"#C56F3C":i===selected?"#D8CAB0":"#B5935D";ctx.fill();
+        nodes[i].style.transform="translate3d("+p.x.toFixed(1)+"px,"+(p.y+22).toFixed(1)+"px,0) translate(-50%,-50%)";
+        nodes[i].classList.toggle("active",active);
+      });
+      if(pulseAge>=1500){pulseStart=null;nodes.forEach(el=>el.classList.remove("active"));}
+    }
+    function loop(t){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;draw(t);const moving=Math.abs(tx-cx)>.0005||Math.abs(ty-cy)>.0005;raf=(moving||pulseStart!=null)?requestAnimationFrame(loop):null;}
+    function request(){if(!raf)raf=requestAnimationFrame(loop);}
+    if(fine&&!reduce){
+      scene.addEventListener("pointermove",e=>{const r=scene.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*.32;ty=((e.clientY-r.top)/r.height-.5)*.2;request();},{passive:true});
+      scene.addEventListener("pointerleave",()=>{tx=0;ty=0;request();},{passive:true});
+    }
+    window.addEventListener("resize",resize,{passive:true,signal:controller.signal});
+    resize();select(4);
+    return ()=>{controller.abort();if(raf)cancelAnimationFrame(raf);};
+  }
+  function initVariant(i){const root=stage.firstElementChild;if(!root)return null;if(i===0)return initLacquer(root);if(i===1)return initEditorial(root);return initField(root);}
+
+  function moveHighlight(){
+    const el=items[current];highlight.style.width=el.offsetWidth+"px";highlight.style.transform="translateX("+el.offsetLeft+"px)";
+  }
+  function mount(i){
+    const id=++mountId;
+    if(cleanup){cleanup();cleanup=null;}
+    stage.innerHTML="";
+    requestAnimationFrame(()=>{if(id!==mountId)return;stage.innerHTML=variants[i]();cleanup=initVariant(i);});
+  }
+  function setActive(i){
+    if(i<0||i>=variants.length)return;
+    current=i;
+    items.forEach((el,j)=>{el.toggleAttribute("data-active",j===i);if(j===i)el.setAttribute("aria-current","true");else el.removeAttribute("aria-current");});
+    moveHighlight();
+    const url=new URL(location);url.searchParams.set("v",i+1);history.replaceState(null,"",url);
+    mount(i);
+  }
+  items.forEach((el,i)=>el.addEventListener("click",()=>setActive(i)));
+  replay?.addEventListener("click",()=>mount(current));
+  window.addEventListener("resize",moveHighlight);
+  document.addEventListener("keydown",e=>{
+    if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.isContentEditable)return;
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    const num=parseInt(e.key,10);
+    if(num>=1&&num<=variants.length)setActive(num-1);
+    else if(e.key==="ArrowRight")setActive((current+1)%variants.length);
+    else if(e.key==="ArrowLeft")setActive((current-1+variants.length)%variants.length);
+    else if(e.key==="r"||e.key==="R")mount(current);
+  });
+  document.addEventListener("click",e=>{
+    const focus=e.target.closest("[data-focus-search]");
+    if(focus){const input=stage.querySelector(".js-q");if(input){input.focus();input.select();}return;}
+    if(e.target.closest("[data-evidence]")){if(!evidence.open)evidence.showModal();return;}
+    if(e.target.closest("[data-close-evidence]"))evidence.close();
+  });
+  evidence.addEventListener("click",e=>{if(e.target===evidence){const r=evidence.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)evidence.close();}});
+  setActive((parseInt(new URLSearchParams(location.search).get("v"),10)||1)-1);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>picker.setAttribute("data-ready","")));
+})();
+</script>
+</body>
+</html>
