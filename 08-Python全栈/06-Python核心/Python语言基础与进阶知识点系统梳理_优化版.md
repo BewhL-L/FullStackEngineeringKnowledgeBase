@@ -5356,6 +5356,10 @@ from pathlib import Path
 # 遍历目录（非递归）
 for item in Path(".").iterdir():
     print(item)
+'''
+Path(".") # 程序运行时所在的文件夹 
+Path("..") # 往上跳一层文件夹
+'''
 
 # 递归遍历（glob 模式）
 for py_file in Path(".").rglob("*.py"):  # rglob = recursive glob
