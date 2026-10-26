@@ -1,0 +1,54 @@
+# GitHub Actions CI
+#
+# ⚠️ 重要：GitHub 只认「仓库根目录」下的 .github/workflows/。
+# 当前 git 仓库根是 Obsidian 库根（全栈工程知识库/），而本文件在 产品/.github 下，
+# 因此**不会被触发**。二选一：
+#   A. 把 产品/ 拆成独立仓库（推荐：作品集项目不该和私人笔记共用一个 repo）
+#      → 拆出后本文件自然生效，working-directory 改为 backend / frontend
+#   B. 把本文件移到库根 .github/workflows/，保留现在的 产品/backend 路径前缀
+#
+# 作用：push 到 main 分支后跑后端 pytest + 前端类型检查与构建
+
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  backend-test:
+    name: Backend Pytest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 产品/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -r requirements.txt
+      - name: Run tests
+        env:
+          LLM_API_KEY: test-key
+        run: pytest -q
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 产品/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Build
+        run: npm run build
