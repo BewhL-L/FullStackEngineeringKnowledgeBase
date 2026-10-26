@@ -12,6 +12,9 @@
 Thumbs.db
 *.tmp
 
+# ===== 独立代码仓库（自带 .git，单独推到 GitHub，不纳入笔记仓库） =====
+99-项目实战/企业级智能知识库 + AI Agent 平台/企业级智能知识库 + AI Agent 平台/
+
 # ===== 大附件（如需版本化管理请改用 Git LFS） =====
 # attachments/*.mp4
 # attachments/*.zip
