@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08090A">
+<meta name="theme-color" content="#0D0C0A">
 <title>罗子强 — AI 应用工程 / 全栈 · Agent · 检索</title>
 <meta name="description" content="罗子强，2024 届。把模型接入工具、数据与业务流程，交付能运行、能观测、能验证的 AI 应用。杭州 / 上海，可即时到岗。">
 <link rel="preload" href="fonts/instrument-serif-400.woff2" as="font" type="font/woff2">
@@ -12,13 +12,13 @@
 @font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/instrument-serif-400.woff2") format("woff2")}
 
 :root{
-  --paper:#08090A;
-  --ink:#F1F2EC;
-  --ink-2:#C6CCC6;
-  --ink-3:#8A928C;
-  --rule:rgba(241,242,236,.17);
-  --rule-2:rgba(241,242,236,.075);
-  --signal:#A9C99B;
+  --paper:#0D0C0A;
+  --ink:#F0EAE0;
+  --ink-2:#BDB4A6;
+  --ink-3:#837A6B;
+  --rule:rgba(240,234,224,.17);
+  --rule-2:rgba(240,234,224,.075);
+  --signal:#C97B45;
   --f-sans:"Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-serif:"Instrument Serif",Georgia,serif;
   --t-xs:12px;--t-sm:14px;--t-md:16px;--t-xl:56px;--t-xxl:96px;--t-num:220px;
@@ -40,7 +40,7 @@ a{color:inherit;text-decoration:none}
 button,input{font:inherit;color:inherit}
 button{background:none;border:0;padding:0;cursor:pointer}
 :focus-visible{outline:1px solid var(--signal);outline-offset:4px}
-::selection{background:var(--signal);color:#0B0F0C}
+::selection{background:var(--signal);color:#14100C}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:fixed;left:20px;top:10px;z-index:200;padding:8px 14px;background:var(--ink);color:var(--paper);transform:translateY(-180%)}
 .skip:focus{transform:none}
@@ -50,7 +50,7 @@ button{background:none;border:0;padding:0;cursor:pointer}
 main{position:relative;z-index:3}
 
 /* ---------- nav ---------- */
-.nav{position:fixed;inset:0 0 auto;z-index:80;height:var(--nav);background:rgba(8,9,10,.92);border-bottom:1px solid var(--rule-2);backdrop-filter:blur(10px)}
+.nav{position:fixed;inset:0 0 auto;z-index:80;height:var(--nav);background:rgba(13,12,10,.92);border-bottom:1px solid var(--rule-2);backdrop-filter:blur(10px)}
 .nav-in{height:100%;display:flex;align-items:center;gap:40px}
 .brand{display:flex;align-items:baseline;gap:12px;flex:none}
 .brand b{font-weight:500;font-size:16px;letter-spacing:.08em}
@@ -73,8 +73,8 @@ h2{font-weight:500;font-size:var(--t-xl);line-height:1.12;letter-spacing:-.012em
 /* ---------- buttons ---------- */
 .btn{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border:1px solid var(--rule);font-size:14px;color:var(--ink);transition:background .2s ease,border-color .2s ease,color .2s ease}
 .btn:hover{border-color:var(--ink-3);background:rgba(241,242,236,.04)}
-.btn.primary{background:var(--signal);border-color:var(--signal);color:#0B0F0C;font-weight:500}
-.btn.primary:hover{background:#BCDBAD;border-color:#BCDBAD}
+.btn.primary{background:var(--signal);border-color:var(--signal);color:#161009;font-weight:500}
+.btn.primary:hover{background:#D9905E;border-color:#D9905E}
 .link{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--rule);padding-bottom:3px;transition:color .2s ease,border-color .2s ease}
 .link:hover{color:var(--ink);border-color:var(--ink-3)}
 
@@ -108,16 +108,7 @@ html.js .rv.in{opacity:1;transform:none}
 
 /* ---------- plate (3D) ---------- */
 .plate{position:relative;display:block;width:100%}
-.plate-frame{position:relative;width:100%;aspect-ratio:1;overflow:hidden;background:
-  radial-gradient(76% 60% at 46% 32%,#151B1C 0%,#0D1213 48%,#090C0D 100%)}
-.plate-frame::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(42% 34% at 48% 34%,rgba(223,235,222,.06),transparent 74%)}
-.plate-frame i{position:absolute;width:9px;height:9px;border:1px solid rgba(241,242,236,.26);z-index:5}
-.plate-frame i.tl{left:0;top:0;border-right:0;border-bottom:0}
-.plate-frame i.tr{right:0;top:0;border-left:0;border-bottom:0}
-.plate-frame i.bl{left:0;bottom:0;border-right:0;border-top:0}
-.plate-frame i.br{right:0;bottom:0;border-left:0;border-top:0}
-.plate-tag{position:absolute;left:0;top:0;padding:11px 13px;font-size:12px;color:var(--ink-3);letter-spacing:.02em;z-index:5}
+.plate-frame{position:relative;width:100%;aspect-ratio:1;overflow:hidden}
 .plate figcaption{display:flex;justify-content:space-between;gap:16px;margin-top:10px;font-size:var(--t-xs);color:var(--ink-3)}
 .plate figcaption b{font-weight:400;color:var(--ink-2)}
 .hero-plate{grid-column:8/13;grid-row:1;align-self:center;width:100%}
@@ -286,9 +277,9 @@ html.js .rv.in{opacity:1;transform:none}
 html.webgl-ready #engineCanvas{opacity:1}
 
 /* ---------- dialog ---------- */
-.evidence{width:min(860px,calc(100vw - 32px));max-height:86svh;margin:auto;padding:0;border:1px solid var(--rule);background:#0B0E0F;color:var(--ink);overflow:auto}
-.evidence::backdrop{background:rgba(4,5,6,.86)}
-.ev-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 24px;border-bottom:1px solid var(--rule);background:#0B0E0F}
+.evidence{width:min(860px,calc(100vw - 32px));max-height:86svh;margin:auto;padding:0;border:1px solid var(--rule);background:#100E0C;color:var(--ink);overflow:auto}
+.evidence::backdrop{background:rgba(8,7,5,.87)}
+.ev-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 24px;border-bottom:1px solid var(--rule);background:#100E0C}
 .ev-head h2{font-size:18px;font-weight:500;letter-spacing:0}
 .ev-close{font-size:12px;color:var(--ink-3);border:1px solid var(--rule-2);padding:7px 10px;letter-spacing:.04em}
 .ev-close:hover{color:var(--ink);border-color:var(--rule)}
@@ -327,7 +318,7 @@ html.webgl-ready #engineCanvas{opacity:1}
   :root{--t-xxl:52px;--t-xl:34px;--t-num:96px;--gut:22px;--nav:56px}
   body{font-size:16px}
   .nav-in{gap:16px}
-  .nav-links{position:fixed;inset:var(--nav) 0 auto;flex-direction:column;align-items:flex-start;gap:0;margin:0;padding:8px 22px 18px;background:#0A0C0D;border-bottom:1px solid var(--rule);display:none}
+  .nav-links{position:fixed;inset:var(--nav) 0 auto;flex-direction:column;align-items:flex-start;gap:0;margin:0;padding:8px 22px 18px;background:#0F0D0B;border-bottom:1px solid var(--rule);display:none}
   .nav-links.open{display:flex}
   .nav-links a{padding:12px 0;font-size:16px;width:100%}
   .nav-cta{margin-left:auto}
@@ -416,11 +407,8 @@ html.webgl-ready #engineCanvas{opacity:1}
         </div>
 
         <figure class="plate hero-plate rv" style="--d:140ms">
-          <div class="plate-frame" data-plate="hero">
-            <span class="plate-tag">图 01 / 装配</span>
-            <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
-          </div>
-          <figcaption><b>检索核心</b><span>同一物体 · 随页展开</span></figcaption>
+          <div class="plate-frame" data-plate="hero"></div>
+          <figcaption><b>检索核心</b><span>随页展开</span></figcaption>
         </figure>
 
         <nav class="hero-ledger rv" style="--d:300ms" aria-label="三条能力线">
@@ -443,10 +431,8 @@ html.webgl-ready #engineCanvas{opacity:1}
         <div class="arch rv" id="architecture" role="group" aria-label="五层服务结构"></div>
         <aside class="side rv" style="--d:80ms" aria-live="polite">
           <figure class="plate arch-plate">
-            <div class="plate-frame" data-plate="fullstack">
-              <span class="plate-tag">图 02 / 剖面</span>
-              <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
-            </div>
+            <div class="plate-frame" data-plate="fullstack"></div>
+            <figcaption><b>五层剖面</b><span>同一物体</span></figcaption>
           </figure>
           <div class="side-head"><span>当前层</span><span id="inspectorCode">INTERFACE / 01</span></div>
           <span class="side-index" id="inspectorIndex">01</span>
@@ -480,11 +466,8 @@ html.webgl-ready #engineCanvas{opacity:1}
           </div>
           <div class="agent-side rv" style="--d:140ms">
             <figure class="plate agent-plate">
-              <div class="plate-frame" data-plate="agent">
-                <span class="plate-tag">图 03 / 张开</span>
-                <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
-              </div>
-              <figcaption><b>执行网络</b><span>同一物体 · 轨道张开</span></figcaption>
+              <div class="plate-frame" data-plate="agent"></div>
+              <figcaption><b>展开状态</b><span>同一物体</span></figcaption>
             </figure>
             <p class="note">四个步骤对应同一条执行链：计划先建立，工具调用先校验，输出先过检查。轨迹保留输出、错误与 token 用量，失败可复现。</p>
           </div>
@@ -999,8 +982,8 @@ html.webgl-ready #engineCanvas{opacity:1}
     var c=document.createElement("canvas");c.width=1024;c.height=512;
     var g=c.getContext("2d");
     var lg=g.createLinearGradient(0,0,0,512);
-    lg.addColorStop(0,"#0C1618");lg.addColorStop(0.42,"#141B1C");
-    lg.addColorStop(0.55,"#0A0E0F");lg.addColorStop(1,"#050607");
+    lg.addColorStop(0,"#171513");lg.addColorStop(0.42,"#12100E");
+    lg.addColorStop(0.55,"#0C0B09");lg.addColorStop(1,"#060505");
     g.fillStyle=lg;g.fillRect(0,0,1024,512);
     var key=g.createRadialGradient(292,148,8,292,148,236);
     key.addColorStop(0,"rgba(255,250,238,1)");
@@ -1009,9 +992,9 @@ html.webgl-ready #engineCanvas{opacity:1}
     key.addColorStop(1,"rgba(255,242,220,0)");
     g.fillStyle=key;g.fillRect(0,0,1024,512);
     var cool=g.createRadialGradient(806,214,4,806,214,150);
-    cool.addColorStop(0,"rgba(150,206,214,.9)");
-    cool.addColorStop(0.5,"rgba(140,196,206,.22)");
-    cool.addColorStop(1,"rgba(140,196,206,0)");
+    cool.addColorStop(0,"rgba(212,198,178,.55)");
+    cool.addColorStop(0.5,"rgba(206,192,172,.16)");
+    cool.addColorStop(1,"rgba(206,192,172,0)");
     g.fillStyle=cool;g.fillRect(0,0,1024,512);
     var warm=g.createRadialGradient(72,300,4,72,300,120);
     warm.addColorStop(0,"rgba(255,212,170,.45)");
@@ -1020,8 +1003,8 @@ html.webgl-ready #engineCanvas{opacity:1}
     /* tall strip softbox: gives the barrel one long continuous highlight */
     g.save();g.translate(742,196);g.scale(0.085,1);
     var strip=g.createRadialGradient(0,0,0,0,0,230);
-    strip.addColorStop(0,"rgba(255,253,247,.88)");
-    strip.addColorStop(0.45,"rgba(255,250,240,.46)");
+    strip.addColorStop(0,"rgba(255,250,238,.52)");
+    strip.addColorStop(0.45,"rgba(255,248,236,.38)");
     strip.addColorStop(1,"rgba(255,248,236,0)");
     g.fillStyle=strip;g.beginPath();g.arc(0,0,230,0,Math.PI*2);g.fill();g.restore();
     var tex=new T.CanvasTexture(c);
@@ -1034,11 +1017,11 @@ html.webgl-ready #engineCanvas{opacity:1}
     var c=document.createElement("canvas");c.width=c.height=512;
     var g=c.getContext("2d");
     var rg=g.createRadialGradient(256,256,10,256,256,250);
-    rg.addColorStop(0,"rgba(198,214,208,.17)");
-    rg.addColorStop(0.30,"rgba(190,206,200,.10)");
-    rg.addColorStop(0.44,"rgba(180,196,190,.03)");
-    rg.addColorStop(0.52,"rgba(180,196,190,0)");
-    rg.addColorStop(1,"rgba(180,196,190,0)");
+    rg.addColorStop(0,"rgba(226,212,190,.15)");
+    rg.addColorStop(0.30,"rgba(218,204,182,.09)");
+    rg.addColorStop(0.44,"rgba(212,198,178,.03)");
+    rg.addColorStop(0.52,"rgba(212,198,178,0)");
+    rg.addColorStop(1,"rgba(212,198,178,0)");
     g.fillStyle=rg;g.fillRect(0,0,512,512);
     var tex=new T.CanvasTexture(c);
     if(T.SRGBColorSpace)tex.colorSpace=T.SRGBColorSpace;
@@ -1056,18 +1039,18 @@ html.webgl-ready #engineCanvas{opacity:1}
     renderer.autoClear=false;
     if(T.SRGBColorSpace)renderer.outputColorSpace=T.SRGBColorSpace;
     renderer.toneMapping=T.ACESFilmicToneMapping;
-    renderer.toneMappingExposure=1.04;
+    renderer.toneMappingExposure=0.98;
     renderer.shadowMap.enabled=true;
     renderer.shadowMap.type=T.PCFSoftShadowMap;
 
     var scene=new T.Scene();
-    scene.fog=new T.FogExp2(0x0A0E0F,0.024);
+    scene.fog=new T.FogExp2(0x0C0B09,0.024);
     scene.environment=makeEnvironment();
 
     var camera=new T.PerspectiveCamera(30,1,0.1,60);
     camera.position.set(0.75,0.55,6.9);
 
-    var key=new T.DirectionalLight(0xFFF5E7,3.2);
+    var key=new T.DirectionalLight(0xFFEEDC,2.45);
     key.position.set(-3.4,4.8,3.6);
     key.castShadow=true;
     key.shadow.mapSize.set(1024,1024);
@@ -1077,100 +1060,70 @@ html.webgl-ready #engineCanvas{opacity:1}
     key.shadow.bias=-0.0012;key.shadow.radius=5;
     scene.add(key);
 
-    var rim=new T.DirectionalLight(0xB6D2C8,1.8);rim.position.set(4.6,1.2,-3.4);scene.add(rim);
-    var bounce=new T.DirectionalLight(0xFFD8B6,0.7);bounce.position.set(-2.8,-2.2,2.4);scene.add(bounce);
-    var front=new T.DirectionalLight(0xE6EEE8,0.85);front.position.set(0.8,0.6,6.5);scene.add(front);
+    var rim=new T.DirectionalLight(0xE4DACA,1.5);rim.position.set(4.6,1.2,-3.4);scene.add(rim);
+    var bounce=new T.DirectionalLight(0xFFD8B6,0.6);bounce.position.set(-2.8,-2.2,2.4);scene.add(bounce);
+    var front=new T.DirectionalLight(0xEFE6D6,0.55);front.position.set(0.8,0.6,6.5);scene.add(front);
     var fill=new T.DirectionalLight(0x93A8A2,0.5);fill.position.set(1.4,-2.6,3.2);scene.add(fill);
-    scene.add(new T.HemisphereLight(0x283335,0x050707,0.42));
+    scene.add(new T.HemisphereLight(0x2A251F,0x070605,0.35));
 
-    var steel=new T.MeshStandardMaterial({color:0xC5D0CB,metalness:1,roughness:0.34,envMapIntensity:1.1});
-    var dark=new T.MeshStandardMaterial({color:0x3A433F,metalness:0.96,roughness:0.42,envMapIntensity:0.9});
-    var emis=new T.MeshStandardMaterial({color:0x0B140E,emissive:0xA9C99B,emissiveIntensity:2.8,roughness:0.35,metalness:0});
+    var steel=new T.MeshStandardMaterial({color:0x8B857A,metalness:1,roughness:0.40,envMapIntensity:0.9});
+    var dark=new T.MeshStandardMaterial({color:0x2B2721,metalness:0.95,roughness:0.46,envMapIntensity:0.8});
+    var emis=new T.MeshStandardMaterial({color:0x201612,emissive:0xC97B45,emissiveIntensity:0.85,roughness:0.4,metalness:0});
 
     var rig=new T.Group();scene.add(rig);
     var core=new T.Group();rig.add(core);
 
-    /* three machined ring segments, axis along Z */
+    /* one machine: a spindle carrying five platters, axis along Z */
     var profile=[
-      [0.86,0.072],[0.94,0.072],[0.98,0.053],[1.13,0.053],[1.17,0.028],
-      [1.17,-0.028],[1.13,-0.053],[0.98,-0.053],[0.94,-0.072],[0.86,-0.072],[0.86,0.072]
+      [0.30,0.085],[1.05,0.085],[1.12,0.062],[1.17,0.033],
+      [1.17,-0.033],[1.12,-0.062],[1.05,-0.085],[0.30,-0.085],[0.30,0.085]
     ].map(function(p){return new T.Vector2(p[0],p[1]);});
-    var ringGeo=new T.LatheGeometry(profile,128);
-    ringGeo.rotateX(Math.PI/2);
+    var discGeo=new T.LatheGeometry(profile,128);
+    discGeo.rotateX(Math.PI/2);
 
-    var SEGS=5,SEG_GAP=0.178;
+    var SEGS=5,SEG_GAP=0.262;
     var segs=[];
     for(var i=0;i<SEGS;i++){
-      var m=new T.Mesh(ringGeo,i===2?steel:dark);
+      var m=new T.Mesh(discGeo,i%2?dark:steel);
       m.castShadow=true;m.receiveShadow=true;
       m.position.z=(i-2)*SEG_GAP;
       m.userData.base=(i-2)*SEG_GAP;
       core.add(m);segs.push(m);
     }
 
-    /* machined teeth around the middle segment */
-    var boltGeo=new T.BoxGeometry(0.046,0.098,0.150);
+    /* rim teeth ring: 40 machined blocks riding in the gap between platters */
+    var boltGeo=new T.BoxGeometry(0.042,0.070,0.105);
     var bolts=new T.InstancedMesh(boltGeo,steel,40);
     bolts.castShadow=true;
     var dummy=new T.Object3D();
     for(var b=0;b<40;b++){
       var ang=b/40*Math.PI*2;
-      dummy.position.set(Math.cos(ang)*1.115,Math.sin(ang)*1.115,0.178);
+      dummy.position.set(Math.cos(ang)*1.098,Math.sin(ang)*1.098,0.190);
       dummy.rotation.set(0,0,ang);
       dummy.updateMatrix();
       bolts.setMatrixAt(b,dummy.matrix);
     }
     core.add(bolts);
 
-    /* core: a machined 3x3x3 puzzle cube - one metal family, three roughnesses */
-    var cubeGroup=new T.Group();
-    var cubeMats=[0.16,0.26,0.38].map(function(r){
-      return new T.MeshStandardMaterial({color:0x58615B,metalness:0.95,roughness:r,envMapIntensity:1.35});
+    /* spindle + machined end caps */
+    var shaft=new T.Mesh(new T.CylinderGeometry(0.125,0.125,2.40,48),steel);
+    shaft.rotation.x=Math.PI/2;shaft.castShadow=true;shaft.receiveShadow=true;core.add(shaft);
+    [1.20,-1.20].forEach(function(z){
+      var cap=new T.Mesh(new T.CylinderGeometry(0.26,0.125,0.18,48),dark);
+      cap.rotation.x=Math.PI/2*(z>0?1:-1);
+      cap.position.z=z;
+      cap.castShadow=true;core.add(cap);
     });
-    (function buildCube(){
-      var size=0.240,radius=0.034,step=0.285;
-      var sh=new T.Shape(),h=size/2;
-      sh.moveTo(-h+radius,-h);
-      sh.lineTo(h-radius,-h);sh.quadraticCurveTo(h,-h,h,-h+radius);
-      sh.lineTo(h,h-radius);sh.quadraticCurveTo(h,h,h-radius,h);
-      sh.lineTo(-h+radius,h);sh.quadraticCurveTo(-h,h,-h,h-radius);
-      sh.lineTo(-h,-h+radius);sh.quadraticCurveTo(-h,-h,-h+radius,-h);
-      var geo=new T.ExtrudeGeometry(sh,{depth:size-0.022,bevelEnabled:true,bevelSize:0.010,bevelThickness:0.010,bevelSegments:2,curveSegments:4});
-      geo.center();
-      for(var cx=-1;cx<=1;cx++)for(var cy=-1;cy<=1;cy++)for(var cz=-1;cz<=1;cz++){
-        if(!cx&&!cy&&!cz)continue;
-        var m=new T.Mesh(geo,cubeMats[(cx+cy+cz+9)%3]);
-        m.position.set(cx*step,cy*step,cz*step);
-        m.userData.home=m.position.clone();
-        m.castShadow=true;m.receiveShadow=true;
-        cubeGroup.add(m);
-      }
-    })();
-    core.add(cubeGroup);
 
-    /* one lit annulus behind the cube */
-    var litRing=new T.Mesh(new T.TorusGeometry(0.745,0.007,8,180),emis);
-    litRing.position.z=-0.17;
-    core.add(litRing);
-
-    /* two short rail arcs that hug the ring body */
-    var arcs=[];
-    [0,1].forEach(function(i){
-      var geo=new T.TorusGeometry(1.30+i*0.11,0.014,8,200,Math.PI*(i?0.46:0.54));
-      var arc=new T.Mesh(geo,steel);
-      arc.castShadow=true;
-      arc.userData.baseX=0.24+i*0.05;
-      arc.userData.baseY=-0.20+i*0.10;
-      arc.userData.baseZ=i?Math.PI*1.16:Math.PI*0.30;
-      arc.rotation.set(arc.userData.baseX,arc.userData.baseY,arc.userData.baseZ);
-      core.add(arc);arcs.push({mesh:arc,i:i});
-    });
+    /* one warm indicator collar; it travels along the spindle as the data unfolds */
+    var collar=new T.Mesh(new T.CylinderGeometry(0.24,0.24,0.055,64),emis);
+    collar.rotation.x=Math.PI/2;collar.position.z=0.72;core.add(collar);
 
     /* studio floor: a faint surface so the contact shadow is visible */
     var floor=new T.Mesh(new T.PlaneGeometry(9,9),new T.MeshBasicMaterial({map:floorTexture(),transparent:true,depthWrite:false,opacity:1}));
     floor.rotation.x=-Math.PI/2;floor.position.set(0,-1.35,-1.5);floor.renderOrder=0;scene.add(floor);
 
-    var shadowPlane=new T.Mesh(new T.PlaneGeometry(12,12),new T.ShadowMaterial({color:0x000000,opacity:0.6,depthWrite:false}));
+    var shadowPlane=new T.Mesh(new T.PlaneGeometry(12,12),new T.ShadowMaterial({color:0x000000,opacity:0.5,depthWrite:false}));
     shadowPlane.rotation.x=-Math.PI/2;shadowPlane.position.set(0,-1.345,-1.5);shadowPlane.receiveShadow=true;shadowPlane.renderOrder=1;scene.add(shadowPlane);
 
     var state={unfold:0};
@@ -1204,31 +1157,16 @@ html.webgl-ready #engineCanvas{opacity:1}
       var sep=smooth(Math.min(1,u/0.62));
       var open=Math.min(1,Math.max(0,(u-0.58)/0.42));
 
-      segs.forEach(function(m,i){m.position.z=m.userData.base+(i-2)*0.30*sep;});
-      bolts.position.z=sep*0.34;
+      segs.forEach(function(m,i){m.position.z=m.userData.base+(i-2)*0.24*sep;});
+      bolts.position.z=sep*0.24;
+      collar.position.z=0.72+0.30*u;
 
-      arcs.forEach(function(a){
-        var r=1+open*0.10;
-        a.mesh.scale.set(r,r,r);
-        a.mesh.rotation.x=a.mesh.userData.baseX+open*0.36;
-        a.mesh.rotation.y=a.mesh.userData.baseY+open*0.26;
-        a.mesh.rotation.z=a.mesh.userData.baseZ+clock*0.05*(a.i?-1:1);
-      });
-      litRing.rotation.z+=dt*0.12;
-
-      cubeGroup.rotation.y=clock*0.30;
-      cubeGroup.rotation.x=0.26+Math.sin(clock*0.19)*0.06;
-      var ce=1+0.22*u;
-      cubeGroup.children.forEach(function(m){
-        m.position.copy(m.userData.home).multiplyScalar(ce);
-      });
-
-      rig.rotation.x=-0.62*sep;
-      rig.rotation.y=0.30*sep;
+      rig.rotation.x=-0.42-0.18*sep;
+      rig.rotation.y=1.02+0.12*sep;
       core.rotation.z=clock*(0.045-0.018*u);
       core.rotation.y=Math.sin(clock*0.22)*0.05;
 
-      camera.position.set(0.75-0.48*u,0.55+0.05*u,6.9+2.4*u);
+      camera.position.set(1.05-0.55*u,1.02+0.05*u,6.9+1.6*u);
       camera.lookAt(0,-0.26*sep,0);
 
       var rects=[];
