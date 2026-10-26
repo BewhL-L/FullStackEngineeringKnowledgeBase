@@ -5114,6 +5114,12 @@ with open("data.txt", "r", encoding="utf-8") as f:
 with open("data.txt", "r", encoding="utf-8") as f:
     for line in f:  # 文件对象是可迭代对象，逐行惰性读取
         print(line.rstrip("\n"))
+'''
+1. `line`：从文件 `for line in f` / `readline()` 读出来的一行字符串，**自带末尾换行符 `\n`**Python
+2. `.rstrip("\n")`：**只删掉字符串最右侧的 `\n`，左边、中间内容不动；末尾空格、`\r` 都会保留**
+    > ⚠️ 重点：`rstrip` 的参数是**字符集合**，不是固定后缀；会持续从尾部删掉所有属于这个集合里的字符
+3. `print()`：print 默认**自己再加一个换行**
+'''
 
 # 读取所有行到列表
 with open("data.txt", "r", encoding="utf-8") as f:
