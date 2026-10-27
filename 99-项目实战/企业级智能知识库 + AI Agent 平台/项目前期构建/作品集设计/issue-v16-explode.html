@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#081918">
+<meta name="theme-color" content="#063B46">
 <title>罗子强 — AI 应用工程 / 全栈 · Agent · 检索</title>
 <meta name="description" content="罗子强，2024 届。把模型接入工具、数据与业务流程，交付能运行、能观测、能验证的 AI 应用。杭州 / 上海，可即时到岗。">
 <link rel="preload" href="fonts/instrument-serif-400.woff2" as="font" type="font/woff2">
@@ -12,22 +12,28 @@
 @font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/instrument-serif-400.woff2") format("woff2")}
 
 :root{
-  --paper:#081918;
-  --ink:#F2FBF8;
-  --ink-2:#C5DCD6;
-  --ink-3:#ADC5BE;
-  --hair:rgba(224,255,249,.10);
-  --rule:rgba(224,255,249,.18);
-  --edge:rgba(224,255,249,.30);
-  --focus:#9CF2E6;
-  --rule-2:rgba(224,255,249,.08);
+  --paper:#06211F;
+  --ink:#F4FCF9;
+  --ink-2:#D0E3DD;
+  --ink-3:#B2CCC4;
+  --hair:rgba(225,255,249,.13);
+  --rule:rgba(225,255,249,.21);
+  --edge:rgba(225,255,249,.33);
+  --focus:#8DF4E5;
+  --rule-2:rgba(225,255,249,.09);
   --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;--s7:96px;--s8:128px;
-  --signal:#81D8D0;
-  --glass:rgba(255,255,255,.15);
-  --glass-tide:rgba(129,216,208,.15);
-  --glass-line:rgba(225,255,250,.26);
-  --glass-shadow:0 20px 56px rgba(0,10,12,.26),inset 0 1px 0 rgba(255,255,255,.13);
-  --glass-blur:blur(18px) saturate(128%) brightness(.66);
+  --signal:#66E4D4;
+  --glass:
+    radial-gradient(125% 105% at 14% -8%,rgba(255,255,255,.24),rgba(255,255,255,0) 46%),
+    radial-gradient(90% 120% at 105% 108%,rgba(122,255,238,.14),rgba(122,255,238,0) 60%),
+    linear-gradient(142deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.08) 52%,rgba(166,255,244,.12) 100%),
+    linear-gradient(180deg,rgba(3,28,27,.19),rgba(3,28,27,.11));
+  --glass-tide:
+    radial-gradient(130% 130% at 28% -10%,rgba(255,255,255,.29),rgba(255,255,255,0) 50%),
+    linear-gradient(140deg,rgba(102,228,212,.23),rgba(34,129,121,.12));
+  --glass-line:rgba(229,255,250,.34);
+  --glass-shadow:0 24px 64px rgba(0,18,20,.30),inset 0 1px 0 rgba(255,255,255,.43),inset 0 -1px 0 rgba(255,255,255,.07);
+  --glass-blur:blur(22px) saturate(136%) brightness(.70);
   --f-sans:"Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-serif:"Instrument Serif",Georgia,serif;
   --t-xs:12px;--t-sm:14px;--t-md:16px;--t-lg:18px;--t-h3:20px;--t-h4:24px;--t-xl:56px;--t-xxl:96px;--t-num:220px;
@@ -281,10 +287,46 @@ html.js .rv.in{opacity:1;transform:none}
 /* ---------- full-screen tide ---------- */
 .tide-canvas{
   position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%;
-  pointer-events:none;opacity:0;background:linear-gradient(180deg,#0A282D 0%,#2D7779 36%,#72C9C2 53%,#B6DED2 60%,#CDBFA6 76%,#839C96 100%);
+  pointer-events:none;opacity:0;background:linear-gradient(102deg,#07394C 0%,#078B95 30%,#3BD7C6 48%,#8CE9D7 55%,#D9CEB2 62%,#77A65A 70%,#205D35 83%,#092B1D 100%);
   transition:opacity .8s var(--ease);
 }
 html.tide-ready .tide-canvas,html.tide-fallback .tide-canvas{opacity:1}
+
+/* ---------- top-down palm crowns and rocks ---------- */
+.shore-defs{position:absolute;width:0;height:0;overflow:hidden}
+.shore-art{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;user-select:none;transition:opacity .6s var(--ease)}
+body.modal-open .shore-art{opacity:.28}
+.palm{position:absolute;height:auto;overflow:visible;opacity:.9;will-change:transform}
+.palm--a,.palm--c{opacity:.98}
+.palm--d{opacity:.8}
+.palm--f{opacity:.76}
+.palm .palm-shadow{opacity:.36;filter:brightness(0);transform:translate(30px,38px)}
+.palm .palm-crown{transform-box:fill-box;transform-origin:center;animation:palm-sway 8s ease-in-out infinite alternate}
+.palm--a{left:61%;top:-4%;width:clamp(180px,22vw,330px);transform:rotate(7deg) scale(1.04,.9)}
+.palm--b{left:83%;top:8%;width:clamp(160px,19vw,285px);transform:rotate(-13deg) scale(1,.86)}
+.palm--c{left:56%;top:23%;width:clamp(112px,13vw,192px);transform:rotate(23deg) scale(1.03,.92)}
+.palm--d{left:88%;top:34%;width:clamp(180px,21vw,315px);transform:rotate(-4deg) scale(.98,.88)}
+.palm--e{left:74%;top:58%;width:clamp(145px,16vw,245px);transform:rotate(15deg) scale(1.05,.9);opacity:.91}
+.palm--f{left:95%;top:71%;width:clamp(155px,19vw,285px);transform:rotate(-9deg) scale(1.02,.86)}
+.palm--b .palm-crown{animation-duration:9.4s;animation-delay:-3.1s}
+.palm--d .palm-crown{animation-duration:10.8s;animation-delay:-5.2s}
+.palm--f .palm-crown{animation-duration:9.8s;animation-delay:-1.8s}
+@keyframes palm-sway{0%{transform:rotate(-1.15deg) translateY(0)}50%{transform:rotate(.35deg) translateY(-3px)}100%{transform:rotate(1.05deg) translateY(1px)}}
+.rock{position:absolute;height:auto;overflow:visible;opacity:.96;filter:drop-shadow(0 12px 10px rgba(4,37,28,.18))}
+.rock--a{left:59%;top:62%;width:clamp(94px,10.5vw,158px);transform:rotate(-8deg)}
+.rock--b{left:64%;top:71%;width:clamp(54px,6.4vw,96px);transform:rotate(12deg)}
+.rock--c{left:55%;top:38%;width:clamp(44px,5.1vw,78px);transform:rotate(-17deg)}
+@media(max-width:860px){
+  .palm--a{left:50%;top:-2%;width:56vw}
+  .palm--b{left:72%;top:8%;width:53vw}
+  .palm--c{left:47%;top:21%;width:34vw}
+  .palm--d{left:78%;top:33%;width:56vw}
+  .palm--e{left:54%;top:56%;width:40vw}
+  .palm--f{left:83%;top:72%;width:48vw}
+  .rock--a{left:66%;top:60%;width:19vw}
+  .rock--b{left:74%;top:68%;width:12vw}
+  .rock--c{left:59%;top:35%;width:10vw}
+}
 
 /* ---------- dialog ---------- */
 .evidence{width:min(860px,calc(100vw - 32px));max-height:86svh;margin:auto;padding:0;border:1px solid var(--edge);background:#1A1714;color:var(--ink);overflow:auto;box-shadow:0 40px 120px rgba(0,0,0,.6)}
@@ -375,14 +417,14 @@ html.tide-ready .tide-canvas,html.tide-fallback .tide-canvas{opacity:1}
   .log-row{grid-template-columns:70px 76px 1fr;gap:10px;font-size:12px}
 }
 /* ---------- tide glass visual revision ---------- */
-html{background:#081918}
+html{background:#06211F}
 body{
   background:
-    radial-gradient(circle at 88% 92%,rgba(69,190,183,.20),transparent 34vw),
-    radial-gradient(circle at 8% 4%,rgba(80,143,137,.13),transparent 30vw),
-    linear-gradient(145deg,#071312 0%,#0A201F 48%,#071717 100%);
+    radial-gradient(circle at 82% 18%,rgba(132,190,78,.18),transparent 31vw),
+    radial-gradient(circle at 8% 78%,rgba(7,146,160,.24),transparent 38vw),
+    linear-gradient(118deg,#073748 0%,#087E88 37%,#65D8C7 55%,#D7CDB2 64%,#275E35 79%,#0A2A1D 100%);
 }
-body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(3,15,17,.74) 0%,rgba(3,15,17,.38) 42%,rgba(3,15,17,.06) 70%,rgba(3,15,17,0) 100%),linear-gradient(180deg,rgba(3,15,17,.18) 0%,rgba(3,15,17,0) 18%,rgba(3,15,17,0) 78%,rgba(3,15,17,.14) 100%)}
+body::before{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 79% 7%,rgba(255,244,188,.14),rgba(255,244,188,0) 28%),linear-gradient(90deg,rgba(2,18,21,.54) 0%,rgba(2,18,21,.28) 34%,rgba(2,18,21,.08) 64%,rgba(2,18,21,0) 100%),linear-gradient(180deg,rgba(2,18,21,.20) 0%,rgba(2,18,21,0) 18%,rgba(2,18,21,0) 80%,rgba(2,18,21,.16) 100%)}
 main,.foot{position:relative;z-index:3}
 ::selection{background:var(--signal);color:#08201E}
 
@@ -396,7 +438,7 @@ main,.foot{position:relative;z-index:3}
 /* 嵌套信息层共享母卡的模糊背景，避免重复采样造成浑浊。 */
 .trace .log,.proof .metrics,.lab .search,.lab .results,.evidence .ev-head,.evidence .ev-sum,.evidence .ev-tabs,.evidence .ev-panel{-webkit-backdrop-filter:none;backdrop-filter:none}
 .nav{border:0;border-bottom:1px solid var(--glass-line);border-radius:0 0 20px 20px;box-shadow:0 14px 42px rgba(0,10,12,.22),inset 0 -1px 0 rgba(255,255,255,.05)}
-.hero-copy,.sec-head,.hero-ledger,.arch,.side,.steps,.trace,.agent-side,.channels,.lab,.compare,.proof,.ev-hero,.ev-list,.ev-foot,.ct-copy,.ct-side,.foot-in{border-radius:24px}
+.hero-copy,.sec-head,.hero-ledger,.arch,.side,.steps,.trace,.agent-side,.channels,.lab,.compare,.proof,.ev-hero,.ev-list,.ev-foot,.ct-copy,.ct-side,.foot-in{border-radius:24px;border-top-color:rgba(255,255,255,.46);border-left-color:rgba(255,255,255,.30)}
 .hero-copy{padding:30px 32px}
 .sec-head{padding:28px 30px}
 .hero-ledger{padding:10px 14px;border-top:1px solid var(--glass-line)}
@@ -492,6 +534,7 @@ body.modal-open .tide-canvas{opacity:.38}
   html{scroll-behavior:auto}
   html.js .rv:not(.in){opacity:1;transform:none}
   .evidence[open],.evidence[open].closing,.evidence[open]::backdrop,.evidence[open].closing::backdrop{animation:none!important}
+  .palm .palm-crown{animation:none!important}
 }
 </style>
 </head>
@@ -755,6 +798,155 @@ body.modal-open .tide-canvas{opacity:.38}
 </dialog>
 
 <canvas class="tide-canvas" id="tideCanvas" aria-hidden="true"></canvas>
+
+<svg class="shore-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="leafA" x1="0" y1="0" x2=".38" y2="1">
+      <stop offset="0" stop-color="#7FAE4C"/>
+      <stop offset=".42" stop-color="#4D833B"/>
+      <stop offset=".8" stop-color="#265A31"/>
+      <stop offset="1" stop-color="#143C26"/>
+    </linearGradient>
+    <linearGradient id="leafB" x1=".08" y1="0" x2=".74" y2="1">
+      <stop offset="0" stop-color="#6D9841"/>
+      <stop offset=".45" stop-color="#427334"/>
+      <stop offset=".85" stop-color="#1B4529"/>
+      <stop offset="1" stop-color="#10311F"/>
+    </linearGradient>
+    <radialGradient id="palmHeart">
+      <stop offset="0" stop-color="#A9D06A"/>
+      <stop offset=".65" stop-color="#5C8F3C"/>
+      <stop offset="1" stop-color="#244E2A"/>
+    </radialGradient>
+    <linearGradient id="palmMass" x1="0" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#2C6038"/>
+      <stop offset="1" stop-color="#154127"/>
+    </linearGradient>
+    <radialGradient id="palmSun" cx=".24" cy=".18" r=".72">
+      <stop offset="0" stop-color="#E1F5A5" stop-opacity=".52"/>
+      <stop offset=".5" stop-color="#A8CD72" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#8AB85C" stop-opacity="0"/>
+    </radialGradient>
+    <path id="palmLeaflet" d="M0 0 C16 -12 37 -18 56 -13 C45 7 22 15 0 10Z"/>
+    <path id="palmBlade" d="M0 12 C-16 -30 -30 -90 -24 -152 C-43 -177 -58 -200 -65 -221 C-36 -208 -18 -194 -6 -178 C-5 -208 0 -231 0 -245 C4 -218 10 -191 14 -173 C28 -192 48 -208 64 -220 C51 -197 38 -174 28 -150 C34 -88 18 -30 0 12Z"/>
+    <g id="palmUnder" fill="url(#palmMass)" stroke="#0D2E1D" stroke-width="2">
+      <use href="#palmBlade" transform="rotate(0) scale(.98)"/>
+      <use href="#palmBlade" transform="rotate(41) scale(.88)"/>
+      <use href="#palmBlade" transform="rotate(82) scale(1.02)"/>
+      <use href="#palmBlade" transform="rotate(123) scale(.9)"/>
+      <use href="#palmBlade" transform="rotate(162) scale(1.0)"/>
+      <use href="#palmBlade" transform="rotate(201) scale(.87)"/>
+      <use href="#palmBlade" transform="rotate(241) scale(.99)"/>
+      <use href="#palmBlade" transform="rotate(281) scale(.91)"/>
+      <use href="#palmBlade" transform="rotate(321) scale(1.01)"/>
+    </g>
+    <g id="palmFrondA">
+      <path d="M0 7 C-7 -56 -8 -142 0 -217" fill="none" stroke="#123B24" stroke-width="3.4" stroke-linecap="round"/>
+      <g fill="url(#leafA)" stroke="#0A2C1B" stroke-width=".7" stroke-linejoin="round">
+        <use href="#palmLeaflet" transform="translate(-2 -33) rotate(198) scale(.94)"/>
+        <use href="#palmLeaflet" transform="translate(2 -33) rotate(342) scale(.94)"/>
+        <use href="#palmLeaflet" transform="translate(-2 -58) rotate(204) scale(.98)"/>
+        <use href="#palmLeaflet" transform="translate(2 -58) rotate(336) scale(.98)"/>
+        <use href="#palmLeaflet" transform="translate(-1 -83) rotate(210) scale(.90)"/>
+        <use href="#palmLeaflet" transform="translate(1 -83) rotate(330) scale(.90)"/>
+        <use href="#palmLeaflet" transform="translate(-1 -108) rotate(216) scale(.82)"/>
+        <use href="#palmLeaflet" transform="translate(1 -108) rotate(324) scale(.82)"/>
+        <use href="#palmLeaflet" transform="translate(-1 -132) rotate(222) scale(.71)"/>
+        <use href="#palmLeaflet" transform="translate(1 -132) rotate(318) scale(.71)"/>
+        <use href="#palmLeaflet" transform="translate(0 -156) rotate(228) scale(.59)"/>
+        <use href="#palmLeaflet" transform="translate(0 -156) rotate(312) scale(.59)"/>
+        <use href="#palmLeaflet" transform="translate(0 -179) rotate(235) scale(.44)"/>
+        <use href="#palmLeaflet" transform="translate(0 -179) rotate(305) scale(.44)"/>
+        <use href="#palmLeaflet" transform="translate(0 -198) rotate(270) scale(.30)"/>
+      </g>
+    </g>
+    <g id="palmFrondB">
+      <path d="M0 7 C-6 -52 -7 -141 1 -212" fill="none" stroke="#10331F" stroke-width="3.4" stroke-linecap="round"/>
+      <g fill="url(#leafB)" stroke="#082719" stroke-width=".7" stroke-linejoin="round">
+        <use href="#palmLeaflet" transform="translate(-2 -30) rotate(199) scale(.90)"/>
+        <use href="#palmLeaflet" transform="translate(2 -30) rotate(341) scale(.90)"/>
+        <use href="#palmLeaflet" transform="translate(-2 -55) rotate(205) scale(.96)"/>
+        <use href="#palmLeaflet" transform="translate(2 -55) rotate(335) scale(.96)"/>
+        <use href="#palmLeaflet" transform="translate(-1 -80) rotate(211) scale(.87)"/>
+        <use href="#palmLeaflet" transform="translate(1 -80) rotate(329) scale(.87)"/>
+        <use href="#palmLeaflet" transform="translate(-1 -104) rotate(217) scale(.78)"/>
+        <use href="#palmLeaflet" transform="translate(1 -104) rotate(323) scale(.78)"/>
+        <use href="#palmLeaflet" transform="translate(0 -128) rotate(223) scale(.66)"/>
+        <use href="#palmLeaflet" transform="translate(0 -128) rotate(317) scale(.66)"/>
+        <use href="#palmLeaflet" transform="translate(0 -151) rotate(229) scale(.53)"/>
+        <use href="#palmLeaflet" transform="translate(0 -151) rotate(311) scale(.53)"/>
+        <use href="#palmLeaflet" transform="translate(0 -174) rotate(236) scale(.40)"/>
+        <use href="#palmLeaflet" transform="translate(0 -174) rotate(304) scale(.40)"/>
+        <use href="#palmLeaflet" transform="translate(0 -193) rotate(270) scale(.27)"/>
+      </g>
+    </g>
+    <g id="palmCrownA">
+      <use href="#palmFrondA" transform="rotate(0) scale(1.08)"/>
+      <use href="#palmFrondA" transform="translate(-2 -3) rotate(33) scale(.79)" opacity=".94"/>
+      <use href="#palmFrondA" transform="translate(4 2) rotate(66) scale(1.01)"/>
+      <use href="#palmFrondA" transform="rotate(98) scale(.71)" opacity=".9"/>
+      <use href="#palmFrondA" transform="rotate(128) scale(1.05)"/>
+      <use href="#palmFrondA" transform="translate(2 -2) rotate(158) scale(.84)" opacity=".92"/>
+      <use href="#palmFrondA" transform="rotate(187) scale(.76)"/>
+      <use href="#palmFrondA" transform="rotate(216) scale(1.02)" opacity=".95"/>
+      <use href="#palmFrondA" transform="rotate(246) scale(.68)" opacity=".88"/>
+      <use href="#palmFrondA" transform="translate(3 -1) rotate(278) scale(.94)"/>
+      <use href="#palmFrondA" transform="rotate(309) scale(1.0)"/>
+      <use href="#palmFrondA" transform="rotate(336) scale(.8)" opacity=".9"/>
+      <circle cx="-34" cy="-40" r="162" fill="url(#palmSun)" opacity=".34" style="mix-blend-mode:screen"/>
+      <circle r="21" fill="url(#palmHeart)" stroke="#082B1A" stroke-width="4"/>
+      <g opacity=".92">
+        <use href="#palmFrondA" transform="rotate(14) scale(.20)"/>
+        <use href="#palmFrondA" transform="rotate(84) scale(.17)"/>
+        <use href="#palmFrondA" transform="rotate(158) scale(.19)"/>
+        <use href="#palmFrondA" transform="rotate(231) scale(.16)"/>
+        <use href="#palmFrondA" transform="rotate(304) scale(.18)"/>
+      </g>
+      <circle r="7" fill="#A5CC64"/>
+    </g>
+    <g id="palmCrownB">
+      <use href="#palmFrondB" transform="rotate(7) scale(1.04)"/>
+      <use href="#palmFrondB" transform="rotate(44) scale(.74)" opacity=".9"/>
+      <use href="#palmFrondB" transform="translate(3 1) rotate(81) scale(.98)"/>
+      <use href="#palmFrondB" transform="rotate(117) scale(.82)" opacity=".93"/>
+      <use href="#palmFrondB" transform="rotate(154) scale(1.08)"/>
+      <use href="#palmFrondB" transform="rotate(191) scale(.73)" opacity=".88"/>
+      <use href="#palmFrondB" transform="rotate(226) scale(.96)"/>
+      <use href="#palmFrondB" transform="rotate(263) scale(.68)" opacity=".9"/>
+      <use href="#palmFrondB" transform="rotate(300) scale(1.01)"/>
+      <use href="#palmFrondB" transform="rotate(338) scale(.8)" opacity=".91"/>
+      <circle cx="-38" cy="-34" r="158" fill="url(#palmSun)" opacity=".30" style="mix-blend-mode:screen"/>
+      <circle r="20" fill="url(#palmHeart)" stroke="#082B1A" stroke-width="4"/>
+      <g opacity=".92">
+        <use href="#palmFrondB" transform="rotate(24) scale(.18)"/>
+        <use href="#palmFrondB" transform="rotate(105) scale(.17)"/>
+        <use href="#palmFrondB" transform="rotate(189) scale(.16)"/>
+        <use href="#palmFrondB" transform="rotate(263) scale(.18)"/>
+      </g>
+      <circle r="7" fill="#9BC261"/>
+    </g>
+    <g id="rockShape">
+      <path d="M22 84 L43 45 L73 22 L112 17 L143 34 L166 65 L158 99 L137 123 L102 139 L61 130 L33 109Z" fill="#806F54" stroke="#26362C" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M34 77 L52 45 L78 28 L108 24 L136 38 L153 62 L112 48 L78 53 L52 72Z" fill="#E7D8B6" opacity=".98"/>
+      <path d="M53 112 L84 126 L124 122 L148 101 L136 126 L104 140 L68 131Z" fill="#403F32" opacity=".9"/>
+      <path d="M115 83 L141 69 L160 78 L148 101 L126 108Z" fill="#A3835E" opacity=".65"/>
+      <path d="M62 74 L84 60 L106 62 L111 78 L87 88Z" fill="#C9BE9D" opacity=".58"/>
+      <path d="M130 41 L150 37 L161 48 L146 57 L133 51Z" fill="#6E8A3E" opacity=".58"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="shore-art" aria-hidden="true">
+  <svg class="palm palm--a" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownA"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownA"/></g></svg>
+  <svg class="palm palm--b" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownB"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownB"/></g></svg>
+  <svg class="palm palm--c" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownA"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownA"/></g></svg>
+  <svg class="palm palm--d" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownB"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownB"/></g></svg>
+  <svg class="palm palm--e" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownA"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownA"/></g></svg>
+  <svg class="palm palm--f" viewBox="-240 -240 480 480"><ellipse cx="22" cy="34" rx="188" ry="118" fill="#04271C" opacity=".16"/><g class="palm-shadow"><use href="#palmUnder"/><use href="#palmCrownB"/></g><g class="palm-crown"><use href="#palmUnder"/><use href="#palmCrownB"/></g></svg>
+  <svg class="rock rock--a" viewBox="-25 -20 240 200"><ellipse cx="118" cy="135" rx="72" ry="20" fill="#04291F" opacity=".24" transform="rotate(-8 118 135)"/><use href="#rockShape"/></svg>
+  <svg class="rock rock--b" viewBox="-25 -20 240 200"><ellipse cx="118" cy="135" rx="72" ry="20" fill="#04291F" opacity=".20" transform="rotate(9 118 135)"/><use href="#rockShape"/></svg>
+  <svg class="rock rock--c" viewBox="-25 -20 240 200"><ellipse cx="118" cy="135" rx="72" ry="20" fill="#04291F" opacity=".18" transform="rotate(-14 118 135)"/><use href="#rockShape"/></svg>
+</div>
 
 <script>
 (function(){
@@ -1143,155 +1335,147 @@ float fbm3(vec2 p){
   float amplitude=0.5;
   for(int i=0;i<3;i++){
     value+=amplitude*noise21(p);
-    p=p*2.07+vec2(11.3,7.7);
+    p=p*2.03+vec2(8.3,5.7);
     amplitude*=0.5;
   }
   return value;
 }
-vec3 sunDirection(){return normalize(vec3(0.54,0.105,-0.84));}
-vec3 skyBase(vec3 d){
-  float h=clamp(d.y,0.0,1.0);
-  vec3 horizon=vec3(0.73,0.925,0.875);
-  vec3 mid=vec3(0.225,0.555,0.575);
-  vec3 zenith=vec3(0.058,0.19,0.23);
-  vec3 col=mix(horizon,mid,smoothstep(0.0,0.26,pow(h,0.64)));
-  col=mix(col,zenith,smoothstep(0.17,0.88,h));
-  vec3 sunDir=sunDirection();
-  float s=max(dot(d,sunDir),0.0);
-  col+=vec3(1.0,0.93,0.76)*pow(s,2200.0)*1.10;
-  col+=vec3(0.70,0.97,0.90)*pow(s,260.0)*0.10;
-  col+=vec3(0.30,0.72,0.70)*pow(s,20.0)*0.035;
-  return col;
+float coastAt(float v,float t){
+  float headland=smoothstep(0.28,0.01,v)*0.13;
+  return 0.535+0.145*(v-0.5)+0.030*sin(v*5.8+0.5)+0.012*sin(v*14.0-1.2)+0.006*sin(t*0.19+v*2.1)-headland;
 }
-vec3 skyFull(vec3 d){
-  vec3 col=skyBase(d);
-  float h=clamp(d.y,0.0,1.0);
-  vec2 q=vec2(atan(d.x,-d.z)*1.75,h*6.4);
-  q.x+=uTime*0.006;
-  float broad=noise21(q*vec2(1.05,1.45)+vec2(4.7,2.1));
-  float fine=noise21(q*vec2(2.8,3.8)-vec2(1.4,0.7));
-  float cloud=smoothstep(0.50,0.72,broad*0.72+fine*0.28);
-  cloud*=smoothstep(0.006,0.075,h)*(1.0-smoothstep(0.30,0.72,h));
-  col=mix(col,vec3(0.87,0.96,0.94),cloud*0.38);
-  return col;
+float beachWidth(float v){
+  return 0.145+0.036*sin(v*4.1+1.6)+0.012*sin(v*11.0+0.4);
 }
 void main(){
   vec2 uv=vUv;
   float aspect=uRes.x/max(uRes.y,1.0);
-  vec2 sp=uv*2.0-1.0;
-  sp.x*=aspect;
+  float time=uTime;
+  float v=uv.y;
+  float u=uv.x;
 
-  float yaw=0.010*sin(uTime*0.031);
-  float pitch=-0.205+0.005*sin(uTime*0.043);
-  vec3 forward=normalize(vec3(sin(yaw)*cos(pitch),sin(pitch),-cos(yaw)*cos(pitch)));
-  vec3 right=normalize(cross(forward,vec3(0.0,1.0,0.0)));
-  vec3 up=normalize(cross(right,forward));
-  vec3 rd=normalize(forward*1.55+right*sp.x+up*sp.y);
-  vec3 ro=vec3(0.0,1.64,7.35);
+  float shore=coastAt(v,time);
+  float groveEdge=shore+beachWidth(v)+0.008*sin(v*31.0+2.0);
+  float land=smoothstep(shore-0.0025,shore+0.0025,u);
+  float forestMask=smoothstep(groveEdge-0.006,groveEdge+0.006,u);
+  float sandMask=clamp(land*(1.0-forestMask),0.0,1.0);
+  float waterMask=1.0-land;
+  float shoreDist=max(0.0,shore-u);
+  float inland=max(0.0,u-shore);
+  float openWater=clamp(shoreDist/0.52,0.0,1.0);
 
-  vec3 color;
-  float t=0.0;
-  if(rd.y>-0.0012){
-    color=skyFull(rd);
-  }else{
-    t=(0.0-ro.y)/rd.y;
-    vec3 p=ro+rd*t;
-    vec2 q=p.xz;
+  /* water: layered lagoon, ocean shelf and moving toon ripples */
+  vec2 wq=vec2(u*aspect,v);
+  vec3 shallow=vec3(0.34,0.91,0.80);
+  vec3 lagoon=vec3(0.035,0.66,0.68);
+  vec3 deep=vec3(0.008,0.205,0.315);
+  vec3 water=mix(shallow,lagoon,smoothstep(0.02,0.34,openWater));
+  water=mix(water,deep,smoothstep(0.36,0.96,openWater));
+  float fineSeabed=fbm3(vec2(u*39.0,v*27.0)+vec2(2.7,6.4));
+  water+=(fineSeabed-0.5)*vec3(0.014,0.052,0.045);
 
-    float tide=0.14*sin(uTime*0.115);
-    float runA=0.5+0.5*sin(uTime*0.44+0.35);
-    float runB=0.5+0.5*sin(uTime*0.31+2.15);
-    float runup=0.12+0.27*runA*runA*(0.72+0.28*runB);
-    float shoreWave=0.11*sin(q.x*0.72+uTime*0.19)+0.055*sin(q.x*2.45-uTime*0.27);
-    float waterline=2.05+tide+runup+shoreWave;
-    float beachD=p.z-waterline;
-    float sd=max(0.0,waterline-p.z);
+  vec2 rippleUV=vec2(u*aspect*70.0,v*52.0);
+  float ph1=dot(rippleUV,vec2(0.80,0.60))-time*1.15;
+  float ph2=dot(rippleUV,vec2(-0.44,0.90))*1.45-time*1.62;
+  float ph3=dot(rippleUV,vec2(0.96,-0.28))*2.85-time*2.10;
+  float chop=sin(ph1)*0.52+sin(ph2)*0.28+sin(ph3)*0.13;
+  float chopX=cos(ph1)*0.52*0.80+cos(ph2)*0.28*1.45*(-0.44)+cos(ph3)*0.13*2.85*0.96;
+  float chopY=cos(ph1)*0.52*0.60+cos(ph2)*0.28*1.45*0.90+cos(ph3)*0.13*2.85*(-0.28);
+  vec3 waterNormal=normalize(vec3(-chopX*0.045,1.0,-chopY*0.045));
+  vec3 lightDir=normalize(vec3(-0.52,0.82,0.30));
+  float ndl=clamp(dot(waterNormal,lightDir),0.0,1.0);
+  float toon=ndl>0.88?1.0:(ndl>0.71?0.88:(ndl>0.52?0.76:0.65));
+  water*=mix(0.96,1.03,toon);
+  float shallowWeight=1.0-smoothstep(0.02,0.55,openWater);
+  float swellLine=sin(shoreDist*176.0+v*19.0-time*2.05+fbm3(wq*4.0)*5.0);
+  float crestLine=smoothstep(0.82,0.975,swellLine)*shallowWeight;
+  water=mix(water,vec3(0.54,1.0,0.92),crestLine*0.115);
+  float fineWave=sin(shoreDist*326.0+v*52.0-time*3.35+noise21(wq*9.0)*5.0);
+  float fineCrest=smoothstep(0.94,0.995,fineWave)*(1.0-smoothstep(0.02,0.66,openWater));
+  water=mix(water,vec3(0.64,1.0,0.94),fineCrest*0.085);
+  water=mix(water,water+vec3(0.02,0.13,0.12),smoothstep(0.12,0.26,chop)*0.13);
 
-    vec2 d1=vec2(0.157,0.988);
-    vec2 d2=vec2(-0.371,0.929);
-    vec2 d3=vec2(0.742,0.671);
-    float distanceFade=1.0-smoothstep(26.0,92.0,t);
-    float shoal=1.0+1.35*exp(-sd*0.45);
-    float ph1=dot(q,d1)*0.48-uTime*0.78+0.40;
-    float ph2=dot(q,d2)*1.33-uTime*1.31+2.10;
-    float ph3=dot(q,d3)*4.15-uTime*2.15+4.60;
-    float amp1=0.145*shoal;
-    float amp2=0.044*shoal*(0.28+0.72*distanceFade);
-    float amp3=0.0125*distanceFade;
-    float wave=sin(ph1)*amp1+sin(ph2)*amp2+sin(ph3)*amp3;
-    vec2 grad=d1*cos(ph1)*amp1*0.48
-             +d2*cos(ph2)*amp2*1.33
-             +d3*cos(ph3)*amp3*4.15;
-    vec3 normal=normalize(vec3(-grad.x,1.0,-grad.y));
-    vec3 viewDir=-rd;
+  float causticA=sin(shoreDist*146.0+v*22.0+time*1.45+fbm3(wq*5.0)*5.0);
+  float causticB=sin(shoreDist*92.0-v*31.0-time*1.05+noise21(wq*7.0)*4.0);
+  float caustics=smoothstep(0.52,0.92,abs(causticA*causticB));
+  water+=vec3(0.60,1.0,0.91)*caustics*(1.0-smoothstep(0.03,0.34,openWater))*0.10;
 
-    float nc=clamp(dot(normal,viewDir),0.0,1.0);
-    float fresnel=0.035+0.965*pow(1.0-nc,5.0);
-    float optical=1.0-exp(-sd*0.235);
-    vec3 shallow=vec3(0.30,0.78,0.72);
-    vec3 deep=vec3(0.006,0.135,0.185);
-    vec3 body=mix(shallow,deep,optical);
-    float crest=smoothstep(0.055,0.19,wave);
-    body+=vec3(0.10,0.36,0.29)*crest*0.32;
-    float sandTransmission=exp(-sd*1.55);
-    body=mix(body,vec3(0.71,0.65,0.515),sandTransmission*0.46);
+  float glintField=smoothstep(0.83,0.96,noise21(vec2(u*380.0,v*290.0)+vec2(time*0.45,-time*0.28)));
+  float glintMask=smoothstep(0.42,0.78,noise21(vec2(u*18.0,v*15.0)-time*0.08));
+  water+=vec3(1.0,0.99,0.92)*glintField*glintMask*(1.0-smoothstep(0.1,0.8,openWater))*0.48;
 
-    vec3 reflected=reflect(rd,normal);
-    reflected.y=abs(reflected.y);
-    vec3 skyReflection=skyBase(normalize(reflected));
-    float reflectAmount=clamp(0.06+0.76*fresnel,0.0,0.88)*(1.0-0.34*sandTransmission);
-    vec3 water=mix(body,skyReflection,reflectAmount);
+  float foamPhase=shoreDist*138.0-time*2.55+noise21(vec2(v*20.0,3.7))*4.0;
+  float bore=smoothstep(0.77,0.965,0.5+0.5*sin(foamPhase));
+  float foamLace=smoothstep(0.24,0.68,noise21(vec2(u*160.0,v*128.0)+vec2(-time*0.22,time*0.10)));
+  float shorelineFoam=1.0-smoothstep(0.0032,0.0105,abs(shoreDist-0.004-0.004*sin(v*43.0+time*0.8)));
+  shorelineFoam*=0.68+0.32*noise21(vec2(v*190.0,time*0.18));
+  float spray=smoothstep(0.86,0.96,noise21(vec2(u*390.0,v*320.0)+vec2(time*0.6,-time*0.45)))*(1.0-smoothstep(0.0,0.075,shoreDist));
+  float foam=shorelineFoam*(0.72+0.28*foamLace)*0.94+bore*foamLace*(1.0-smoothstep(0.0,0.095,shoreDist))*0.72+spray*0.20;
+  foam=clamp(foam,0.0,1.0);
+  water=mix(water,vec3(0.965,1.0,0.985),foam*0.92);
 
-    vec3 sunDir=sunDirection();
-    vec3 halfDir=normalize(sunDir+viewDir);
-    float ndh=max(dot(normal,halfDir),0.0);
-    float specular=pow(ndh,360.0)*2.6+pow(ndh,42.0)*0.17;
-    float sparkleNoise=smoothstep(0.44,0.86,noise21(q*9.0+vec2(uTime*2.1,-uTime*0.9)));
-    float sparkle=pow(ndh,128.0)*sparkleNoise*0.42*distanceFade;
-    water+=vec3(1.0,0.94,0.81)*(specular*distanceFade+sparkle);
+  /* wet sand and the thin water film left by each swash */
+  float swashWidth=0.010+0.008*(0.5+0.5*sin(time*0.82+v*12.0));
+  float wash=land*(1.0-smoothstep(0.0,swashWidth,inland))*smoothstep(0.02,0.12,shoreDist+0.08);
+  wash=clamp(wash,0.0,1.0);
+  float wetness=exp(-inland*25.0);
+  vec3 sandDry=vec3(0.805,0.745,0.605);
+  vec3 sandWet=vec3(0.30,0.54,0.48);
+  float sandGrain=fbm3(vec2(u*36.0,v*27.0)+vec2(4.1,9.3));
+  vec3 sand=mix(sandDry*(0.90+0.13*sandGrain),sandWet,smoothstep(0.0,0.92,wetness)*0.88);
+  float windLines=0.5+0.5*sin(v*185.0+u*72.0+sin(u*19.0)*2.2+noise21(vec2(u*10.0,v*14.0))*4.0);
+  sand*=0.993+0.010*windLines;
+  sand+=(noise21(vec2(u*210.0,v*164.0))-0.5)*0.012;
+  float sandSheen=pow(max(dot(normalize(vec3(-0.35,0.9,0.25)),normalize(vec3(-0.52,0.82,0.30))),0.0),18.0);
+  sand+=vec3(1.0,0.97,0.86)*wetness*sandSheen*0.22;
+  float wetEdge=1.0-smoothstep(0.0,0.0055,abs(inland-0.009));
+  sand=mix(sand,vec3(0.20,0.43,0.38),wetEdge*0.35);
+  sand=mix(sand,vec3(0.33,0.79,0.72),wash*0.52);
+  float landFoam=(1.0-smoothstep(0.0,0.013,inland))*(0.52+0.48*noise21(vec2(u*130.0,v*108.0)))*land;
+  sand=mix(sand,vec3(0.95,1.0,0.97),landFoam*0.55);
+  float groveShadow=1.0-smoothstep(0.0,0.075,abs(inland-beachWidth(v)));
+  sand*=1.0-groveShadow*0.24;
 
-    float caustic=0.5+0.5*sin(sd*17.0-uTime*2.25+noise21(q*2.7)*6.0);
-    water+=vec3(0.28,0.74,0.65)*caustic*exp(-sd*2.1)*0.075;
+  /* dense tropical canopy, quantised into toon bands */
+  float canopyA=fbm3(vec2(u*7.8,v*4.8)+vec2(2.2,7.7));
+  float canopyB=noise21(vec2(u*23.0,v*17.0)+vec2(9.4,3.1));
+  float crown=smoothstep(0.34,0.63,canopyA)*0.76+smoothstep(0.46,0.70,canopyB)*0.24;
+  vec3 groveDeep=vec3(0.018,0.12,0.062);
+  vec3 groveMid=vec3(0.065,0.30,0.13);
+  vec3 groveLight=vec3(0.25,0.51,0.18);
+  vec3 grove=mix(groveDeep,groveMid,smoothstep(0.16,0.66,crown));
+  grove=mix(grove,groveLight,smoothstep(0.54,0.82,crown)*0.66);
+  float sunCrowns=smoothstep(0.57,0.76,noise21(vec2(u*16.0,v*11.0)+vec2(5.5,2.4)));
+  grove=mix(grove,vec3(0.38,0.60,0.23),sunCrowns*0.22);
+  float leafGlint=smoothstep(0.84,0.97,noise21(vec2(u*115.0,v*92.0)+vec2(4.0,6.0)));
+  grove+=vec3(0.22,0.31,0.07)*leafGlint*0.24;
+  float groveRim=1.0-smoothstep(0.0,0.018,u-groveEdge);
+  grove=mix(grove,vec3(0.14,0.36,0.11),groveRim*0.44);
+  grove*=0.88+0.12*smoothstep(0.0,0.5,u-groveEdge);
 
-    float borePhase=sd*7.2+uTime*2.55+fbm3(vec2(q.x*0.34,0.5))*2.8;
-    float bore=smoothstep(0.72,0.965,0.5+0.5*sin(borePhase));
-    float shoreMask=1.0-smoothstep(0.0,2.55,sd);
-    float lace=noise21(q*vec2(6.2,3.4)+vec2(0.0,-uTime*0.31));
-    float foam=((1.0-smoothstep(0.0,0.22,sd))*0.94+bore*shoreMask*(0.42+0.58*lace));
-    foam*=0.66+0.34*smoothstep(0.20,0.74,noise21(q*vec2(12.0,8.0)+uTime*0.18));
-    foam=clamp(foam,0.0,1.0);
-    water=mix(water,vec3(0.95,1.0,0.98),foam*0.92);
+  /* sun-facing dapple across water, sand and leaves */
+  float dapple=pow(max(dot(normalize(vec3(u-0.78,(v-0.12)*0.72,0.16)),normalize(vec3(-0.4,0.7,0.58))),0.0),10.0);
+  vec3 color=water;
+  color=mix(color,sand,sandMask);
+  color=mix(color,grove,forestMask);
+  color+=vec3(0.16,0.24,0.09)*dapple*forestMask*0.22;
+  color+=vec3(0.08,0.20,0.17)*dapple*waterMask*0.13;
 
-    float grain=noise21(q*vec2(17.0,10.0));
-    float fineGrain=noise21(q*vec2(67.0,39.0));
-    float wet=exp(-max(beachD,0.0)*0.72);
-    vec3 drySand=vec3(0.755,0.675,0.535);
-    vec3 wetSand=vec3(0.275,0.445,0.405);
-    vec3 sand=drySand*(0.86+0.20*grain);
-    sand=mix(sand,wetSand,smoothstep(0.0,0.96,wet)*0.88);
-    float ripple=0.5+0.5*sin(p.z*5.1+sin(p.x*1.35)*1.8+noise21(q*0.64)*3.1);
-    sand*=0.955+0.052*ripple;
-    sand+=(fineGrain-0.5)*0.032;
-    vec3 sandNormal=normalize(vec3((grain-0.5)*0.028,1.0,(fineGrain-0.5)*0.035));
-    float sandSpec=pow(max(dot(sandNormal,halfDir),0.0),24.0)*wet;
-    sand+=vec3(1.0,0.93,0.79)*sandSpec*0.34;
-    float residue=(1.0-smoothstep(0.0,0.52,abs(beachD-0.18)))*smoothstep(0.44,0.80,noise21(q*4.3))*0.34;
-    sand=mix(sand,vec3(0.82,0.93,0.87),residue);
+  /* shoreline contact shadow: keeps the water edge readable at high resolution */
+  float contact=1.0-smoothstep(0.0,0.0075,abs(u-shore));
+  color=mix(color,vec3(0.055,0.34,0.31),contact*0.22);
 
-    float waterMask=1.0-smoothstep(-0.035,0.045,beachD);
-    color=mix(sand,water,waterMask);
-    color=mix(color,vec3(0.94,1.0,0.978),foam*(1.0-waterMask)*0.46);
-
-    vec3 hazeColor=skyBase(normalize(vec3(rd.x,0.026,rd.z)));
-    float haze=1.0-exp(-t*0.018);
-    color=mix(color,hazeColor,haze*0.54);
-  }
+  /* swash film and foam residue on the sand */
+  float swashLace=smoothstep(0.24,0.72,noise21(vec2(u*150.0,v*120.0)+vec2(-time*0.18,time*0.08)));
+  float foamOnSand=land*(1.0-smoothstep(0.0,0.020,inland))*swashLace*0.62;
+  color=mix(color,vec3(0.95,1.0,0.975),foamOnSand);
+  color+=vec3(0.55,0.98,0.91)*wash*0.16;
+  color=mix(color,vec3(0.02,0.37,0.36),wash*0.18);
 
   vec2 vignetteUv=uv-0.5;
-  float vignette=1.0-dot(vignetteUv,vignetteUv)*0.26;
-  color*=vignette;
+  color*=1.0-dot(vignetteUv,vignetteUv)*0.18;
   color=clamp(color,0.0,1.0);
-  color+=(hash21(gl_FragCoord.xy+vec2(uTime*17.0,3.0))-0.5)/220.0;
+  color+=(hash21(gl_FragCoord.xy+vec2(time*13.0,5.0))-0.5)/220.0;
   gl_FragColor=vec4(color,1.0);
 }
 `;
