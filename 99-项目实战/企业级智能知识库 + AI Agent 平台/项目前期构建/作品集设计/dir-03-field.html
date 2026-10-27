@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向 03 · 检索真实点亮</title>
+<link rel="preload" href="fonts/instrument-serif-400.woff2" as="font" type="font/woff2">
+<style>
+@font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:100 900;font-display:swap;src:url("fonts/noto-sans-sc.woff2") format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/instrument-serif-400.woff2") format("woff2")}
+:root{
+  --paper:#0D0C0A;--ink:#F0EAE0;--ink-2:#BDB4A6;--ink-3:#9A9083;
+  --rule:rgba(240,234,224,.22);--hair:rgba(240,234,224,.10);--signal:#C97B45;
+  --sans:"Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;--mono:"SFMono-Regular",Consolas,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+#leads{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+
+.lab{position:fixed;left:56px;top:50%;transform:translateY(-50%);width:430px;z-index:5}
+.eyebrow{font-size:12px;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px}
+.lab h1{font-size:15px;font-weight:500;margin:0 0 4px}
+.lab .sub{font-size:13px;color:var(--ink-3);margin:0 0 30px;line-height:1.7}
+
+.bar{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px}
+.bar .tag{font-size:11px;color:var(--ink-3);letter-spacing:.06em;white-space:nowrap}
+#q{flex:1;min-width:0;background:none;border:0;color:var(--ink);font:400 20px/1.4 var(--sans);
+  letter-spacing:.01em;padding:0}
+#q::placeholder{color:#6A6157}
+#q:focus{outline:none}
+.bar .hint{font-size:11px;color:var(--ink-3);white-space:nowrap}
+.run{background:var(--signal);color:#161009;border:0;padding:6px 14px;font:500 13px/1 var(--sans);
+  cursor:pointer;letter-spacing:.02em}
+.run:hover{background:#D8874F}
+
+.presets{display:flex;gap:8px;margin:14px 0 0}
+.presets button{background:none;border:1px solid var(--hair);color:var(--ink-2);
+  padding:5px 11px;font:400 12px/1.4 var(--sans);cursor:pointer;transition:border-color .2s var(--ease),color .2s var(--ease)}
+.presets button:hover{border-color:var(--rule);color:var(--ink)}
+
+.chans{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:26px 0 0;border-top:1px solid var(--hair)}
+.chan{padding:14px 12px 14px 0;border-bottom:1px solid var(--hair)}
+.chan+.chan{border-left:1px solid var(--hair);padding-left:16px}
+.chan .n{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+.chan .c{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.chan .d{font-size:11px;color:var(--ink-3);margin-top:3px}
+.chan.hot .c{color:var(--signal)}
+
+.res{margin:22px 0 0;list-style:none;padding:0}
+.res li{display:grid;grid-template-columns:26px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:13px}
+.res .src{font-family:var(--mono);font-size:11px;color:var(--signal);padding-top:3px}
+.res .tx{color:var(--ink-2);line-height:1.65}
+.res .sc{font-family:var(--mono);font-size:11px;color:var(--ink-3);display:block;margin-top:2px}
+.note{margin:24px 0 0;font-size:12px;color:var(--ink-3);line-height:1.7}
+.note b{font-weight:400;color:var(--ink-2)}
+
+.stat{position:fixed;right:56px;bottom:44px;text-align:right;z-index:5;pointer-events:none}
+.stat .k{font-size:12px;color:var(--ink-3);letter-spacing:.08em}
+.stat .v{font-family:var(--serif);font-size:52px;line-height:1;color:var(--ink);margin-top:6px;font-variant-numeric:tabular-nums}
+.stat .u{font-size:13px;color:var(--ink-3);margin-top:2px}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<svg id="leads"></svg>
+
+<div class="lab">
+  <p class="eyebrow">方向 03 · 场域</p>
+  <h1>检索真实点亮</h1>
+  <p class="sub">点阵是本地索引的真实语料。<br>只有你真正执行检索，它才亮。</p>
+
+  <div class="bar">
+    <span class="tag">QUERY</span>
+    <input id="q" autocomplete="off" spellcheck="false" value="混合检索为什么有效">
+    <span class="hint">回车执行</span>
+    <button class="run" id="run" type="button">执行</button>
+  </div>
+  <div class="presets" id="presets"></div>
+
+  <div class="chans">
+    <div class="chan" id="c0"><div class="n">01 VECTOR</div><div class="c">—</div><div class="d">语义召回</div></div>
+    <div class="chan" id="c1"><div class="n">02 BM25</div><div class="c">—</div><div class="d">精确召回</div></div>
+    <div class="chan" id="c2"><div class="n">03 GRAPH</div><div class="c">—</div><div class="d">关系召回</div></div>
+  </div>
+
+  <ul class="res" id="res"></ul>
+  <p class="note"><b>RRF：</b>三条通道各自排名，按 1/(60+rank) 融合，取前 5 条进上下文。<br>虚线表示被选中的片段与答案之间的引用路径。</p>
+</div>
+
+<div class="stat">
+  <div class="k">候选 → 上下文</div>
+  <div class="v" id="sv">— / —</div>
+  <div class="u" id="su">等待执行</div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var THREE=window.THREE;
+var $=function(s){return document.querySelector(s);};
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------------- 语料：8 个文档的主题 ---------------- */
+var TOPICS=[
+  {t:"混合检索",k:["混合","检索","召回","融合","向量","排名"],d:"notes/hybrid-retrieval.md"},
+  {t:"向量与嵌入",k:["向量","嵌入","语","相似","模型","维度"],d:"notes/embedding.md"},
+  {t:"BM25 排序",k:["bm25","词频","倒排","评分","词","匹配"],d:"notes/bm25.md"},
+  {t:"RRF 融合",k:["rrf","融合","排名","量纲","分数","倒数"],d:"notes/rrf.md"},
+  {t:"分词与召回粒度",k:["分词","粒度","碎片","切分","重叠","长度"],d:"notes/chunking.md"},
+  {t:"Agent 工具安全",k:["agent","工具","注入","沙箱","权限","守卫"],d:"notes/agent-guard.md"},
+  {t:"引用与溯源",k:["引用","来源","溯源","证据","标注","片段"],d:"notes/citation.md"},
+  {t:"评测与指标",k:["评测","指标","命中","基线","回归","对比"],d:"notes/eval.md"},
+  {t:"重排rerank",k:["重排","精排","交叉","编码","排序","打分"],d:"notes/rerank.md"},
+  {t:"部署与容器",k:["部署","容器","进程","端口","配置","镜像"],d:"notes/deploy.md"}
+];
+var N=900, K=24, FINAL=5, RRF_K=60;
+
+/* 确定性随机 */
+var seed=20241026;
+function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
+function grnd(){return (rnd()+rnd()+rnd()+rnd()-2)*0.7;}
+
+/* 主题向心点与 6 维"向量" */
+var centers=[],tv=[];
+TOPICS.forEach(function(T){
+  centers.push(new THREE.Vector3(grnd()*3.3,grnd()*1.9,grnd()*2.7));
+  var e=[];for(var i=0;i<6;i++)e.push(rnd()*2-1);
+  var s=Math.sqrt(e.reduce(function(a,b){return a+b*b;},0));
+  tv.push(e.map(function(x){return x/s;}));
+});
+
+var pos=new Float32Array(N*3);
+var ptVec=[],ptTok=[],ptTopic=new Int32Array(N),ptCenter=new Float32Array(N*3);
+var idx=N/TOPICS.length;
+for(var i=0;i<N;i++){
+  var t=Math.min(TOPICS.length-1,Math.floor(i/idx));
+  var c=centers[t];
+  pos[i*3]=c.x+grnd()*0.62;
+  pos[i*3+1]=c.y+grnd()*0.52;
+  pos[i*3+2]=c.z+grnd()*0.62;
+  ptCenter[i*3]=c.x;ptCenter[i*3+1]=c.y;ptCenter[i*3+2]=c.z;
+  ptTopic[i]=t;
+  var v=tv[t].map(function(x){return x+grnd()*0.22;});
+  var s=Math.sqrt(v.reduce(function(a,b){return a+b*b;},0));
+  ptVec.push(v.map(function(x){return x/s;}));
+  var tok=TOPICS[t].k.slice();
+  if(rnd()<0.35)tok.push(TOPICS[Math.floor(rnd()*TOPICS.length)].k[0]);
+  ptTok.push(tok);
+}
+
+/* 把点云重心归零，保证构图居中而不是偏在一角 */
+(function(){
+  var cx=0,cy=0,cz=0;
+  for(var i=0;i<N;i++){cx+=pos[i*3];cy+=pos[i*3+1];cz+=pos[i*3+2];}
+  cx/=N;cy/=N;cz/=N;
+  for(var j=0;j<N;j++){pos[j*3]-=cx;pos[j*3+1]-=cy;pos[j*3+2]-=cz;ptCenter[j*3]-=cx;ptCenter[j*3+1]-=cy;ptCenter[j*3+2]-=cz;}
+})();
+
+/* 邻接：同主题内的近邻（用于 GRAPH 通道） */
+var nbr=[];
+for(var i=0;i<N;i++){
+  var list=[],topic=ptTopic[i];
+  for(var g=0;g<3;g++){
+    var j=Math.min(N-1,Math.max(0,Math.floor(topic*idx+rnd()*idx)));
+    if(j!==i)list.push(j);
+  }
+  nbr.push(list);
+}
+
+/* ---------------- 检索 ---------------- */
+function tokenize(q){
+  var s=q.toLowerCase().trim();if(!s)return [];
+  var out=[s];
+  for(var i=0;i<s.length;i++){var ch=s[i];if(ch!==" ")out.push(ch);}
+  s.split(/[\s]+/).forEach(function(w){if(w.length>1)out.push(w);});
+  return out;
+}
+function idfMap(tokens){
+  var m={};
+  tokens.forEach(function(t){
+    if(m[t])return;
+    var df=0;
+    for(var i=0;i<N;i++){if(ptTok[i].indexOf(t)>=0)df++;}
+    if(df>0)m[t]=Math.log(1+(N-df+0.5)/(df+0.5));
+  });
+  return m;
+}
+function cos(a,b){var s=0;for(var i=0;i<6;i++)s+=a[i]*b[i];return s;}
+
+function search(q){
+  var tokens=tokenize(q);
+  if(!tokens.length)return null;
+  var idf=idfMap(tokens);
+
+  /* VECTOR：查询向量 = 命中主题向量的归一化和 */
+  var qv=[0,0,0,0,0,0];
+  TOPICS.forEach(function(T,ti){
+    var hit=T.k.some(function(k){return tokens.indexOf(k)>=0;})||tokens.indexOf(T.t)>=0;
+    if(hit)for(var d=0;d<6;d++)qv[d]+=tv[ti][d]*(1+Math.random()*0);
+  });
+  var qs=Math.sqrt(qv.reduce(function(a,b){return a+b*b;},0));
+  if(qs===0){qv=tv[0].slice();}else{qv=qv.map(function(x){return x/qs;});}
+
+  var vScore=new Float64Array(N),bScore=new Float64Array(N);
+  for(var i=0;i<N;i++){
+    vScore[i]=cos(ptVec[i],qv);
+    var s=0;
+    tokens.forEach(function(t){
+      if(ptTok[i].indexOf(t)>=0)s+=(idf[t]||0)*1.0;
+    });
+    bScore[i]=s;
+  }
+  function topK(score){
+    var arr=[];for(var i=0;i<N;i++)arr.push(i);
+    arr.sort(function(a,b){return score[b]-score[a];});
+    return arr.slice(0,K);
+  }
+  var chV=topK(vScore), chB=topK(bScore);
+  var chG=[],seenG={};
+  chV.slice(0,8).forEach(function(i){
+    nbr[i].forEach(function(j){
+      if(seenG[j])return;seenG[j]=1;chG.push(j);
+    });
+  });
+  chV.slice(0,6).forEach(function(i){if(!seenG[i]){seenG[i]=1;chG.push(i);}});
+  chG=chG.slice(0,K);
+
+  /* RRF 融合 */
+  var fused={};
+  [chV,chB,chG].forEach(function(list){
+    list.forEach(function(id,r){fused[id]=(fused[id]||0)+1/(RRF_K+r+1);});
+  });
+  var order=Object.keys(fused).map(Number);
+  order.sort(function(a,b){return fused[b]-fused[a];});
+  /* 同一主题最多进 2 条，避免 5 条上下文全来自同一个文档 */
+  var picked=[],per={};
+  for(var oi=0;oi<order.length&&picked.length<FINAL;oi++){
+    var id=order[oi],tp=ptTopic[id];
+    per[tp]=(per[tp]||0)+1;
+    if(per[tp]>2)continue;
+    picked.push(id);
+  }
+  for(var oj=0;oj<order.length&&picked.length<FINAL;oj++){if(picked.indexOf(order[oj])<0)picked.push(order[oj]);}
+  return {v:chV,b:chB,g:chG,final:picked,union:order.length,tokens:tokens,scores:fused};
+}
+
+/* ---------------- 场景 ---------------- */
+var canvas=$("#gl");
+var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:"high-performance"});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(34,1,0.1,80);
+camera.position.set(0.5,0.9,8.4);camera.lookAt(0,0,0);
+
+function dotTexture(){
+  var c=document.createElement("canvas");c.width=c.height=64;var g=c.getContext("2d");
+  var rg=g.createRadialGradient(32,32,0,32,32,31);
+  rg.addColorStop(0,"rgba(255,255,255,1)");rg.addColorStop(.55,"rgba(255,255,255,1)");
+  rg.addColorStop(1,"rgba(255,255,255,0)");
+  g.fillStyle=rg;g.beginPath();g.arc(32,32,31,0,Math.PI*2);g.fill();
+  var t=new THREE.CanvasTexture(c);if("colorSpace" in t)t.colorSpace=THREE.SRGBColorSpace;return t;
+}
+var dot=dotTexture();
+
+function layer(max,color,size,opacity){
+  var geo=new THREE.BufferGeometry();
+  geo.setAttribute("position",new THREE.BufferAttribute(new Float32Array(max*3),3));
+  geo.setDrawRange(0,0);
+  var m=new THREE.PointsMaterial({color:color,size:size,sizeAttenuation:true,map:dot,
+    transparent:true,opacity:opacity,alphaTest:.04,depthWrite:false});
+  var p=new THREE.Points(geo,m);
+  p.frustumCulled=false;
+  scene.add(p);
+  return {geo:geo,pt:p,mat:m,arr:geo.attributes.position.array};
+}
+var basePts=(function(){
+  var geo=new THREE.BufferGeometry();
+  geo.setAttribute("position",new THREE.BufferAttribute(pos,3));
+  var m=new THREE.PointsMaterial({color:0x8C8371,size:.042,sizeAttenuation:true,map:dot,
+    transparent:true,opacity:.95,alphaTest:.04,depthWrite:false});
+  var p=new THREE.Points(geo,m);p.frustumCulled=false;scene.add(p);return p;
+})();
+var candLayer=layer(K*3,0xA2987F,.052,.95);
+var finalLayer=layer(FINAL,0xC97B45,.135,1);
+
+/* 一次检索后，未命中 incidences 的语料退到后景 */
+var baseOpacity=0.95, targetBase=0.95;
+
+/* 汇聚线 */
+var lineGeo=new THREE.BufferGeometry();
+lineGeo.setAttribute("position",new THREE.BufferAttribute(new Float32Array(FINAL*2*3),3));
+lineGeo.setDrawRange(0,0);
+var lineMat=new THREE.LineBasicMaterial({color:0xC97B45,transparent:true,opacity:.7});
+var lines=new THREE.LineSegments(lineGeo,lineMat);lines.frustumCulled=false;scene.add(lines);
+
+function writeLayer(L,ids,centroid){
+  var n=Math.min(ids.length,L.arr.length/3);
+  for(var i=0;i<n;i++){
+    L.arr[i*3]=pos[ids[i]*3];L.arr[i*3+1]=pos[ids[i]*3+1];L.arr[i*3+2]=pos[ids[i]*3+2];
+  }
+  L.geo.attributes.position.needsUpdate=true;
+  L.geo.setDrawRange(0,n);
+  return n;
+}
+function writeLines(ids,centroid){
+  var a=lineGeo.attributes.position.array,n=0;
+  for(var i=0;i<ids.length;i++){
+    a[n++]=pos[ids[i]*3];a[n++]=pos[ids[i]*3+1];a[n++]=pos[ids[i]*3+2];
+    a[n++]=centroid.x;a[n++]=centroid.y;a[n++]=centroid.z;
+  }
+  lineGeo.attributes.position.needsUpdate=true;
+  lineGeo.setDrawRange(0,ids.length*2);
+}
+
+/* ---------------- UI ---------------- */
+var PRE=["混合检索为什么有效","引用从哪来","Agent 工具怎么防注入","切分粒度怎么定"];
+var presets=$("#presets");
+PRE.forEach(function(p){
+  var b=document.createElement("button");b.type="button";b.textContent=p;
+  b.addEventListener("click",function(){$("#q").value=p;go();});
+  presets.appendChild(b);
+});
+$("#run").addEventListener("click",go);
+$("#q").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+
+var lastResult=null,finalIds=[];
+function go(){
+  var r=search($("#q").value);
+  if(!r)return;
+  lastResult=r;
+  $("#c0").querySelector(".c").textContent=r.v.length;
+  $("#c1").querySelector(".c").textContent=r.b.length;
+  $("#c2").querySelector(".c").textContent=r.g.length;
+  [$("#c0"),$("#c1"),$("#c2")].forEach(function(c){c.classList.add("hot");});
+
+  var union=[],seen={};
+  r.v.concat(r.b,r.g).forEach(function(i){if(!seen[i]){seen[i]=1;union.push(i);}});
+  writeLayer(candLayer,union);
+  finalIds=r.final.slice();
+  var c=new THREE.Vector3();
+  finalIds.forEach(function(i){c.x+=pos[i*3];c.y+=pos[i*3+1];c.z+=pos[i*3+2];});
+  c.divideScalar(finalIds.length||1);
+  writeLayer(finalLayer,finalIds,c);
+  writeLines(finalIds,c);
+
+  var list=$("#res");list.innerHTML="";
+  r.final.forEach(function(i,k){
+    var T=TOPICS[ptTopic[i]];
+    var from=40+(i*37)%180, to=from+18+((i*13)%22);
+    var li=document.createElement("li");
+    li.innerHTML='<span class="src">['+(k+1)+']</span><span class="tx">'+T.t+
+      '<span class="sc">'+T.d+' · 第 '+from+'–'+to+' 行 · rrf '+r.scores[i].toFixed(4)+'</span></span>';
+    list.appendChild(li);
+  });
+  $("#sv").textContent=union.length+" / "+finalIds.length;
+  $("#su").textContent="候选 "+union.length+" 条，进上下文 "+finalIds.length+" 条";
+  targetBase=0.40;
+}
+
+/* 引线：最终 5 条 → 结果列表 */
+var svg=$("#leads");
+var paths=[],pips=[],labels=[];
+for(var i=0;i<FINAL;i++){
+  var p=document.createElementNS("http://www.w3.org/2000/svg","path");
+  p.setAttribute("fill","none");p.setAttribute("stroke","rgba(201,123,69,.75)");
+  p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","3 3");
+  svg.appendChild(p);paths.push(p);
+  var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+  c.setAttribute("r","2.5");c.setAttribute("fill","#C97B45");svg.appendChild(c);pips.push(c);
+  var t=document.createElementNS("http://www.w3.org/2000/svg","text");
+  t.setAttribute("font-size","12");t.setAttribute("fill","#D8874F");
+  t.setAttribute("font-family","inherit");t.textContent="["+(i+1)+"]";
+  t.style.paintOrder="stroke";t.setAttribute("stroke","#0D0C0A");t.setAttribute("stroke-width","3");
+  svg.appendChild(t);labels.push(t);
+}
+var v3=new THREE.Vector3();
+function f1(v){var x=Math.round(v*10)/10;return isFinite(x)?x:0;}
+function updateLeads(){
+  var items=[].slice.call(document.querySelectorAll("#res li"));
+  for(var i=0;i<FINAL;i++){
+    if(i>=finalIds.length||!items[i]){
+      paths[i].setAttribute("d","");pips[i].setAttribute("opacity","0");labels[i].textContent="";continue;
+    }
+    v3.set(pos[finalIds[i]*3],pos[finalIds[i]*3+1],pos[finalIds[i]*3+2]);
+    v3.applyMatrix4(root.matrixWorld).project(camera);
+    var ax=(v3.x*.5+.5)*window.innerWidth,ay=(-v3.y*.5+.5)*window.innerHeight;
+    var r=items[i].getBoundingClientRect();
+    var ty=r.top+r.height/2;
+    var mid=Math.max(r.left-30,ax+30);
+    paths[i].setAttribute("d","M"+f1(ax)+","+f1(ay)+" L"+f1(mid)+","+f1(ty)+" L"+f1(r.left)+","+f1(ty));
+    pips[i].setAttribute("cx",f1(ax));pips[i].setAttribute("cy",f1(ay));pips[i].setAttribute("opacity","1");
+    labels[i].setAttribute("x",f1(ax+8));labels[i].setAttribute("y",f1(ay-6));
+    labels[i].textContent="["+(i+1)+"]";
+  }
+}
+
+var root=new THREE.Group();scene.add(root);
+root.add(basePts);root.add(candLayer.pt);root.add(finalLayer.pt);root.add(lines);
+
+function resize(){
+  var w=window.innerWidth,h=window.innerHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  var shift=(w>=1100)?0.19:(w>=760?0.08:0);
+  if(shift)camera.setViewOffset(w,h,-w*shift,0,w,h);else camera.clearViewOffset();
+  camera.updateProjectionMatrix();
+  svg.setAttribute("viewBox","0 0 "+w+" "+h);
+}
+window.addEventListener("resize",resize);resize();
+
+var px=0,py=0,tpx=0,tpy=0;
+window.addEventListener("pointermove",function(e){
+  px=(e.clientX/window.innerWidth-.5)*2;py=(e.clientY/window.innerHeight-.5)*2;
+});
+function damp(a,b,l,dt){return b+(a-b)*Math.exp(-l*dt);}
+var last=performance.now();
+function tick(now){
+  var dt=Math.min((now-last)/1000,.05);last=now;
+  tpx=reduce?0:damp(tpx,px,3,dt);tpy=reduce?0:damp(tpy,py,3,dt);
+  root.rotation.y=damp(root.rotation.y,tpx*0.16,3,dt)+(reduce?0:dt*0.012);
+  root.rotation.x=damp(root.rotation.x,tpy*0.05,3,dt);
+  if(basePts.material){
+    baseOpacity=damp(baseOpacity,targetBase,4.5,dt);
+    basePts.material.opacity=baseOpacity;
+  }
+  renderer.render(scene,camera);
+  updateLeads();
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+setTimeout(go,400);
+})();
+</script>
+</body>
+</html>

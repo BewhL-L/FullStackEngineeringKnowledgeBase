@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 930" width="100%" role="img">
+  <title>企业级智能知识库 + AI Agent 平台 · 架构 v4</title>
+  <desc>按代码实际调用关系绘制的分层架构：实线为主链路，虚线为已实现但未接入主链路的旁路能力。</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#A9C99B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ar-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#D9A05B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1150" height="930" fill="#0E1013"/>
+
+  <text x="40" y="42" fill="#F1F2EC" font-size="20" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">企业级智能知识库 + AI Agent 平台</text>
+  <text x="40" y="66" fill="#8A928C" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">实线 = 用户提问真正走的路径　·　虚线 = 已实现但未接入主链路　·　依据 backend/app 实际调用关系绘制</text>
+  <text x="1110" y="42" fill="#A9C99B" font-size="12" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">架构 v4 · 2026-10-27</text>
+
+  <rect x="40" y="92" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="112" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">客户端</text>
+  <rect x="150" y="104" width="300" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="166" y="122" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">浏览器 SPA</text>
+  <text x="166" y="142" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Vue3 + TS + Element Plus + Pinia</text>
+  <rect x="472" y="104" width="300" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="488" y="122" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">嵌入问答页</text>
+  <text x="488" y="142" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">iframe /embed/&lt;code&gt; · 免登录</text>
+  <rect x="794" y="104" width="300" height="52" rx="8" fill="#1D2227" stroke="#4A4234" stroke-width="0.8" stroke-dasharray="5 4"/>
+  <text x="810" y="122" fill="#D9A05B" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">A2A 客户端（默认关闭）</text>
+  <text x="810" y="142" fill="#8F7A5E" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">JSON-RPC · 需 Bearer 令牌</text>
+
+  <path d="M575 168 V192" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="40" y="192" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="212" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">接入</text>
+  <rect x="150" y="204" width="944" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="166" y="222" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Nginx</text>
+  <text x="166" y="242" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">静态托管 · 反代 /api 与 /embed · 单页路由回退 · SSE 关闭缓冲（proxy_buffering off）</text>
+
+  <path d="M575 268 V292" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="40" y="292" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="312" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">API</text>
+  <rect x="150" y="304" width="944" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="166" y="322" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">FastAPI · 13 组业务路由</text>
+  <text x="166" y="342" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">JWT 鉴权 · RBAC 三档权限 · 限流中间件 · CORS · 依赖注入（get_db / get_current_user）</text>
+
+  <path d="M575 368 V392" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="592" y="385" fill="#7C857F" font-size="11" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">检索与生成走线程池，不阻塞事件循环</text>
+
+  <rect x="40" y="392" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="412" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">应用服务</text>
+  <rect x="150" y="404" width="176" height="52" rx="8" fill="#1D2227" stroke="#4F6B4A" stroke-width="0.9"/>
+  <text x="164" y="422" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">RAG 服务</text>
+  <text x="164" y="442" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">检索→生成→溯源</text>
+  <rect x="342" y="404" width="176" height="52" rx="8" fill="#1D2227" stroke="#4F6B4A" stroke-width="0.9"/>
+  <text x="356" y="422" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Agent 服务</text>
+  <text x="356" y="442" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">工具调用循环</text>
+  <rect x="534" y="404" width="176" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="548" y="422" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">溯源校验</text>
+  <text x="548" y="442" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">句子级 citation</text>
+  <rect x="726" y="404" width="176" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="740" y="422" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Wiki 编译</text>
+  <text x="740" y="442" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">实体→页面→双链</text>
+  <rect x="918" y="404" width="176" height="52" rx="8" fill="#1D2227" stroke="#4A4234" stroke-width="0.8" stroke-dasharray="5 4"/>
+  <text x="932" y="422" fill="#D9A05B" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">图谱构建</text>
+  <text x="932" y="442" fill="#8F7A5E" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">实体 / 关系 / 社区</text>
+
+  <path d="M238 468 V492" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M1006 468 V504" fill="none" stroke="#D9A05B" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ar-w)"/>
+
+  <rect x="40" y="492" width="1070" height="120" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="512" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">检索</text>
+
+  <rect x="150" y="504" width="280" height="96" rx="8" fill="#1B2620" stroke="#A9C99B" stroke-width="1.2"/>
+  <text x="166" y="526" fill="#E8F0E2" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">检索缓存（片段级）</text>
+  <text x="166" y="552" fill="#B7C9AE" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">key 带 kb 版本号 · TTL 600s</text>
+  <text x="166" y="576" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">文档增删改 → 版本 +1，旧 key 失效</text>
+
+  <rect x="470" y="504" width="360" height="96" rx="8" fill="#1B2620" stroke="#A9C99B" stroke-width="1.2"/>
+  <text x="486" y="526" fill="#E8F0E2" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">混合检索（主链路）</text>
+  <text x="486" y="552" fill="#B7C9AE" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">向量召回 + BM25 → RRF 融合 → LLM 精排</text>
+  <text x="486" y="576" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">父子分块 250/1000 · Self-RAG 可选</text>
+
+  <path d="M430 552 H466" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="854" y="504" width="240" height="96" rx="8" fill="#221D16" stroke="#D9A05B" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="870" y="526" fill="#F0D3AE" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">GraphRAG · 旁路</text>
+  <text x="870" y="552" fill="#C4A783" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">实体 → 邻居 → 子图</text>
+  <text x="870" y="576" fill="#8F7A5E" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">未接入主链路</text>
+
+  <path d="M830 552 H848" fill="none" stroke="#C4574F" stroke-width="1.4" stroke-dasharray="4 4"/>
+
+  <path d="M520 612 V636" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="40" y="636" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="656" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">模型</text>
+  <rect x="150" y="648" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="164" y="666" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">LLM 服务</text>
+  <text x="164" y="686" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">OpenAI 兼容 · 重试降级 · 流式</text>
+  <rect x="390" y="648" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="404" y="666" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Embedding</text>
+  <text x="404" y="686" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">bge-m3 · 1024 维 · 结果缓存</text>
+  <rect x="630" y="648" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="644" y="666" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">推理模型</text>
+  <text x="644" y="686" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">思考链 · REASONING_ENABLED</text>
+  <rect x="870" y="648" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="884" y="666" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">LLM 裁判</text>
+  <text x="884" y="686" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">忠实度 / 相关性打分</text>
+
+  <path d="M575 712 V736" fill="none" stroke="#A9C99B" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="40" y="736" width="1070" height="76" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="756" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">数据</text>
+  <rect x="150" y="748" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="164" y="766" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">PostgreSQL / SQLite</text>
+  <text x="164" y="786" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">13 张表 · RBAC · Alembic 迁移</text>
+  <rect x="390" y="748" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="404" y="766" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Qdrant / Chroma</text>
+  <text x="404" y="786" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">每个知识库一个集合</text>
+  <rect x="630" y="748" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="644" y="766" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">Redis</text>
+  <text x="644" y="786" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">检索缓存 · Celery broker</text>
+  <rect x="870" y="748" width="224" height="52" rx="8" fill="#1D2227" stroke="#39424A" stroke-width="0.8"/>
+  <text x="884" y="766" fill="#E8EAE6" font-size="14" font-weight="500" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">本地文件</text>
+  <text x="884" y="786" fill="#8F9892" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">uploads · bm25 索引 · 长期记忆</text>
+
+  <rect x="40" y="836" width="1070" height="48" rx="10" fill="#15181C" stroke="#262B31" stroke-width="0.8"/>
+  <text x="56" y="862" fill="#6F7772" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">横切</text>
+  <text x="150" y="862" fill="#9BA39C" font-size="12" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">安全：注入检测 · AST 白名单　|　评测：Hit@K/MRR · 拒答率 · 溯源覆盖率　|　可观测：Langfuse（可选）· 用量费用　|　迁移：Alembic　|　异步：Celery / 线程池</text>
+
+  <text x="40" y="912" fill="#5E6660" font-size="11" font-family="PingFang SC, Microsoft YaHei, Noto Sans SC, sans-serif">注：上下文工程（记忆 / 压缩 / Token 预算）已实现但未接入问答路径；GraphRAG 是独立入口，接进主链路后本图需再升一版。</text>
+</svg>
