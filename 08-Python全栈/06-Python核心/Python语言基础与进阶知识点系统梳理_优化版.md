@@ -8728,10 +8728,26 @@ with ThreadPoolExecutor(max_workers=4) as executor:
 2. `futures = {executor.submit(task, n): n for n in range(10)}` 循环 n=0~9，一共提交 10 个任务：
     
     - `executor.submit(task, n)`：把任务丢进线程池，返回一个 **Future 对象**（代表这个任务）
+      ## 参数说明
+    - `fn`：要运行的函数（任务）
+    - `*args`：传给 fn 的位置参数
+    - `**kwargs`：传给 fn 的关键字参数
+    **submit 是非阻塞的** 调用 submit 这一行，**不会卡在原地等任务跑完**，
+       提交完马上拿到 future，主线代码继续往下走；任务交给线程池后台跑。
+       线程池满了的时候，任务会进入内部队列排队，有空线程再执行。
+    
+    **返回 Future 对象** Future 就是这个任务的 “凭证”，可以用来：
+    - `future.done()`：查询是否完成
+    - `future.result()`：拿返回值（会阻塞，直到任务结束）
+    - `future.cancel()`：尝试取消任务
+    - `future.exception()`：获取任务抛出的异常
+      
     - 存入字典：`{future: n}`，记住这个 future 对应的原始参数 n
     - 池子里最多 4 个同时跑；剩下 6 个在队列排队，有空线程就自动启动
     
     > ⚠️ 这里提交完，**任务已经在后台并行跑起来了，不是等到 for 循环才跑**
+    > ❌ 不要写成 `executor.submit(task(n))` 这会**当场直接执行 task (n)**，
+          然后把 task 的返回值传给 submit，不是把函数交给线程池跑！
     
 3. `with` 代码块结束前，10 个任务全部提交完毕。
 4. `as_completed(futures)`： 它是一个迭代器，**监听所有 future，哪个任务先跑完，就先吐出哪一个 future**。 
@@ -8768,8 +8784,49 @@ with ThreadPoolExecutor(max_workers=4) as executor:
 
 1. `as_completed` 是在**所有任务提交之后**再遍历；不要一边 submit 一边塞给 as_completed（也可以，但写法不一样）
 2. `future.result()` 如果任务内部抛异常，这里会抛出异常
-3. 字典 `{future: n}` 是经典套路：future 本身不带参数，需要自己映射保存原始参数
 
+3. 字典 `{future: n}` 是经典套路：future 本身不带参数，需要自己映射保存原始参数
+`Future 对象**只存任务的状态、返回值、异常**，它**不会记住当初提交时传给函数的参数 n**。 
+所以我们手动维护字典：`{future: n}`，建立映射关系，等` as_completed` 吐出 future 的时候，反向查到原始参数。
+
+## 1. Future 里面有什么、没有什么
+
+✅ Future 自带的方法：
+
+- `.done()`：是否完成
+- `.result()`：拿返回结果
+- `.exception()`：拿异常
+- `.cancel()`：取消任务
+
+❌ Future **没有属性**：`future.args`、`future.n`，**不会保存你传给 task 的 n**。
+
+> 它只负责 “保管结果”，不记录 “当时是用什么参数跑出来这个结果”。
+
+## 2. 这个字典套路：`futures = {executor.submit(task, n): n for n in range(10)}`
+
+- key：future（唯一的任务凭证，可哈希，可以当字典 key）
+- value：本次提交用的参数 `n`
+
+提交的时候，把【任务凭证 ↔ 参数】绑定好存起来。
+
+等到 `as_completed` 循环：
+
+for future in as_completed(futures):
+    n = futures[future]   # 通过future反向查到当时的入参
+    res = future.result()
+
+> 因为 `as_completed` 是**谁先跑完先返回谁**，顺序乱了，
+> 如果没有这个映射字典，你拿到结果之后，根本分不清这个结果是 n = 几 算出来的！
+
+## 3. 举反例：如果不写这个字典，会发生什么
+
+# ❌ 没有映射，拿到future，不知道对应的n
+futures = [executor.submit(task, n) for n in range(10)]
+for f in as_completed(futures):
+    res = f.result()
+    # 这里不知道 res 是 task(?) 的结果！
+
+你只能拿到 `res`，不知道这个结果对应的输入是几，打印的时候就没法输出 `task(n)=xxx`。
 ## 一句话总结
 
 先一次性把 10 个任务全部交给线程池并发跑，最多 4 个同时跑；然后不断监听，**哪个任务先跑完，就先拿它的结果打印**。
@@ -9596,8 +9653,10 @@ class ThreadedTCPServer:
                     conn, addr = server.accept()
                     executor.submit(self.handle_client, conn, addr)
 '''
-1. `ThreadPoolExecutor(max_workers=self.max_workers)` 线程池，`max_workers` 指定**最大并发线程数量**，用来控制同时能处理多少客户端连接，防止一瞬间上万客户端把服务器线程撑爆。
-2. `with ... as executor:` 上下文管理器，with 代码块结束的时候，自动调用 `executor.shutdown(wait=True)`，等待池中所有任务执行完毕，再关闭线程池。
+1. `ThreadPoolExecutor(max_workers=self.max_workers)` 线程池，
+   `max_workers` 指定**最大并发线程数量**，用来控制同时能处理多少客户端连接，防止一瞬间上万客户端把服务器线程撑爆。
+2. `with ... as executor:` 上下文管理器，with 代码块结束的时候，自动调用 `executor.shutdown(wait=True)`，
+   等待池中所有任务执行完毕，再关闭线程池。
 3. `while self.running:` 循环持续监听客户端，`self.running` 是布尔标记，用来优雅停止服务（设为 False 就退出循环）。
 4. `conn, addr = server.accept()` TCP 阻塞监听：等待新客户端接入；有客户端连上后，返回两个值：
 
@@ -9606,7 +9665,8 @@ class ThreadedTCPServer:
 
 > ⚠️ 重点：`accept()` 是阻塞调用，没客户端来的时候，就卡在这一行等着。
 
-5. `executor.submit(self.handle_client, conn, addr)` 往线程池提交任务：把客户端交给 `handle_client` 函数处理，参数是 `conn` 和 `addr`。
+5. `executor.submit(self.handle_client, conn, addr)` 往线程池提交任务：
+   把客户端交给 `handle_client` 函数处理，参数是 `conn` 和 `addr`。
 
 - 如果线程池**还有空闲线程**：立刻拿出一个线程跑 `handle_client`
 - 如果线程池**已经满了（达到 max_workers）**：`submit` 不会阻塞 accept！任务会放进**队列排队**，等有线程空闲了再执行。
@@ -9623,7 +9683,8 @@ class ThreadedTCPServer:
 
 ## 关键坑（非常容易踩）
 
-❌ **这个写法有一个严重问题：with 包裹 while 循环，with 要等里面代码块结束才执行 shutdown。而 while 是无限循环，正常情况下永远走不出 with，executor 的 shutdown 永远不会自动触发！**
+❌ **这个写法有一个严重问题：with 包裹 while 循环，with 要等里面代码块结束才执行 shutdown。
+而 while 是无限循环，正常情况下永远走不出 with，executor 的 shutdown 永远不会自动触发！**
 
 # 这个结构是错误的！
 with ThreadPoolExecutor(...) as executor:
@@ -9631,7 +9692,8 @@ with ThreadPoolExecutor(...) as executor:
         conn, addr = server.accept()
         executor.submit(...)
 
-原因：`with` 退出条件是执行完它内部所有代码。无限循环卡在 `accept()`，永远到不了 with 末尾，shutdown 不会自动执行。 ✅ 正确写法：**线程池不要写在 while 循环外面的 with 里面**，线程池提前创建，单独管理生命周期：
+原因：`with` 退出条件是执行完它内部所有代码。无限循环卡在 `accept()`，永远到不了 with 末尾，shutdown 不会自动执行。 
+✅ 正确写法：**线程池不要写在 while 循环外面的 with 里面**，线程池提前创建，单独管理生命周期：
 
 # 正确结构
 self.executor = ThreadPoolExecutor(max_workers=self.max_workers)
