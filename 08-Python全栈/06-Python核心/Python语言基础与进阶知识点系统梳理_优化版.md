@@ -8721,6 +8721,51 @@ with ThreadPoolExecutor(max_workers=4) as executor:
         n = futures[future]
         result = future.result()
         print(f"task({n}) = {result}")  # 按完成顺序，不保证输入顺序
+'''
+## 完整执行时序，一步一步走
+
+1. `ThreadPoolExecutor(max_workers=4)` 创建线程池，最多同时运行 4 个线程。
+2. `futures = {executor.submit(task, n): n for n in range(10)}` 循环 n=0~9，一共提交 10 个任务：
+    
+    - `executor.submit(task, n)`：把任务丢进线程池，返回一个 **Future 对象**（代表这个任务）
+    - 存入字典：`{future: n}`，记住这个 future 对应的原始参数 n
+    - 池子里最多 4 个同时跑；剩下 6 个在队列排队，有空线程就自动启动
+    
+    > ⚠️ 这里提交完，**任务已经在后台并行跑起来了，不是等到 for 循环才跑**
+    
+3. `with` 代码块结束前，10 个任务全部提交完毕。
+4. `as_completed(futures)`： 它是一个迭代器，**监听所有 future，哪个任务先跑完，就先吐出哪一个 future**。 
+   ✅ 重点：**不按照提交顺序（0,1,2,3…），谁先结束谁先出来**
+5. 进入 for 循环：
+    - `n = futures[future]`：拿着这个完成的 future，去字典里查到当初的参数 n
+    - `future.result()`：取出任务的返回值；如果任务还没结束这里会阻塞（但 as_completed 保证它已经完成，所以不会卡很久）
+    - 打印结果
+6. 循环直到所有 future 都处理完毕，循环结束。
+
+## 用这个例子直观理解顺序
+
+`task(n)` 休眠时间 `n*0.2s`：
+
+- n=0 休眠 0s → 最先完成
+- n=1 休眠 0.2s → 第二个
+- n=2 休眠 0.4s → 第三个 …… 所以输出顺序大概率是 `0,1,2,3,4,5,6,7,8,9`； 
+  **如果每个任务耗时随机，输出顺序就乱掉，和提交顺序不一致**。
+
+## 和别的方式对比（考点）
+
+- `as_completed`：**按完成顺序输出**，先做完先处理
+- `executor.map()`：**按提交顺序输出**，哪怕后面的任务先跑完，也要等前面的
+
+## 关键坑
+
+1. `as_completed` 是在**所有任务提交之后**再遍历；不要一边 submit 一边塞给 as_completed（也可以，但写法不一样）
+2. `future.result()` 如果任务内部抛异常，这里会抛出异常
+3. 字典 `{future: n}` 是经典套路：future 本身不带参数，需要自己映射保存原始参数
+
+## 一句话总结
+
+先一次性把 10 个任务全部交给线程池并发跑，最多 4 个同时跑；然后不断监听，**哪个任务先跑完，就先拿它的结果打印**。
+'''
 
 # 方式3：单个 submit
 with ThreadPoolExecutor(max_workers=2) as executor:
@@ -9542,6 +9587,66 @@ class ThreadedTCPServer:
                 while self.running:
                     conn, addr = server.accept()
                     executor.submit(self.handle_client, conn, addr)
+'''
+1. `ThreadPoolExecutor(max_workers=self.max_workers)` 线程池，`max_workers` 指定**最大并发线程数量**，用来控制同时能处理多少客户端连接，防止一瞬间上万客户端把服务器线程撑爆。
+2. `with ... as executor:` 上下文管理器，with 代码块结束的时候，自动调用 `executor.shutdown(wait=True)`，等待池中所有任务执行完毕，再关闭线程池。
+3. `while self.running:` 循环持续监听客户端，`self.running` 是布尔标记，用来优雅停止服务（设为 False 就退出循环）。
+4. `conn, addr = server.accept()` TCP 阻塞监听：等待新客户端接入；有客户端连上后，返回两个值：
+
+- `conn`：和这个客户端通信的套接字对象（收发数据用）
+- `addr`：客户端地址 (ip, port)
+
+> ⚠️ 重点：`accept()` 是阻塞调用，没客户端来的时候，就卡在这一行等着。
+
+5. `executor.submit(self.handle_client, conn, addr)` 往线程池提交任务：把客户端交给 `handle_client` 函数处理，参数是 `conn` 和 `addr`。
+
+- 如果线程池**还有空闲线程**：立刻拿出一个线程跑 `handle_client`
+- 如果线程池**已经满了（达到 max_workers）**：`submit` 不会阻塞 accept！任务会放进**队列排队**，等有线程空闲了再执行。
+
+> 注意：`accept()` 会持续接收新连接，任务堆积在队列里。
+
+## 整体流程
+
+1. 开启线程池，限定最大并发数
+2. 循环等待客户端连接
+3. 客户端来了 → 把处理这个客户端的任务丢进线程池
+4. 线程池调度线程去执行 `handle_client`（收发消息、decode 解码等业务逻辑）
+5. 线程用完归还池里，复用，避免频繁创建销毁线程（开销比每次 `Thread()` 小很多）
+
+## 关键坑（非常容易踩）
+
+❌ **这个写法有一个严重问题：with 包裹 while 循环，with 要等里面代码块结束才执行 shutdown。而 while 是无限循环，正常情况下永远走不出 with，executor 的 shutdown 永远不会自动触发！**
+
+# 这个结构是错误的！
+with ThreadPoolExecutor(...) as executor:
+    while self.running:   # 无限监听循环
+        conn, addr = server.accept()
+        executor.submit(...)
+
+原因：`with` 退出条件是执行完它内部所有代码。无限循环卡在 `accept()`，永远到不了 with 末尾，shutdown 不会自动执行。 ✅ 正确写法：**线程池不要写在 while 循环外面的 with 里面**，线程池提前创建，单独管理生命周期：
+
+# 正确结构
+self.executor = ThreadPoolExecutor(max_workers=self.max_workers)
+while self.running:
+    conn, addr = server.accept()
+    self.executor.submit(self.handle_client, conn, addr)
+# 停止的时候手动shutdown
+self.executor.shutdown(wait=True)
+
+## 和之前 `threading.Thread` 的对比
+
+- `threading.Thread(target=xxx).start()`：每来一个客户端新建一个线程，无上限，连接多了会线程爆炸、资源耗尽
+- `ThreadPoolExecutor`：线程预先创建好，固定上限，线程复用，任务排队，可控并发
+
+## 串联你前面知识点
+
+- `handle_client` 里面一般就是 `recv()`、`decode()`、send 这些 TCP 通信逻辑
+- 这里是**IO 密集场景**（客户端通信等待），线程池很适合，等待 IO 的时候线程可以让出 CPU
+
+## 补充：submit 参数
+
+`executor.submit(函数, 参数1, 参数2)` 等价于：新开线程执行 `self.handle_client(conn, addr)`
+'''
 
     def stop(self):
         """停止服务器"""
