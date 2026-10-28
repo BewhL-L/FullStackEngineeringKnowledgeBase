@@ -9369,9 +9369,21 @@ def tcp_client(host="127.0.0.1", port=8888):
         # 接收响应
         data = s.recv(1024)  # 最多接收1024字节
         print(f"收到: {data.decode('utf-8')}")
+'''
+- `str.encode("utf-8")`：字符串 → bytes（编码）
+- `bytes.decode("utf-8")`：bytes → 字符串（解码）
+'''
 
 if __name__ == "__main__":
     tcp_client()
+'''
+`if __name__ == "__main__":` 就是**脚本入口标记**；
+直接运行文件时，才执行 `tcp_client()` 启动 TCP 客户端；导入它当工具模块时，不会自动连接服务器。
+
+## 高频坑
+如果不写这个判断，把 `tcp_client()` 直接写在全局： 
+别的文件 `import client` 的一瞬间，TCP 客户端就自动跑起来、自动连服务器，很多时候不是我们想要的。
+'''
 ```
 
 #### TCP 服务端
