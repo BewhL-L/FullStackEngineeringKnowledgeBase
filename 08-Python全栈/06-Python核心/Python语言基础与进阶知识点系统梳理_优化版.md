@@ -8946,6 +8946,11 @@ async def fetch_data(url):
     await asyncio.sleep(1)  # 模拟 I/O 等待，此时切换到其他协程
     print(f"请求完成 {url}")
     return f"data from {url}"
+'''
+I/O 等待 = **等硬盘 / 网卡这类外部设备，CPU 空闲等待的时间段**，也是多线程能提速的根本原因
+- ✅ IO 密集：大部分时间在**I/O 等待**（爬虫、读写文件、数据库）→ 多线程很香
+- ✅ CPU 密集：大部分时间在**计算**（循环、数学运算）→ Python 受 GIL 限制，多线程提升很小，要用多进程
+'''
 
 # 运行协程
 async def main():
