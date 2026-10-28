@@ -9002,6 +9002,33 @@ asyncio.run(main())
 # A 完成（2秒后）
 # 结果: A result, B result
 # 总耗时约 2 秒（并发），而非 3 秒（顺序）
+
+- `asyncio.run(main())`：帮你**创建事件循环、启动循环、运行 main 协程**，你看不见它
+- `async def main()`：你写的协程，跑在这个循环里面
+- `get_running_loop()`：**在协程内部，伸手抓到这个看不见的调度器**
+
+类比： 事件循环 = 公交车调度总站 `asyncio.run()` = 启动总站 你的协程 = 一辆公交车 
+`get_running_loop()` = 公交车司机，拿起对讲机联系调度总站，让总站帮自己干点特殊的事情（派别的车、安排延时任务）
+如果司机只是拿起对讲机看一眼、打印一下调度台名字，当然没用； 拿到对讲机，是为了**指挥调度台干活**。
+
+---
+
+什么时候不需要写它？
+绝大多数普通协程代码，只用 `await`、`asyncio.gather` 就足够了，**根本不需要手动拿 loop**。
+
+# 普通写法，不需要get_running_loop
+async def foo():
+    await asyncio.sleep(1)
+✅ 只有当你需要**底层控制能力**的时候，才去拿 loop。
+
+---
+
+## 总结一句话
+loop = asyncio.get_running_loop()
+print(loop)
+
+- 教学版本：**打印只是确认 “我拿到调度器了”，用来理解协程底层是事件循环驱动**
+- 工程上：拿到 loop 对象，是为了调用它的底层 API（run_in_executor、call_later、call_soon_threadsafe 等）
 ```
 
 #### 任务与 Future
@@ -9022,6 +9049,50 @@ async def main():
     future = asyncio.Future()
     # future.set_result("value")  # 设置结果
     # result = await future        # 等待结果
+    
+> 前提：`asyncio.run(main())` 会自动创建事件循环，启动循环，执行 `main()` 协程
+
+1. **进入 main 协程**
+2. `asyncio.create_task(...)`
+    - 把 `asyncio.sleep(1, result="done")` 这个协程包装成 Task
+    - **立刻提交给事件循环，后台开始跑这个 sleep 计时**
+    - ⚠️ 重点：**create_task 不会阻塞 main，main 继续往下执行**
+3. 执行 `print(task.done())`
+    - 此时 sleep 才刚启动，1 秒时间还没到，任务没完成
+    - 输出：`False`
+4. 执行 `await task`
+    - 检查 task：还没完成
+    - **main 协程主动让出 CPU 控制权，挂起，交给事件循环**
+    - 事件循环去跑后台的 sleep 任务，倒计时 1 秒
+5. 1 秒计时结束，`asyncio.sleep` 完成，返回 `"done"`
+    - Task 被标记为完成，保存返回值 `"done"`
+    - 事件循环唤醒正在等待的 main 协程
+6. main 继续往下走，`await task` 拿到返回值，赋值给 `result`
+7. 打印结果：`done`
+8. 再次调用 `task.done()`：任务已经结束，返回 `True`，打印
+
+## 流程图一句话版本
+
+启动 main → 创建 task，后台开始计时 → 打印 False → await 挂起 main，等 sleep → 1s 后 sleep 结束 
+→ main 恢复，拿到结果 → 打印 done → 打印 True
+
+## 核心考点（区分清楚）
+
+- `create_task`：**提交任务，后台并发跑，不阻塞当前协程**
+- `await task`：**等待这个 task 结束，才继续往下走**
+- `task.done()`：只是查询状态，不会等待，只是一个只读查询方法
+
+## 对比反例（不使用 create_task）
+
+# 串行写法，没有后台任务
+await asyncio.sleep(1)
+
+这里是直接 await，sleep 开始，当前协程直接卡住，不会有 “先打印 False” 这个机会。
+
+## 补充：和你前面学的线程对照
+
+- `create_task` 类似 `t.start()`：把任务安排出去，后台跑
+- `await task` 类似 `t.join()`：等待任务结束
 ```
 
 #### asyncio 常用 API
