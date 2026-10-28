@@ -9686,16 +9686,23 @@ class ThreadedTCPServer:
 ❌ **这个写法有一个严重问题：with 包裹 while 循环，with 要等里面代码块结束才执行 shutdown。
 而 while 是无限循环，正常情况下永远走不出 with，executor 的 shutdown 永远不会自动触发！**
 
-# 这个结构是错误的！
+# 这个结构设计的不好
 with ThreadPoolExecutor(...) as executor:
     while self.running:   # 无限监听循环
         conn, addr = server.accept()
         executor.submit(...)
 
 原因：`with` 退出条件是执行完它内部所有代码。无限循环卡在 `accept()`，永远到不了 with 末尾，shutdown 不会自动执行。 
-✅ 正确写法：**线程池不要写在 while 循环外面的 with 里面**，线程池提前创建，单独管理生命周期：
+      - 退出 `with` 缩进块时，会自动执行 `executor.shutdown(wait=True)` 关闭线程池；
+      - 但你的 `while self.running` 循环，会永久卡在 `server.accept()` 这个阻塞调用上 
+        只要没有新连接进来，代码就一直停在 accept 这一行，不会走到循环末尾，也永远不会退出 with 块。
 
-# 正确结构
+最终结果就是：即便你把 `self.running` 设为 `False`，主线程仍然卡在 accept 等待新连接，with 块退不出来，
+线程池也关不掉，程序无法正常响应停止指令。
+
+✅ 好的写法：**线程池不要写在 while 循环外面的 with 里面**，线程池提前创建，单独管理生命周期：
+
+# 好的结构
 self.executor = ThreadPoolExecutor(max_workers=self.max_workers)
 while self.running:
     conn, addr = server.accept()
@@ -9730,6 +9737,112 @@ if __name__ == "__main__":
         print("\n服务器停止")
         server.stop()
 ```
+
+生产级健壮优化版本
+在基础版之上增加优雅退出、异常监控、信号处理，适合长期运行的服务。
+```python
+import socket
+import signal
+import logging
+from concurrent.futures import ThreadPoolExecutor
+
+#统一日志配置，替代print，方便排查问题
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+class TcpServer:
+    def __init__(self, host='0.0.0.0', port=8888, max_workers=10):
+        self.host = host
+        self.port = port
+        self.max_workers = max_workers
+        self.running = False
+        self.server = None
+        #注册系统停止信号，支持 Ctrl+C 优雅退出
+        signal.signal(signal.SIGINT, self._stop_handler)
+        signal.signal(signal.SIGTERM, self._stop_handler)
+
+    def _stop_handler(self, signum, frame):
+        """收到停止信号时，标记运行状态为False，不直接暴力终止"""
+        logging.info(f"收到停止信号，正在优雅退出...")
+        self.running = False
+
+    def _task_exception_callback(self, future):
+        """线程池任务完成回调，捕获并打印任务异常"""
+        exc = future.exception()
+        if exc:
+            logging.error(f"客户端任务执行异常: {exc}", exc_info=True)
+
+    def handle_client(self, conn: socket.socket, addr):
+        """单个客户端业务处理"""
+        logging.info(f"客户端接入：{addr}")
+        try:
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                #===== 你的业务逻辑写在这里 =====
+                conn.sendall(b"echo: " + data)
+                #==============================
+        except Exception as e:
+            logging.error(f"客户端 {addr} 通信异常: {e}")
+        finally:
+            conn.close()
+            logging.info(f"客户端 {addr} 连接已释放")
+
+    def start(self):
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server.bind((self.host, self.port))
+        self.server.listen(128)
+        #关键：设置accept超时，打破阻塞以定期检查running状态
+        self.server.settimeout(1.0)
+        self.running = True
+        logging.info(f"服务端启动，监听 {self.host}:{self.port}，最大工作线程: {self.max_workers}")
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            while self.running:
+                try:
+                    conn, addr = self.server.accept()
+                except socket.timeout:
+                    #超时就进入下一轮循环，重新检查running标志
+                    continue
+                except OSError:
+                    socket被关闭时直接退出循环
+                    break
+
+                #提交任务并绑定异常回调
+                future = executor.submit(self.handle_client, conn, addr)
+                future.add_done_callback(self._task_exception_callback)
+
+        #退出线程池后，关闭服务端socket
+        if self.server:
+            self.server.close()
+        logging.info("服务端已完全停止")
+
+if __name__ == "__main__":
+    server = TcpServer()
+    server.start()
+```
+
+---
+
+四、关键设计说明
+
+1. **优雅退出机制**
+    - 给 socket 设置 `settimeout(1.0)`，accept 最多阻塞 1 秒就超时，循环会重新检查 `self.running` 标志
+    - `with ThreadPoolExecutor` 退出时会自动执行 `shutdown(wait=True)`，等待所有已提交的任务执行完成再关闭线程池，不会暴力中断正在处理的连接
+2. **资源与异常安全**
+    - `handle_client` 用 `try...finally` 保证无论是否异常，连接都会被关闭，避免文件描述符泄漏
+    - 通过 `add_done_callback` 捕获线程池任务异常，不会出现 “任务崩了但主程序毫无反应” 的情况
+3. **并发参数建议**
+    - `max_workers`：IO 密集型场景（网络通信、文件读写）建议设为 CPU 核心数的 2~4 倍
+    - 不建议设置过大：线程切换本身有开销，过多线程反而会降低整体性能
+4. **适用场景与替代方案**
+    - 该模型适合**IO 密集型、中小并发**的 TCP 服务（几十到几百并发），开发简单、逻辑直观
+    - 如果需要支持上万高并发，推荐改用 `asyncio` 异步 IO 模型，单线程即可处理大量连接，内存和 CPU 开销远低于线程池
+    - 如果任务包含大量 CPU 计算，不要用 `ThreadPoolExecutor`（受 GIL 限制），应改用 `ProcessPoolExecutor`
 
 > ⚠️ **常见坑点**：① TCP 是字节流协议，`recv()` 收到的数据可能不完整（半包）或合并（粘包），需要应用层定义消息协议（如长度前缀：先发4字节长度，再发数据）；② `SO_REUSEADDR` 必须在 `bind()` 之前设置，否则无效；③ 服务端忘记 `close()` 连接套接字会导致文件描述符泄漏；④ UDP 的 `recvfrom()` 没有数据时永久阻塞，应设置 `settimeout()`；⑤ 多线程服务端中，`handle_client` 里的异常必须捕获，否则线程静默退出；⑥ 生产环境不要用原生 socket 写 Web 服务器，用成熟框架（FastAPI、Django、Tornado）。
 
