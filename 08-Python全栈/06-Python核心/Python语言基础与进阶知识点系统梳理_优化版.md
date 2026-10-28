@@ -9264,6 +9264,43 @@ async def bad_fetch():
     import requests
     response = requests.get("https://example.com")  # ⚠️ 阻塞事件循环！
     return response
+'''
+**不只是 `requests.get()`，所有同步阻塞 IO，都不能直接在协程里面调用**。
+
+## 1. 只避开 requests.get ()，但写别的同步阻塞，照样炸
+这些都一样会阻塞事件循环：
+time.sleep(2)       # 同步休眠
+open("a.txt").read()# 同步读文件
+pymysql.connect()   # 同步mysql
+subprocess.run()    # 同步执行命令
+
+它们的共同点：**没有 await，不会主动让出控制权，会把整个事件循环卡住**。
+
+async def demo():
+    time.sleep(2)  # ❌ 照样阻塞！就算没有requests
+
+## 2. 两条路线，二选一
+
+路线 A：**全部换成异步版本（推荐新项目）**
+- requests → `aiohttp` / `httpx.AsyncClient`
+- time.sleep → `await asyncio.sleep()`
+- 同步 mysql → `aiomysql`
+- 同步文件 → `aiofiles`
+
+路线 B：**必须用同步库（老代码、第三方库没有异步版）** 不要直接调用，包上 `asyncio.to_thread()`，丢到线程池跑：
+# ✅ 安全
+resp = await asyncio.to_thread(requests.get, "https://example.com")
+
+## 3. 一句话总结
+
+- ❌ 错误认知：只要不写 requests.get ()，协程就不会卡
+- ✅ 正确认知：**协程内部，不能直接执行任何同步阻塞调用**
+
+## 4. 帮你串联之前的知识点
+asyncio 是**协作式调度**：只有遇到 `await` 的异步调用，才会交出控制权，切换别的协程。 同步阻塞函数，它里面没有 await，拿到线程就一直占着不放，事件循环停摆。
+
+> 对比多线程：多线程是操作系统帮你抢时间片；协程是自己自觉交权，不自觉的同步函数会直接锁死调度器。
+'''
 
 # 坑4：多进程共享可变对象
 # 进程有独立内存空间，普通的全局变量修改不会同步到其他进程
