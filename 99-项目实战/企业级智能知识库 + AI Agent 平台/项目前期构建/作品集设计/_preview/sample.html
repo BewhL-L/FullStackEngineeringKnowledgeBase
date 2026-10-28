@@ -1,0 +1,33 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000">
+<canvas id="c"></canvas>
+<script>
+const img=new Image();
+img.onload=()=>{
+  const S=64, c=document.getElementById('c'); c.width=S; c.height=S*2.166|0;
+  const x=c.getContext('2d'); x.drawImage(img,0,0,c.width,c.height);
+  const d=x.getImageData(0,0,c.width,c.height).data;
+  const regions={
+    deepWater:[0.18,0.72], shallowWater:[0.30,0.45], sand:[0.62,0.30],
+    foliage:[0.80,0.12], rock:[0.50,0.62], wetSand:[0.46,0.48]
+  };
+  const out={w:c.width,h:c.height};
+  for(const k in regions){
+    const [fx,fy]=regions[k];
+    const px=Math.round(fx*c.width), py=Math.round(fy*c.height);
+    let r=0,g=0,b=0,n=0;
+    for(let yy=py-2;yy<=py+2;yy++)for(let xx=px-2;xx<=px+2;xx++){
+      const i=(yy*c.width+xx)*4; r+=d[i];g+=d[i+1];b+=d[i+2];n++;
+    }
+    const hex=v=>v.toString(16).padStart(2,'0');
+    out[k]='#'+hex(Math.round(r/n))+hex(Math.round(g/n))+hex(Math.round(b/n));
+  }
+  // 全图平均
+  let R=0,G=0,B=0;
+  for(let i=0;i<d.length;i+=4){R+=d[i];G+=d[i+1];B+=d[i+2];}
+  const n=d.length/4; const hex=v=>Math.round(v).toString(16).padStart(2,'0');
+  out.avg='#'+hex(R/n)+hex(G/n)+hex(B/n);
+  document.title=JSON.stringify(out);
+  window.__OUT=JSON.stringify(out);
+};
+img.src='../assets/beach-base.jpg';
+</script>

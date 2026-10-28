@@ -1,0 +1,74 @@
+<!doctype html><meta charset="utf-8"><body><canvas id="c"></canvas>
+<script>
+const img = new Image();
+img.onload = () => {
+  const W = 168, H = Math.round(168 * 1824 / 842);   // 168×364 采样网格
+  const c = document.getElementById('c');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.imageSmoothingQuality = 'high';
+  x.drawImage(img, 0, 0, W, H);
+  const d = x.getImageData(0, 0, W, H).data;
+
+  // 三类像素：水（青蓝）、沙（暖亮）、绿植（暗绿）
+  function classify(r, g, b) {
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    const v = mx / 255, sat = mx ? (mx - mn) / mx : 0;
+    if (b > r + 18 && g > r + 6) return 'water';              // 蓝绿主导
+    if (v > 0.62 && r >= g - 6 && r > b + 12) return 'sand';  // 暖亮
+    if (g > r + 8 && g > b + 8) return 'green';               // 绿主导
+    if (v > 0.5) return 'sand';
+    return 'green';
+  }
+
+  const rows = [];
+  for (let y = 0; y < H; y++) {
+    let firstSand = -1, lastSand = -1, firstWater = -1;
+    for (let xx = 0; xx < W; xx++) {
+      const i = (y * W + xx) * 4;
+      const k = classify(d[i], d[i + 1], d[i + 2]);
+      if (k === 'sand') { if (firstSand < 0) firstSand = xx; lastSand = xx; }
+      if (k === 'water' && firstWater < 0) firstWater = xx;
+    }
+    rows.push({ y: y / (H - 1), sandL: firstSand / W, sandR: lastSand / W, waterL: firstWater / W });
+  }
+
+  // 用最小二乘拟合 x = a*y + b，得到两条分界线
+  function fit(pts) {
+    const n = pts.length; let sy = 0, sx = 0, syy = 0, syx = 0;
+    for (const [yy, xx] of pts) { sy += yy; sx += xx; syy += yy * yy; syx += yy * xx; }
+    const a = (n * syx - sy * sx) / (n * syy - sy * sy);
+    const b0 = (sx - a * sy) / n;
+    return { a, b: b0 };
+  }
+  const L = rows.filter(r => r.sandL >= 0 && r.sandL <= 1).map(r => [r.y, r.sandL]);
+  const R = rows.filter(r => r.sandR >= 0 && r.sandR <= 1).map(r => [r.y, r.sandR]);
+  const Wt = rows.filter(r => r.waterL >= 0 && r.waterL <= 1).map(r => [r.y, r.waterL]);
+  const l1 = fit(L), l2 = fit(R), l3 = fit(Wt);
+
+  // x = a*y + b  → 相对竖直方向的夹角（页面 y 向下、x 向右）
+  const deg = (a) => +(Math.atan(a) * 180 / Math.PI).toFixed(1);
+
+  // 面积占比
+  const cnt = { water: 0, sand: 0, green: 0 };
+  for (let i = 0; i < d.length; i += 4) cnt[classify(d[i], d[i + 1], d[i + 2])]++;
+  const tot = d.length / 4;
+
+  // 每 8 行抽样，给前端做 polygon
+  const strip = [];
+  for (let k = 0; k <= 8; k++) {
+    const r = rows[Math.round(k / 8 * (H - 1))];
+    strip.push({ y: +r.y.toFixed(3), sandL: +r.sandL.toFixed(3), sandR: +r.sandR.toFixed(3) });
+  }
+
+  window.__A = {
+    grid: [W, H],
+    lineSandTop: { a: +l1.a.toFixed(3), b: +l1.b.toFixed(3), deg: deg(l1.a) },
+    lineSandBottom: { a: +l2.a.toFixed(3), b: +l2.b.toFixed(3), deg: deg(l2.a) },
+    lineWater: { a: +l3.a.toFixed(3), b: +l3.b.toFixed(3), deg: deg(l3.a) },
+    share: { water: +(cnt.water / tot).toFixed(3), sand: +(cnt.sand / tot).toFixed(3), green: +(cnt.green / tot).toFixed(3) },
+    strip
+  };
+};
+img.src = '../assets/beach-base.jpg';
+</script>

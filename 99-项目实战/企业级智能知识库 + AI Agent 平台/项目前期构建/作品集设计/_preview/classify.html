@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><body><canvas id="c"></canvas>
+<script>
+const img = new Image();
+img.onload = () => {
+  const W = 168, H = Math.round(168 * 1824 / 842);
+  const c = document.getElementById('c');
+  c.width = W; c.height = H;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(img, 0, 0, W, H);
+  const src = x.getImageData(0, 0, W, H).data;
+  const out = x.createImageData(W, H);
+
+  function hsv(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    let h = 0;
+    if (d > 1e-6) {
+      if (mx === r) h = 60 * (((g - b) / d) % 6);
+      else if (mx === g) h = 60 * ((b - r) / d + 2);
+      else h = 60 * ((r - g) / d + 4);
+    }
+    if (h < 0) h += 360;
+    return { h, s: mx ? d / mx : 0, v: mx };
+  }
+
+  const CL = { water: [40, 190, 200], sand: [235, 215, 170], green: [40, 120, 60], foam: [255, 255, 255] };
+  const rows = [];
+  for (let y = 0; y < H; y++) {
+    let row = '';
+    const rec = { y, sandL: -1, sandR: -1, waterL: -1, waterR: -1 };
+    for (let xx = 0; xx < W; xx++) {
+      const i = (y * W + xx) * 4;
+      const { h, s, v } = hsv(src[i], src[i + 1], src[i + 2]);
+      let k;
+      if (v > 0.86 && s < 0.18) k = 'foam';
+      else if (s > 0.30 && h >= 150 && h <= 205) k = 'water';
+      else if (h >= 20 && h <= 62 && s > 0.10 && v > 0.45) k = 'sand';
+      else if (h >= 65 && h <= 160) k = 'green';
+      else k = v > 0.5 ? 'sand' : 'green';
+      const col = CL[k];
+      out.data[i] = col[0]; out.data[i + 1] = col[1]; out.data[i + 2] = col[2]; out.data[i + 3] = 255;
+      if (k === 'sand') { if (rec.sandL < 0) rec.sandL = xx; rec.sandR = xx; }
+      if (k === 'water') { if (rec.waterL < 0) rec.waterL = xx; rec.waterR = xx; }
+      row += k[0];
+    }
+    rows.push(rec);
+    if (y % 28 === 0) console.log(y, row);
+  }
+  x.putImageData(out, 0, 0);
+  window.__ROWS = rows;
+  document.title = 'ready';
+};
+img.src = '../assets/beach-base.jpg';
+</script>

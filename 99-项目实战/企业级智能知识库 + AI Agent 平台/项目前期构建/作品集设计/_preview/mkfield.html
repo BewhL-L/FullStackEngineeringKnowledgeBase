@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><body><canvas id="c"></canvas>
+<script>
+const img=new Image();
+img.onload=()=>{
+  const c=document.getElementById('c');
+  c.width=40; c.height=87;               // 40×87 ≈ 1:2.17
+  const x=c.getContext('2d');
+  x.imageSmoothingQuality='high';
+  x.drawImage(img,0,0,40,87);
+  window.__D=c.toDataURL('image/jpeg',0.72);
+};
+img.src='../assets/beach-base.jpg';
+</script>
