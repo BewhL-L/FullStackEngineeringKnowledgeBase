@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from .config import settings
-from .database import engine, Base
+from .database import engine, Base, wait_for_db, db_target
 from .routers import routers
 from .routers.embed import router as embed_router
 from .middleware.rate_limit import RateLimitMiddleware
@@ -23,12 +23,18 @@ from . import models  # noqa: F401
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """应用生命周期：启动时建表"""
+    """应用生命周期：等待依赖就绪 → 建表 → 准备目录 → 关闭时释放连接池"""
+    logger.info(f"数据库目标: {db_target()}")
+    # 依赖可能晚于本进程就绪（容器名未注册 / PG 正在 recovery），先退避重试再建表；
+    # 否则 create_all 会直接抛 OperationalError，容器起来即崩，表现为「重启一下就好了」
+    wait_for_db()
     Base.metadata.create_all(bind=engine)
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
     os.makedirs(settings.VECTOR_DB_PATH, exist_ok=True)
     logger.info(f"{settings.APP_NAME} 启动完成")
     yield
+    engine.dispose()
+    logger.info(f"{settings.APP_NAME} 已关闭，连接池已释放")
 
 
 app = FastAPI(
