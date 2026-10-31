@@ -11,12 +11,6 @@ class Settings(BaseSettings):
 
     # 数据库
     DATABASE_URL: str = "sqlite:///./knowledge_base.db"
-    # 启动期等待数据库的最长重试次数与退避区间（秒）
-    # 默认值对应：0.5→1→2→4→5… 累计约 2~2.5 分钟，足够覆盖容器 DNS 未注册、
-    # PostgreSQL crash recovery、数据库刚重启等瞬时故障
-    DB_CONNECT_MAX_ATTEMPTS: int = 30
-    DB_CONNECT_BASE_DELAY: float = 0.5
-    DB_CONNECT_MAX_DELAY: float = 5.0
 
     # JWT
     SECRET_KEY: str = "your-secret-key-change-this-in-production"

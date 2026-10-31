@@ -20,15 +20,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    # 停机留出干净 shutdown 的时间：被硬杀会导致下次启动走 crash recovery，
-    # 表现为后端在恢复窗口内连不上库
-    stop_grace_period: 30s
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d knowledge_base"]
       interval: 5s
       timeout: 5s
       retries: 5
-      start_period: 10s
 
   # ========== Redis：缓存 + 消息队列 ==========
   redis:
@@ -91,18 +87,13 @@ services:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3).status == 200 else 1)"]
       interval: 10s
       timeout: 5s
-      retries: 12
-      # 启动期应用要等数据库（应用内有约 2 分钟的退避重试），这段时间的失败不计入
-      start_period: 90s
-    stop_grace_period: 20s
+      retries: 10
+      start_period: 30s
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-      # qdrant 官方镜像未提供稳定的 healthcheck 命令（不一定带 curl/wget），
-      # 若这里改成 service_healthy 而探测命令不存在，backend 会永远起不来；
-      # 向量库连接失败已由应用侧的检索降级逻辑兜底，故保持 service_started
       qdrant:
         condition: service_started
 
