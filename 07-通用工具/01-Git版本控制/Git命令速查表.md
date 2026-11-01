@@ -3,7 +3,7 @@ title: Git命令速查表
 tags: [速查表, Git, 版本控制, 效率工具]
 category: 通用工具
 created: 2026-08-27
-updated: 2026-08-27
+updated: 2026-11-01
 difficulty: ⭐
 status: ✅ 内容已完善
 priority: 重要
@@ -347,6 +347,57 @@ develop     开发分支
 feature/*   功能分支
 release/*   发布分支
 hotfix/*    热修复分支
+```
+
+---
+
+## 十三、危险命令清单（执行前先想 10 秒）
+
+| 命令 | 会丢什么 | 抢救方式 |
+|---|---|---|
+| `git reset --hard` | 工作区未提交的改动 | 无（未提交的内容没进对象库） |
+| `git clean -fd` | 未跟踪的文件/目录 | 无 |
+| `git checkout -- <文件>` / `git restore <文件>` | 该文件未提交的改动 | 无 |
+| `git push --force` | 远端上别人的提交 | 让对方重推；或从 reflog / bundle 恢复 |
+| `git branch -D` | 未合并分支的提交 | `git reflog` 找回哈希后重建分支 |
+| `git rebase` 公共分支 | 别人的历史基线 | 立即 `--abort`；已推送的必须协调 |
+| `git add -A`（误用） | 不丢数据，但会把隐私/垃圾文件写进历史 | `git reset` 撤回；已推送则需 `filter-repo` |
+
+> 口诀：**restore 改文件，reset 改提交，revert 加提交，clean 删文件**。
+> 已推送的提交只用 `revert`；`reset` 只用于本地未推送的历史。
+
+---
+
+## 十四、Windows / WSL 专项
+
+```bash
+git config core.autocrlf true          # 提交时 CRLF→LF、检出时 LF→CRLF（跨平台协作防止整文件 diff）
+git config core.fileMode false         # 关闭权限位比对；WSL 的 DrvFs 会丢可执行位，导致大量"0 行 diff"的假改动
+git config --list --show-origin        # 配置没生效时，先看每条来自哪个文件
+git config user.name "xxx"             # 仓库级身份；WSL 里没配全局时，提交会报 Author identity unknown
+```
+
+三个 Windows 侧的高频坑：
+
+1. **软链读不了**：WSL 里 `CLAUDE.md -> AGENTS.md` 这类符号链接，Windows 侧访问报 `Input/output error`，`git status` 会显示一堆 `M` 但 `git diff` 为空。**在 WSL 里操作这些仓库**，或用 `git diff --summary` 确认是否只是模式变化。
+2. **CRLF 警告**：`warning: LF will be replaced by CRLF` 不是错误，是换行符转换；不想看到就统一 `core.autocrlf`。
+3. **中文/空格路径**：会让 Docker Desktop 的 bind mount 变慢，长路径还可能触发 260 字符限制；仓库尽量放短英文路径。
+
+---
+
+## 十五、只记 10 条也够日常
+
+```bash
+git status -sb            # 我在哪、改了什么
+git diff                  # 具体改了什么
+git add -p                # 挑着提交（逐 hunk 询问）
+git commit -v             # 写清楚为什么（diff 摊在编辑器下方）
+git log --oneline -10     # 刚才做了什么
+git switch -c <分支>       # 开新分支
+git fetch --prune         # 同步远端，清掉幽灵分支
+git pull --rebase         # 拉更新，保持直线历史
+git push                  # 推上去
+git reflog                # 搞砸了，找回来
 ```
 
 ---
