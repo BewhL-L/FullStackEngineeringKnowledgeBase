@@ -1,4 +1,4 @@
----
+﻿---
 title: 企业智能知识库助手 · AI Agent + RAG 全栈平台
 tags: [项目实战, RAG, AI-Agent, FastAPI, Vue3, TypeScript, LangChain, LangGraph, MCP, 学习指南]
 category: 99-项目实战
@@ -115,11 +115,11 @@ aliases: [知识库平台README, 企业知识库项目, RAG全栈项目, AI Agen
 
 ```bash
 cd backend
-python -m venv venv
+python3.11 -m venv .venv
 # Windows
-venv\Scripts\activate
+.venv\Scripts\activate
 # Mac/Linux
-source venv/bin/activate
+source .venv/bin/activate
 
 pip install -r requirements.txt
 
@@ -622,9 +622,9 @@ docker compose restart backend
 ```bash
 # 后端
 cd backend
-python -m venv venv
+python3.11 -m venv .venv
 # Windows PowerShell
-venv\Scripts\Activate.ps1
+.venv\Scripts\Activate.ps1
 # 如遇执行策略报错：Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 pip install -r requirements.txt
 copy .env.example .env
@@ -887,7 +887,7 @@ docker compose restart backend
 1. 用方式 B 启动后端（`uvicorn app.main:app --reload`），在想停的代码行号左侧点一下设红点断点；
 2. 最简单：在代码里临时加 `print(变量)` 看输出；正规做法用 VS Code 左侧"运行和调试" → "Python: FastAPI"，目标选 `app.main:app`；
 3. 触发接口（前端点一下、或在 Swagger 里 Execute），程序会停在断点，左侧面板看变量值、调用栈，F10 单步、F5 继续；
-4. 断点进不去时，检查右下角 Python 解释器是不是裸跑用的那个 `venv`（不是系统 Python）。
+4. 断点进不去时，检查右下角 Python 解释器是不是裸跑用的那个 `.venv`（不是系统 Python）。
 
 **不写前端也能测接口（Swagger）**
 
