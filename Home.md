@@ -3,7 +3,7 @@ title: 全栈工程知识库
 tags: [MOC, 首页, 全栈, AI工程化, 学习路径]
 category: 综合导航
 created: 2026-08-12
-updated: 2026-08-27
+updated: 2026-11-11
 difficulty: ⭐⭐
 status: ✅ 内容已完善
 priority: 一般
@@ -133,4 +133,37 @@ aliases: [Home]
 
 ---
 
-> 📌 **最近更新**：2026-08-27 补全所有领域MOC入口链接（新增MOC-项目实战、MOC-综合导航），创建全栈+AI技能树与渐进式学习路线（78个技能节点），填补5篇空文档，优化学习路径体系。
+## 🐙 GitHub 使用提示与踩坑
+
+> 本机同时挂两个账号（私人 `BewhL-L`、工作 `BewhY-L`），靠 SSH Host 别名隔离，不靠"记得用哪种方式传"。完整配置见 [[环境与工具链配置]]。
+
+### 身份与账号
+
+| 场景 | 做法 |
+|------|------|
+| 私人仓库 | remote 用 `git@github.com:BewhL-L/<repo>.git`，走 `~/.ssh/id_ed25519` |
+| 工作仓库 | remote 用 `git@github-work:BewhY-L/<repo>.git`，走 `~/.ssh/id_ed25519_work` |
+| 查当前身份 | `ssh -T git@github.com` 与 `ssh -T git@github-work`，回显 `Hi <账号>!` 即该通道身份 |
+| 提交署名 | noreply 邮箱必须带数字 id：`<id>+<username>@users.noreply.github.com`；**漏前缀 GitHub 不认，提交不算到你名下** |
+| `gh` 与 git | 两套独立凭据，互不影响；`gh` 用 `gh auth switch --user <账号>` 切，git 看 remote URL |
+
+### 常见报错速查
+
+| 报错 | 根因 | 处置 |
+|------|------|------|
+| `Permission to X denied to Y`（403） | HTTPS 凭据里存的是另一个账号 | 换 SSH remote，或重新授权为正确账号 |
+| `Failed to connect to github.com:443 over proxy` | 代理没开（Clash 未运行） | 开代理重试；提交已在本地，不会丢 |
+| `schannel: failed to receive handshake` | 代理/TLS 中断 | 同上一行；或改用 SSH |
+| 一批文件显示 `M` 但 `git diff` 为空 | 9p 软链读不到（`Function not implemented`） | `git update-index --assume-unchanged <路径>` |
+| `warning: LF will be replaced by CRLF` | Windows 工作区换行归一化 | 属正常提示；脚本与 Dockerfile 用 `.gitattributes` 固定 LF |
+
+### 提交习惯
+
+1. **`commit` 是批准，`push` 是传输**：push 只送已提交的内容，工作区未提交的改动它完全不碰。
+2. **按模块提交**：一个模块一条（`feat(retrieval): …`），别把一周的改动压成一条 `init`——判断标准是"能不能单独 revert、单独讲清楚"。
+3. **不盲用 `git add -A`**：它是私有文档/临时文件进仓库的头号入口；按路径 `add`，提交前 `git status --short` 扫一眼，并装 `secret-gate` 的 pre-commit 闸门。
+4. **推送失败不慌**：提交在本地仓库里，代理恢复后一次 `git push` 补齐；定时任务次日也会重试。
+
+---
+
+> 📌 **最近更新**：2026-11-11 新增「GitHub 使用提示与踩坑」（双账号 SSH 隔离、403/代理报错速查、提交习惯）；2026-08-27 补全所有领域MOC入口链接（新增MOC-项目实战、MOC-综合导航），创建全栈+AI技能树与渐进式学习路线（78个技能节点），填补5篇空文档，优化学习路径体系。
